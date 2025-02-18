@@ -1,10 +1,10 @@
 import type { RequestHandler } from "express";
 
-import usersRepository from "./usersRepository";
+import userRepository from "./userRepository";
 
 const browse: RequestHandler = async (req, res, next) => {
   try {
-    const users = await usersRepository.readAll();
+    const users = await userRepository.readAll();
 
     res.json(users);
   } catch (err) {
@@ -15,7 +15,7 @@ const browse: RequestHandler = async (req, res, next) => {
 const read: RequestHandler = async (req, res, next) => {
   try {
     const userId = Number(req.params.id);
-    const user = await usersRepository.read(userId);
+    const user = await userRepository.read(userId);
 
     if (user == null) {
       res.sendStatus(404);
@@ -38,7 +38,7 @@ const edit: RequestHandler = async (req, res, next) => {
       bio: req.body.bio,
     };
 
-    const affectedRows = await usersRepository.update(user);
+    const affectedRows = await userRepository.update(user);
 
     if (affectedRows === 0) {
       res.sendStatus(404);
@@ -58,7 +58,7 @@ const add: RequestHandler = async (req, res, next) => {
       password: req.body.password,
     };
 
-    const insertId = await usersRepository.create(user);
+    const insertId = await userRepository.create(user);
 
     res.status(201).json({ insertId });
   } catch (err) {
@@ -70,7 +70,7 @@ const destroy: RequestHandler = async (req, res, next) => {
   try {
     const userId = Number.parseInt(req.params.id);
 
-    await usersRepository.delete(userId);
+    await userRepository.delete(userId);
 
     res.sendStatus(204);
   } catch (error) {

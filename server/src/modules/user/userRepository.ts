@@ -1,6 +1,6 @@
-import databaseClient from "../../../../database/client";
+import databaseClient from "../../../database/client";
 
-import type { Result, Rows } from "../../../../database/client";
+import type { Result, Rows } from "../../../database/client";
 
 type User = {
   id: number;
@@ -11,10 +11,10 @@ type User = {
   bio?: string;
 };
 
-class UsersRepository {
+class UserRepository {
   async create(user: Omit<User, "id">) {
     const [result] = await databaseClient.query<Result>(
-      "insert into users (username, email, password) values (?, ?, ?)",
+      "insert into user (username, email, password) values (?, ?, ?)",
       [user.username, user.email, user.password],
     );
 
@@ -23,7 +23,7 @@ class UsersRepository {
 
   async read(id: number) {
     const [rows] = await databaseClient.query<Rows>(
-      "select * from users where id = ?",
+      "select * from user where id = ?",
       [id],
     );
 
@@ -31,14 +31,14 @@ class UsersRepository {
   }
 
   async readAll() {
-    const [rows] = await databaseClient.query<Rows>("select * from users");
+    const [rows] = await databaseClient.query<Rows>("select * from user");
 
     return rows as User[];
   }
 
   async update(user: User) {
     const [result] = await databaseClient.query<Result>(
-      "update users set username = ?, email = ?, password = ?, bio = ?, profile_picture = ? where id = ?",
+      "update user set username = ?, email = ?, password = ?, bio = ?, profile_picture = ? where id = ?",
       [
         user.username,
         user.email,
@@ -53,11 +53,11 @@ class UsersRepository {
 
   async delete(id: number) {
     const [result] = await databaseClient.query<Result>(
-      "delete from users where id = ?",
+      "delete from user where id = ?",
       [id],
     );
     return result.affectedRows;
   }
 }
 
-export default new UsersRepository();
+export default new UserRepository();
