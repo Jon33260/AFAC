@@ -1,4 +1,4 @@
-create table users (
+create table user (
   id int primary key auto_increment not null,
   username VARCHAR(255) NOT NULL,
   email varchar(255) not null unique,
@@ -7,6 +7,6 @@ create table users (
   bio TEXT DEFAULT NULL
 );
 
-INSERT INTO users(username, email, password)
+INSERT INTO user(username, email, password)
 VALUES ("Admin", "test@test.fr", "123456");
 

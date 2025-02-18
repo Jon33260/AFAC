@@ -2,7 +2,7 @@ import databaseClient from "../../../../database/client";
 
 import type { Result, Rows } from "../../../../database/client";
 
-type Users = {
+type User = {
   id: number;
   username: string;
   email: string;
@@ -12,7 +12,7 @@ type Users = {
 };
 
 class UsersRepository {
-  async create(user: Omit<Users, "id">) {
+  async create(user: Omit<User, "id">) {
     const [result] = await databaseClient.query<Result>(
       "insert into users (username, email, password) values (?, ?, ?)",
       [user.username, user.email, user.password],
@@ -22,25 +22,21 @@ class UsersRepository {
   }
 
   async read(id: number) {
-    // Execute the SQL SELECT query to retrieve a specific item by its ID
     const [rows] = await databaseClient.query<Rows>(
       "select * from users where id = ?",
       [id],
     );
 
-    // Return the first row of the result, which represents the item
-    return rows[0] as Users;
+    return rows[0] as User;
   }
 
   async readAll() {
-    // Execute the SQL SELECT query to retrieve all items from the "item" table
     const [rows] = await databaseClient.query<Rows>("select * from users");
 
-    // Return the array of items
-    return rows as Users[];
+    return rows as User[];
   }
 
-  async update(user: Users) {
+  async update(user: User) {
     const [result] = await databaseClient.query<Result>(
       "update users set username = ?, email = ?, password = ?, bio = ?, profile_picture = ? where id = ?",
       [
