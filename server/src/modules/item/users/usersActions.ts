@@ -42,7 +42,7 @@ const edit: RequestHandler = async (req, res, next) => {
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
-      profile_picture: req.body.profil_picture,
+      profile_picture: req.body.profile_picture,
       bio: req.body.bio,
     };
 
