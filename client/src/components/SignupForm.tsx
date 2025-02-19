@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import "../styles/SignupForm.css";
 import SvgIcons from "./SvgIcons";
 
@@ -17,25 +17,30 @@ const icon = [
   },
 ];
 
+interface UserTypes {
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
 export default function SignupForm() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState(false);
-  const [showTooltip, setShowTooltip] = useState(false);
-  const [checked, setChecked] = useState(false);
+  const [user, setUser] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  } as UserTypes);
+
+  const handleChangeForm = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUser({ ...user, [event.target.name]: event.target.value });
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!error && checked) {
-      console.info("Formulaire envoyé :", {
-        username,
-        email,
-        password,
-        confirmPassword,
-      });
-    }
+    console.info("Formulaire envoyé :", {
+      user,
+    });
   };
 
   const [showPassword, setShowPassword] = useState(false);
@@ -45,36 +50,10 @@ export default function SignupForm() {
 
   const currentIcon = showPassword ? icon[0].visible : icon[0].notVisible;
 
-  const passwordSecurity = (password: string) => {
-    if (password.length >= 10) {
-      return ": fort";
-    }
-    if (password.length > 5) {
-      return ": moyen";
-    }
-    return ": faible";
-  };
-  const security = passwordSecurity(password);
-
+  const [checked, setChecked] = useState(false);
   const toggleCheck = () => {
     setChecked(!checked);
   };
-
-  const validPasswords = useCallback(() => {
-    if (password !== confirmPassword) {
-      setError(true);
-      setShowTooltip(true);
-    } else {
-      setError(false);
-      setShowTooltip(false);
-    }
-  }, [password, confirmPassword]);
-
-  useEffect(() => {
-    if (password || confirmPassword) {
-      validPasswords();
-    }
-  }, [password, confirmPassword, validPasswords]);
 
   return (
     <>
@@ -84,9 +63,9 @@ export default function SignupForm() {
             <label htmlFor="username">Nom d'utilisateur</label>
             <input
               type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              name="username"
+              value={user.username}
+              onChange={handleChangeForm}
               placeholder="Entrez un nom d'utilisateur"
               required
             />
@@ -95,29 +74,21 @@ export default function SignupForm() {
             <label htmlFor="email">Email</label>
             <input
               type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="email"
+              value={user.email}
+              onChange={handleChangeForm}
               placeholder="Votre adresse mail"
               required
             />
           </div>
-          <div className={`form-group ${error ? "error" : ""}`}>
-            <label htmlFor="password">
-              Mot de passe
-              {password.length > 0 && (
-                <p className="password-strength">{security}</p>
-              )}
-            </label>
+          <div className="form-group">
+            <label htmlFor="password">Mot de passe</label>
             <div className="password-input-container">
               <input
                 type={showPassword ? "text" : "password"}
-                id="password"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                  validPasswords();
-                }}
+                name="password"
+                value={user.password}
+                onChange={handleChangeForm}
                 placeholder="Veuillez entrer un mot de passe"
                 required
               />
@@ -134,17 +105,14 @@ export default function SignupForm() {
               </span>
             </div>
           </div>
-          <div className={`form-group ${error ? "error" : ""}`}>
+          <div className="form-group">
             <label htmlFor="confirmPassword">Confirmez le mot de passe</label>
             <div className="password-input-container">
               <input
                 type={showPassword ? "text" : "password"}
-                id="confirmPassword"
-                value={confirmPassword}
-                onChange={(e) => {
-                  setConfirmPassword(e.target.value);
-                  validPasswords();
-                }}
+                name="confirmPassword"
+                value={user.confirmPassword}
+                onChange={handleChangeForm}
                 placeholder="Veuillez entrer un mot de passe"
                 required
               />
@@ -161,9 +129,6 @@ export default function SignupForm() {
               </span>
             </div>
           </div>
-          {showTooltip && (
-            <div className="tooltip">Entrez des mots de passe identiques</div>
-          )}
           <div className="checkbox-container">
             <input type="checkbox" checked={checked} onChange={toggleCheck} />
             <p>En cochant cette case, j'accepte les CGU.</p>
