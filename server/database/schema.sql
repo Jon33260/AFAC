@@ -4,11 +4,15 @@ create table user (
   email VARCHAR(255) not null unique,
   password VARCHAR(255) not null,
   profile_picture VARCHAR(255) DEFAULT NULL,
-  bio TEXT DEFAULT NULL
+  following INT not NULL,
+  followers INT not NULL, 
+  bio TEXT DEFAULT NULL,
+  portfolio VARCHAR(255) DEFAULT NULL,
+  website VARCHAR(255) DEFAULT NULL
 );
 
-INSERT INTO user(username, email, password)
-VALUES ("Admin", "test@test.fr", "123456");
+INSERT INTO user(username, email, password, profile_picture, following, followers, bio, portfolio, website)
+VALUES ("Admin", "test@test.fr", "123456", "", 150, 230, "Développeur passionné par le web et les nouvelles technologies.", "https://johndoe.dev", "https://instagram.com/johndoe");
 
 create table artwork (
   id int primary key auto_increment not null,
