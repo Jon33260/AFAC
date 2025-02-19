@@ -4,7 +4,7 @@ const baseUrl = import.meta.env.VITE_API_URL;
 
 const getAllArtwork = async () => {
   try {
-    const response = await axios.get(`${baseUrl}/hapi/artworks`);
+    const response = await axios.get(`${baseUrl}/api/artworks`);
 
     return response.data;
   } catch (error) {
