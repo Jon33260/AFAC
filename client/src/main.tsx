@@ -13,8 +13,11 @@ import App from "./App";
 
 // import About from "./pages/About";
 // import Contact from "./pages/Contact";
+import ErrorPage from "./pages/ErrorPage";
+import Home from "./pages/Home";
 
 /* ************************************************************************* */
+import { getAllArtwork } from "./services/requests";
 
 // Create router configuration with routes
 // You can add more routes as you build out your app!
@@ -22,6 +25,14 @@ const router = createBrowserRouter([
   {
     path: "/", // The root path
     element: <App />, // Renders the App component for the home page
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+        loader: () => getAllArtwork(),
+        errorElement: <ErrorPage />,
+      },
+    ],
   },
   // Try adding a new route! For example, "/about" with an About component
 ]);
