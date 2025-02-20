@@ -10,3 +10,10 @@ interface Artwork {
 interface Artworks {
   artworks: Artwork[];
 }
+
+interface UserTypes {
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}

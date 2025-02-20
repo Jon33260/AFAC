@@ -15,6 +15,7 @@ import App from "./App";
 // import Contact from "./pages/Contact";
 import ErrorPage from "./pages/ErrorPage";
 import Home from "./pages/Home";
+import Signup from "./pages/Signup";
 
 /* ************************************************************************* */
 import { getAllArtwork } from "./services/requests";
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
         element: <Home />,
         loader: () => getAllArtwork(),
         errorElement: <ErrorPage />,
+      },
+      {
+        path: "/auth",
+        element: <Signup />,
       },
     ],
   },
