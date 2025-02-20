@@ -77,7 +77,7 @@ export default function Profile() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Instagram
+                Website
               </a>
             </li>
           )}
