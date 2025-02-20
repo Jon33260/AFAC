@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import "./pages/profile/profile.css";
+
 export default function Profile() {
   interface UserData {
     id: number;
@@ -77,7 +79,7 @@ export default function Profile() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Instagram
+                Website
               </a>
             </li>
           )}

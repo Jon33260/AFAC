@@ -11,9 +11,6 @@ import App from "./App";
 // Import pages
 import Profile from "./pages/profile/Profile";
 
-//Import css
-import "./pages/profile/profile.css";
-
 // import About from "./pages/About";
 // import Contact from "./pages/Contact";
 import ErrorPage from "./pages/ErrorPage";
@@ -30,14 +27,14 @@ const router = createBrowserRouter([
     element: <App />, // Renders the App component for the home page
     children: [
       {
-        path: "/profile/:id",
-        element: <Profile />,
-      },
-      {
         path: "/",
         element: <Home />,
         loader: () => getAllArtwork(),
         errorElement: <ErrorPage />,
+      },
+      {
+        path: "/profile/:id",
+        element: <Profile />,
       },
     ],
   },
