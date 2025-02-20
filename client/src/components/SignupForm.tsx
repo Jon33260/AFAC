@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { postCreateUser } from "../services/requests";
 import "../styles/SignupForm.css";
 import SvgIcons from "./SvgIcons";
 
@@ -17,13 +18,6 @@ const icon = [
   },
 ];
 
-interface UserTypes {
-  username: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
-
 export default function SignupForm() {
   const [user, setUser] = useState({
     username: "",
@@ -38,9 +32,7 @@ export default function SignupForm() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.info("Formulaire envoyé :", {
-      user,
-    });
+    postCreateUser(user);
   };
 
   const [showPassword, setShowPassword] = useState(false);
