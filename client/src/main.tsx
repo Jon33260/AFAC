@@ -9,7 +9,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
 
 // Import pages
-import Profile from "./pages/profile/Profile";
+import Profile from "./pages/Profile";
 
 // import About from "./pages/About";
 // import Contact from "./pages/Contact";
@@ -17,7 +17,7 @@ import ErrorPage from "./pages/ErrorPage";
 import Home from "./pages/Home";
 
 /* ************************************************************************* */
-import { getAllArtwork } from "./services/requests";
+import { getAllArtwork, getUserById } from "./services/requests";
 
 // Create router configuration with routes
 // You can add more routes as you build out your app!
@@ -35,6 +35,8 @@ const router = createBrowserRouter([
       {
         path: "/profile/:id",
         element: <Profile />,
+        loader: ({ params }) => getUserById(Number(params.id)),
+        errorElement: <ErrorPage />,
       },
     ],
   },
