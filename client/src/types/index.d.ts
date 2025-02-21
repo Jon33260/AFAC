@@ -23,3 +23,10 @@ interface UserData {
   portfolio: string | null;
   website: string | null;
 }
+
+interface UserTypes {
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}

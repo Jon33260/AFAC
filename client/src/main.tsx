@@ -15,6 +15,7 @@ import Profile from "./pages/Profile";
 // import Contact from "./pages/Contact";
 import ErrorPage from "./pages/ErrorPage";
 import Home from "./pages/Home";
+import Signup from "./pages/Signup";
 
 /* ************************************************************************* */
 import { getAllArtwork, getUserById } from "./services/requests";
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
         element: <Profile />,
         loader: ({ params }) => getUserById(Number(params.id)),
         errorElement: <ErrorPage />,
+      },
+      {
+        path: "/auth",
+        element: <Signup />,
       },
     ],
   },

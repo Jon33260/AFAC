@@ -23,4 +23,14 @@ const getUserById = async (id: number) => {
   }
 };
 
-export { getAllArtwork, getUserById };
+const postCreateUser = async (userData: UserTypes) => {
+  try {
+    const response = await axios.post(`${baseUrl}/api/user`, userData);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to create user");
+  }
+};
+
+export { getAllArtwork, postCreateUser, getUserById };
