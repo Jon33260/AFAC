@@ -8,8 +8,8 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 // Import the main app component
 import App from "./App";
 
-// Import additional components for new routes
-// Try creating these components in the "pages" folder
+// Import pages
+import Profile from "./pages/Profile";
 
 // import About from "./pages/About";
 // import Contact from "./pages/Contact";
@@ -18,7 +18,7 @@ import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 
 /* ************************************************************************* */
-import { getAllArtwork } from "./services/requests";
+import { getAllArtwork, getUserById } from "./services/requests";
 
 // Create router configuration with routes
 // You can add more routes as you build out your app!
@@ -34,11 +34,18 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
+        path: "/profile/:id",
+        element: <Profile />,
+        loader: ({ params }) => getUserById(Number(params.id)),
+        errorElement: <ErrorPage />,
+      },
+      {
         path: "/auth",
         element: <Signup />,
       },
     ],
   },
+
   // Try adding a new route! For example, "/about" with an About component
 ]);
 

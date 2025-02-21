@@ -4,16 +4,24 @@ CREATE TABLE user (
   email VARCHAR(255) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
   profile_picture VARCHAR(255) DEFAULT NULL,
-  bio TEXT DEFAULT NULL
+  following INT not NULL,
+  followers INT not NULL, 
+  bio TEXT DEFAULT NULL,
+  portfolio VARCHAR(255) DEFAULT NULL,
+  website VARCHAR(255) DEFAULT NULL
 );
 
+
+
 INSERT INTO user(username, email, password) VALUES
+("Admin", "test@test.fr", "123456", "", 150, 230, "Développeur passionné par le web et les nouvelles technologies.", "https://johndoe.dev", "https://instagram.com/johndoe"),
 ("Admin", "test@test.fr", "123456"),
 ("Alice", "alice@example.com", "password1"),
 ("Bob", "bob@example.com", "password2"),
 ("Charlie", "charlie@example.com", "password3"),
 ("David", "david@example.com", "password4"),
 ("Emma", "emma@example.com", "password5");
+
 
 CREATE TABLE artwork (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,

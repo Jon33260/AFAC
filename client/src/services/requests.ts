@@ -13,6 +13,16 @@ const getAllArtwork = async () => {
   }
 };
 
+const getUserById = async (id: number) => {
+  try {
+    const response = await axios.get(`${baseUrl}/api/user/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to fetch users");
+  }
+};
+
 const postCreateUser = async (userData: UserTypes) => {
   try {
     const response = await axios.post(`${baseUrl}/api/user`, userData);
@@ -23,4 +33,4 @@ const postCreateUser = async (userData: UserTypes) => {
   }
 };
 
-export { getAllArtwork, postCreateUser };
+export { getAllArtwork, postCreateUser, getUserById };
