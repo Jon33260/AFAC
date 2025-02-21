@@ -49,7 +49,7 @@ router.put("/api/event_artwork/:id", eventArtworkActions.edit);
 router.post("/api/event_artwork", eventArtworkActions.add);
 router.delete("/api/event_artwork/:id", eventArtworkActions.destroy);
 
-//Event_artwork routes with artworks
+//Event routes with artworks
 router.get("/api/events/with-artworks", eventActions.readAllWithArtworks);
 router.get("/api/event/with-artworks/:id", eventActions.readWithArtworks);
 

@@ -41,9 +41,9 @@ INSERT INTO artwork(title, description, picture, category, user_id) VALUES
 ("Server", "Data center", "https://img.freepik.com/photos-gratuite/salle-hub-racks-serveurs-donnees-centre-informatique-big-data-interieur-bleu-pour-hebergement-materiel-stockage_90220-1033.jpg?t=st=1739958956~exp=1739962556~hmac=9898e2dd0229fdacffa7478b45fa8aa573156cefb3fdceb6ddc87a5ded8a7117&w=740", "Sculpture", 3),
 ("Foret", "Jolie foret", "https://img.freepik.com/photos-premium/arbres-qui-poussent-dans-foret_1048944-30368869.jpg?w=1380", "Graffiti", 4),
 ("Ecureuil", "Un petit ecureuil qui prend la pose", "https://img.freepik.com/photos-premium/close-up-ecureuil-poteau-bois_1048944-30370286.jpg?w=1380", "Dessin", 5),
-("Jolie madame", "Photo de jolie madame", "https://img.freepik.com/photos-gratuite/portrait-personne-assistant-soiree-musique-techno-dynamique_23-2150551577.jpg?t=st=1739959194~exp=1739962794~hmac=d503fde15dc3a3574e390ea38cd78836e14db1485751c3a61fa27d20240fbd43&w=1380", "Photographie", 6),
+("Photo madame", "Photo", "https://img.freepik.com/photos-gratuite/portrait-personne-assistant-soiree-musique-techno-dynamique_23-2150551577.jpg?t=st=1739959194~exp=1739962794~hmac=d503fde15dc3a3574e390ea38cd78836e14db1485751c3a61fa27d20240fbd43&w=1380", "Photographie", 6),
 ("Server", "Data center", "https://img.freepik.com/photos-gratuite/salle-hub-racks-serveurs-donnees-centre-informatique-big-data-interieur-bleu-pour-hebergement-materiel-stockage_90220-1033.jpg?t=st=1739958956~exp=1739962556~hmac=9898e2dd0229fdacffa7478b45fa8aa573156cefb3fdceb6ddc87a5ded8a7117&w=740", "Sculpture", 3),
-("Jolie madame", "Photo de jolie madame", "https://img.freepik.com/photos-premium/paysage-panoramique-au-lever-du-soleil_335224-1307.jpg?w=1380", "Photographie", 6);
+("Photo madame", "Photo", "https://img.freepik.com/photos-premium/paysage-panoramique-au-lever-du-soleil_335224-1307.jpg?w=1380", "Photographie", 6);
 
 CREATE TABLE Event (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
