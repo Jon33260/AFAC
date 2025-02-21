@@ -19,6 +19,10 @@ const icon = [
 ];
 
 export default function SignupForm() {
+  const [isSignup, setIsSignup] = useState(true);
+  const toggleForm = () => {
+    setIsSignup(!isSignup);
+  };
   const [user, setUser] = useState({
     username: "",
     email: "",
@@ -50,88 +54,134 @@ export default function SignupForm() {
   return (
     <>
       <div className="signup-container">
-        <form onSubmit={handleSubmit} className="signup-form">
-          <div className="form-group">
-            <label htmlFor="username">Nom d'utilisateur</label>
-            <input
-              type="text"
-              name="username"
-              value={user.username}
-              onChange={handleChangeForm}
-              placeholder="Entrez un nom d'utilisateur"
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={user.email}
-              onChange={handleChangeForm}
-              placeholder="Votre adresse mail"
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Mot de passe</label>
-            <div className="password-input-container">
+        {isSignup ? (
+          <form onSubmit={handleSubmit} className="signup-form">
+            <div className="form-group">
+              <label htmlFor="username">Nom d'utilisateur</label>
               <input
-                type={showPassword ? "text" : "password"}
-                name="password"
-                value={user.password}
+                type="text"
+                name="username"
+                value={user.username}
                 onChange={handleChangeForm}
-                placeholder="Veuillez entrer un mot de passe"
+                placeholder="Entrez un nom d'utilisateur"
                 required
               />
-              <span
-                className="password-toggle"
-                onClick={togglePassword}
-                onKeyDown={togglePassword}
-              >
-                <SvgIcons
-                  path={currentIcon.path}
-                  height={currentIcon.height}
-                  width={currentIcon.width}
-                />
-              </span>
             </div>
-          </div>
-          <div className="form-group">
-            <label htmlFor="confirmPassword">Confirmez le mot de passe</label>
-            <div className="password-input-container">
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
               <input
-                type={showPassword ? "text" : "password"}
-                name="confirmPassword"
-                value={user.confirmPassword}
+                type="email"
+                name="email"
+                value={user.email}
                 onChange={handleChangeForm}
-                placeholder="Veuillez entrer un mot de passe"
+                placeholder="Votre adresse mail"
                 required
               />
-              <span
-                className="password-toggle"
-                onClick={togglePassword}
-                onKeyDown={togglePassword}
-              >
-                <SvgIcons
-                  path={currentIcon.path}
-                  height={currentIcon.height}
-                  width={currentIcon.width}
-                />
-              </span>
             </div>
-          </div>
-          <div className="checkbox-container">
-            <input type="checkbox" checked={checked} onChange={toggleCheck} />
-            <p>En cochant cette case, j'accepte les CGU.</p>
-          </div>
-          <button type="submit" className="signup-button" disabled={!checked}>
-            S'inscrire
-          </button>
-          <a href="test" className="login-link">
-            Se connecter
-          </a>
-        </form>
+            <div className="form-group">
+              <label htmlFor="password">Mot de passe</label>
+              <div className="password-input-container">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  value={user.password}
+                  onChange={handleChangeForm}
+                  placeholder="Veuillez entrer un mot de passe"
+                  required
+                />
+                <span
+                  className="password-toggle"
+                  onClick={togglePassword}
+                  onKeyDown={togglePassword}
+                >
+                  <SvgIcons
+                    path={currentIcon.path}
+                    height={currentIcon.height}
+                    width={currentIcon.width}
+                  />
+                </span>
+              </div>
+            </div>
+            <div className="form-group">
+              <label htmlFor="confirmPassword">Confirmez le mot de passe</label>
+              <div className="password-input-container">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="confirmPassword"
+                  value={user.confirmPassword}
+                  onChange={handleChangeForm}
+                  placeholder="Veuillez entrer un mot de passe"
+                  required
+                />
+                <span
+                  className="password-toggle"
+                  onClick={togglePassword}
+                  onKeyDown={togglePassword}
+                >
+                  <SvgIcons
+                    path={currentIcon.path}
+                    height={currentIcon.height}
+                    width={currentIcon.width}
+                  />
+                </span>
+              </div>
+            </div>
+            <div className="checkbox-container">
+              <input type="checkbox" checked={checked} onChange={toggleCheck} />
+              <p>En cochant cette case, j'accepte les CGU.</p>
+            </div>
+            <button type="submit" className="signup-button" disabled={!checked}>
+              S'inscrire
+            </button>
+            <button type="button" className="login-link" onClick={toggleForm}>
+              Déjà un compte ?
+            </button>
+          </form>
+        ) : (
+          <form className="signup-form">
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                name="email"
+                value={user.email}
+                onChange={handleChangeForm}
+                placeholder="Votre adresse mail"
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Mot de passe</label>
+              <div className="password-input-container">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  value={user.password}
+                  onChange={handleChangeForm}
+                  placeholder="Veuillez entrer un mot de passe"
+                  required
+                />
+                <span
+                  className="password-toggle"
+                  onClick={togglePassword}
+                  onKeyDown={togglePassword}
+                >
+                  <SvgIcons
+                    path={currentIcon.path}
+                    height={currentIcon.height}
+                    width={currentIcon.width}
+                  />
+                </span>
+              </div>
+            </div>
+            <button type="submit" className="signup-button">
+              Se connecter
+            </button>
+            <button type="button" className="login-link" onClick={toggleForm}>
+              Pas encore de compte ?
+            </button>
+          </form>
+        )}
       </div>
     </>
   );
