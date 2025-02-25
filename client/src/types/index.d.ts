@@ -5,6 +5,7 @@ interface Artwork {
   picture: string;
   category: string;
   user_id: number;
+  user_name: string;
 }
 
 interface Artworks {
