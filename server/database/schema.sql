@@ -45,7 +45,7 @@ INSERT INTO artwork(title, description, picture, category, user_id) VALUES
 ("Server", "Data center", "https://img.freepik.com/photos-gratuite/salle-hub-racks-serveurs-donnees-centre-informatique-big-data-interieur-bleu-pour-hebergement-materiel-stockage_90220-1033.jpg?t=st=1739958956~exp=1739962556~hmac=9898e2dd0229fdacffa7478b45fa8aa573156cefb3fdceb6ddc87a5ded8a7117&w=740", "Sculpture", 3),
 ("Photo madame", "Photo", "https://img.freepik.com/photos-premium/paysage-panoramique-au-lever-du-soleil_335224-1307.jpg?w=1380", "Photographie", 6);
 
-CREATE TABLE Event (
+CREATE TABLE event (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   title VARCHAR(255) NOT NULL,
   description TEXT,
@@ -55,22 +55,22 @@ CREATE TABLE Event (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE Event_artwork (
+CREATE TABLE event_artwork (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   event_id INT NOT NULL,
   artwork_id INT NOT NULL,
-  FOREIGN KEY (event_id) REFERENCES Event(id) ON DELETE CASCADE,
+  FOREIGN KEY (event_id) REFERENCES event(id) ON DELETE CASCADE,
   FOREIGN KEY (artwork_id) REFERENCES artwork(id) ON DELETE CASCADE
 );
 
-INSERT INTO Event(title, description, start_date, end_date, location) VALUES
+INSERT INTO event(title, description, start_date, end_date, location) VALUES
 ("Exposition d'art 1", "Exposition d'art moderne", "2024-03-15", "2024-03-20", "Paris"),
 ("Exposition d'art 2", "Exposition d'art ancien", "2024-04-01", "2024-04-05", "En Ligne"),
 ("Exposition d'art 3", "Exposition d'art contemporain", "2024-04-15", "2024-04-20", "Reims"),
 ("Exposition d'art 4", "Exposition d'art street art", "2024-05-01", "2024-05-05", "Marseille"),
 ("Exposition d'art 5", "Exposition d'art web", "2024-05-15", "2024-05-20", "En Ligne");
 
-INSERT INTO Event_artwork(event_id, artwork_id) VALUES
+INSERT INTO event_artwork(event_id, artwork_id) VALUES
 (1, 1),
 (1, 2),
 (2, 3),
