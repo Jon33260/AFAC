@@ -1,5 +1,8 @@
 import express from "express";
 
+//import des middlewares
+import form from "./middleware/form";
+
 const router = express.Router();
 
 /* ************************************************************************* */
@@ -12,9 +15,8 @@ import userActions from "./modules/user/userActions";
 router.get("/api/users", userActions.browse);
 router.get("/api/users/:id", userActions.read);
 router.put("/api/users/:id", userActions.edit);
-router.post("/api/users", userActions.add);
+router.post("/api/users", form.validate, userActions.add);
 router.delete("/api/users/:id", userActions.destroy);
-
 //Artworks routes
 import artworkActions from "./modules/artwork/artworkActions";
 

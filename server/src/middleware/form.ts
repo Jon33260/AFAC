@@ -1,0 +1,39 @@
+import type { RequestHandler } from "express";
+import Joi from "joi";
+
+const PASSWORD_REGEX =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!.@#$%^&*])(?=.{8,})/;
+
+const formSchema = Joi.object({
+  username: Joi.string().min(5).alphanum().required().messages({
+    "string.min": "le nom d'utilisateur doit contenir minimum 3 caractères",
+    "string.alphanum": "Ne peut pas contenir de caractères spéciaux ",
+    "any.required": "Nom d utilisateur requis",
+  }),
+  email: Joi.string().email().required().messages({
+    "string.email": "Veuillez entrer une adresse mail valide",
+    "any.required": "Email requis",
+  }),
+  password: Joi.string().pattern(PASSWORD_REGEX).required().messages({
+    "string.pattern.base":
+      "doit contenir au moins une majuscule, minuscule, chiffre et caractère spécial",
+    "string.min": "doit contenir 8 caractères minimum",
+    "any.required": "Mot de passe requis",
+  }),
+  confirmPassword: Joi.string().valid(Joi.ref("password")).required().messages({
+    "any.only": "Les mots de passe ne correspondent pas",
+    "any.required": "Veuillez confirmer le mot de passe",
+  }),
+});
+
+const validate: RequestHandler = (req, res, next) => {
+  const { error } = formSchema.validate(req.body);
+
+  if (error) {
+    res.status(400).json(error.details[0].message);
+  } else {
+    next();
+  }
+};
+
+export default { validate };
