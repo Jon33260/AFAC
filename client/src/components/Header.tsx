@@ -13,9 +13,11 @@ export default function Header() {
           </div>
           <div className="filtre-bouton">
             <div className="filtre">
-              <option value="">Filtre</option>
-              <option value="Peintures">Populaire</option>
-              <option value="Tableaux">Date</option>
+              <select className="filtre">
+                <option value="">Filtre</option>
+                <option value="Populaire">Populaire</option>
+                <option value="Date">Date</option>
+              </select>
             </div>
           </div>
         </div>
