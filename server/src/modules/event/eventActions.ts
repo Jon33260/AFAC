@@ -12,16 +12,6 @@ const browse: RequestHandler = async (req, res, next) => {
   }
 };
 
-const readAllWithArtworks: RequestHandler = async (req, res, next) => {
-  try {
-    const eventsWithArtworks = await eventRepository.readAllWithArtworks();
-
-    res.json(eventsWithArtworks);
-  } catch (err) {
-    next(err);
-  }
-};
-
 const read: RequestHandler = async (req, res, next) => {
   try {
     const eventId = Number(req.params.id);
@@ -32,18 +22,6 @@ const read: RequestHandler = async (req, res, next) => {
     } else {
       res.json(event);
     }
-  } catch (err) {
-    next(err);
-  }
-};
-
-const readWithArtworks: RequestHandler = async (req, res, next) => {
-  try {
-    const eventIdWithArtworks = Number(req.params.id);
-    const eventWithArtworks =
-      await eventRepository.readWithArtworks(eventIdWithArtworks);
-
-    res.json(eventWithArtworks);
   } catch (err) {
     next(err);
   }
@@ -104,9 +82,7 @@ const destroy: RequestHandler = async (req, res, next) => {
 
 export default {
   browse,
-  readAllWithArtworks,
   read,
-  readWithArtworks,
   edit,
   add,
   destroy,

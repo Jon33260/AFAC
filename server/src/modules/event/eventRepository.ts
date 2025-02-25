@@ -29,45 +29,6 @@ class EventRepository {
 
   async read(id: number) {
     const [rows] = await databaseClient.query<Rows>(
-      "select * from event where id = ?",
-      [id],
-    );
-
-    return rows[0] as Event;
-  }
-
-  async readAll() {
-    const [rows] = await databaseClient.query<Rows>("select * from event");
-
-    return rows as Event[];
-  }
-
-  async readAllWithArtworks() {
-    const [rows] = await databaseClient.query<Rows>(
-      `SELECT 
-        e.id as event_id,
-        e.title as event_title,
-        e.description as event_description,
-        e.start_date,
-        e.end_date,
-        e.location,
-        a.id as artwork_id,
-        a.title as artwork_title,
-        a.description as artwork_description,
-        a.picture,
-        a.category,
-        u.username as artist_name
-      FROM Event e
-      LEFT JOIN Event_artwork ea ON e.id = ea.event_id 
-      LEFT JOIN artwork a ON ea.artwork_id = a.id
-      LEFT JOIN user u ON a.user_id = u.id`,
-    );
-
-    return rows as Event[];
-  }
-
-  async readWithArtworks(id: number) {
-    const [rows] = await databaseClient.query<Rows>(
       `SELECT 
         e.id as event_id,
         e.title as event_title,
@@ -87,6 +48,30 @@ class EventRepository {
       LEFT JOIN user u ON a.user_id = u.id
       WHERE e.id = ?`,
       [id],
+    );
+
+    return rows as Event[];
+  }
+
+  async readAll() {
+    const [rows] = await databaseClient.query<Rows>(
+      `SELECT 
+        e.id as event_id,
+        e.title as event_title,
+        e.description as event_description,
+        e.start_date,
+        e.end_date,
+        e.location,
+        a.id as artwork_id,
+        a.title as artwork_title,
+        a.description as artwork_description,
+        a.picture,
+        a.category,
+        u.username as artist_name
+      FROM Event e
+      LEFT JOIN Event_artwork ea ON e.id = ea.event_id 
+      LEFT JOIN artwork a ON ea.artwork_id = a.id
+      LEFT JOIN user u ON a.user_id = u.id`,
     );
 
     return rows as Event[];
