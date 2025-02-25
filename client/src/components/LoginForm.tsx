@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { postCreateUser } from "../services/requests";
-import "../styles/SignupForm.css";
+
 import SvgIcons from "./SvgIcons";
+import "../styles/SignupForm.css";
 
 const icon = [
   {
@@ -18,39 +18,17 @@ const icon = [
   },
 ];
 
-export default function SignupForm({ user, handleChangeForm }: propsFormTypes) {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    postCreateUser(user);
-  };
-
+export default function LoginForm({ user, handleChangeForm }: propsFormTypes) {
   const [showPassword, setShowPassword] = useState(false);
   const togglePassword = () => {
     setShowPassword(!showPassword);
   };
-
   const currentIcon = showPassword ? icon[0].visible : icon[0].notVisible;
-
-  const [checked, setChecked] = useState(false);
-  const toggleCheck = () => {
-    setChecked(!checked);
-  };
 
   return (
     <>
       <div className="signup-container">
-        <form onSubmit={handleSubmit} className="signup-form">
-          <div className="form-group">
-            <label htmlFor="username">Nom d'utilisateur</label>
-            <input
-              type="text"
-              name="username"
-              value={user.username}
-              onChange={handleChangeForm}
-              placeholder="Entrez un nom d'utilisateur"
-              required
-            />
-          </div>
+        <form className="signup-form">
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
@@ -86,36 +64,8 @@ export default function SignupForm({ user, handleChangeForm }: propsFormTypes) {
               </span>
             </div>
           </div>
-          <div className="form-group">
-            <label htmlFor="confirmPassword">Confirmez le mot de passe</label>
-            <div className="password-input-container">
-              <input
-                type={showPassword ? "text" : "password"}
-                name="confirmPassword"
-                value={user.confirmPassword}
-                onChange={handleChangeForm}
-                placeholder="Veuillez entrer un mot de passe"
-                required
-              />
-              <span
-                className="password-toggle"
-                onClick={togglePassword}
-                onKeyDown={togglePassword}
-              >
-                <SvgIcons
-                  path={currentIcon.path}
-                  height={currentIcon.height}
-                  width={currentIcon.width}
-                />
-              </span>
-            </div>
-          </div>
-          <div className="checkbox-container">
-            <input type="checkbox" checked={checked} onChange={toggleCheck} />
-            <p>En cochant cette case, j'accepte les CGU.</p>
-          </div>
-          <button type="submit" className="signup-button" disabled={!checked}>
-            S'inscrire
+          <button type="submit" className="signup-button">
+            Se connecter
           </button>
         </form>
       </div>
