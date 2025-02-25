@@ -30,3 +30,8 @@ interface UserTypes {
   password: string;
   confirmPassword: string;
 }
+
+interface propsFormTypes {
+  user: UserTypes;
+  handleChangeForm: React.ChangeEventHandler<HTMLInputElement>;
+}
