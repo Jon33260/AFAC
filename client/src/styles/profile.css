@@ -15,7 +15,6 @@
   margin-bottom: 4vw;
 }
 
-/* PSEUDO */
 h1 {
   display: flex;
   justify-content: center;
@@ -23,7 +22,6 @@ h1 {
   font-weight: bold;
 }
 
-/* FOLLOWING FOLLOWERS */
 .username-followers {
   max-width: 75%;
   display: flex;
@@ -38,7 +36,6 @@ h1 {
   color: var(--text-gray-color);
 }
 
-/* GUILLEMET ET CITATIONS */
 blockquote {
   position: relative;
   font-style: italic;
@@ -56,7 +53,6 @@ blockquote::before {
   color: var(--text-gray-color);
 }
 
-/* SEPARATION */
 .separation {
   border: none;
   height: 1.5px;
@@ -65,7 +61,6 @@ blockquote::before {
   align-self: center;
 }
 
-/* BIOGRAPHY */
 .biography {
   text-align: left;
   width: 85%;
@@ -107,7 +102,6 @@ blockquote::before {
   line-clamp: 2;
 }
 
-/* SEPARATION 2 */
 .separation2 {
   border: none;
   height: 1.5px;
@@ -116,7 +110,6 @@ blockquote::before {
   align-self: center;
 }
 
-/*BOUTTON READ MORE*/
 .read-more {
   display: flex;
   align-items: center;
