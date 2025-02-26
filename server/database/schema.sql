@@ -14,13 +14,15 @@ CREATE TABLE user (
 INSERT INTO user(username, email, password, profile_picture, following, followers, bio, portfolio, website) VALUES
 ("Admin", "test@test.fr", "123456", "", 150, 230, "Développeur passionné par le web et les nouvelles technologies.", "https://johndoe.dev", "https://instagram.com/johndoe");
 
-INSERT INTO user(username, email, password) VALUES
-("Admin2", "test2@test.fr", "123456"),
-("Alice", "alice@example.com", "password1"),
-("Bob", "bob@example.com", "password2"),
-("Charlie", "charlie@example.com", "password3"),
-("David", "david@example.com", "password4"),
-("Emma", "emma@example.com", "password5");
+
+INSERT INTO user(username, email, password, profile_picture, following, followers, bio, portfolio, website) VALUES
+("Clément PICASSO", "test@test.fr", "123456", "", 150, 230, "I am a digital artist and photographer capturing the beauty of Earth's diverse landscapes. Through photography and digital art, I blend reality and imagination to create immersive scenes that highlight nature’s depth, light, and atmosphere, inviting viewers to explore the world through a new lens.", "https://johndoe.dev", "https://instagram.com/johndoe"),
+("Admin", "admin@test.fr", "123456",NULL,0,0,NULL,NULL,NULL),
+("Alice", "alice@example.com", "password1",NULL,0,0,NULL,NULL,NULL),
+("Bob", "bob@example.com", "password2",NULL,0,0,NULL,NULL,NULL),
+("Charlie", "charlie@example.com", "password3",NULL,0,0,NULL,NULL,NULL),
+("David", "david@example.com", "password4",NULL,0,0,NULL,NULL,NULL),
+("Emma", "emma@example.com", "password5",NULL,0,0,NULL,NULL,NULL);
 
 CREATE TABLE artwork (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
