@@ -1,22 +1,37 @@
 import "../styles/ArtworkPage.css";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 export default function ArtworkPage() {
   const artwork = useLoaderData() as Artwork;
-  console.info(artwork);
 
   return (
-    <div className="artwork-container">
-      <div className="artwork-header">
-        <h1 className="artwork-title">{artwork.title}</h1>
-        <p className="artwork-artist">{artwork.user_name}</p>
-      </div>
-      <img
-        src={artwork.picture}
-        alt={artwork.title}
-        className="artwork-image"
-      />
-      <p className="artwork-description">{artwork.description}</p>
-    </div>
+    <article className="artwork-page">
+      <figure className="artwork-image">
+        <Link to="/" className="artwork-image-link">
+          Retour
+        </Link>
+        <img src={artwork.picture} alt={artwork.description} />
+      </figure>
+
+      <section className="artwork-details">
+        <div>
+          <h1>{artwork.title}</h1>
+          <span className="category">{artwork.category}</span>
+        </div>
+
+        <p className="description">{artwork.description}</p>
+
+        <div>
+          <p className="artist">Par {artwork.user_name}</p>
+        </div>
+        <hr
+          style={{
+            margin: "2rem 0",
+            border: "none",
+            borderTop: "1px solid var(--text-gray-color)",
+          }}
+        />
+      </section>
+    </article>
   );
 }
