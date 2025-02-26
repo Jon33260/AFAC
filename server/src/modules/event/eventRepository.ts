@@ -77,6 +77,41 @@ class EventRepository {
     return rows as Event[];
   }
 
+  async readCurrentEvents() {
+    const [rows] = await databaseClient.query<Rows>(
+      `SELECT 
+      e.id as event_id,
+      e.title as event_title,
+      e.description as event_description,
+      e.start_date,
+      e.end_date,
+      e.location
+    FROM Event e
+    WHERE e.start_date <= CURDATE() 
+      AND e.end_date >= CURDATE()
+    ORDER BY e.start_date ASC`,
+    );
+
+    return rows as Event[];
+  }
+
+  async readUpcomingEvents() {
+    const [rows] = await databaseClient.query<Rows>(
+      `SELECT 
+      e.id as event_id,
+      e.title as event_title,
+      e.description as event_description,
+      e.start_date,
+      e.end_date,
+      e.location
+    FROM Event e
+    WHERE e.start_date > CURDATE()
+    ORDER BY e.start_date ASC`,
+    );
+
+    return rows as Event[];
+  }
+
   async update(event: Event) {
     const [result] = await databaseClient.query<Result>(
       "update event set title = ?, description = ?, start_date = ?, end_date = ?, location = ? where id = ?",

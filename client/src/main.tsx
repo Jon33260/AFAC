@@ -14,11 +14,17 @@ import Profile from "./pages/Profile";
 // import About from "./pages/About";
 // import Contact from "./pages/Contact";
 import ErrorPage from "./pages/ErrorPage";
+import Events from "./pages/Events";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 
 /* ************************************************************************* */
-import { getAllArtwork, getUserById } from "./services/requests";
+import {
+  getAllArtwork,
+  getCurrentEvents,
+  getUpcomingEvents,
+  getUserById,
+} from "./services/requests";
 
 // Create router configuration with routes
 // You can add more routes as you build out your app!
@@ -37,6 +43,18 @@ const router = createBrowserRouter([
         path: "/profile/:id",
         element: <Profile />,
         loader: ({ params }) => getUserById(Number(params.id)),
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/events",
+        element: <Events />,
+        loader: async () => {
+          const [currentEvents, upcomingEvents] = await Promise.all([
+            getCurrentEvents(),
+            getUpcomingEvents(),
+          ]);
+          return { currentEvents, upcomingEvents };
+        },
         errorElement: <ErrorPage />,
       },
       {

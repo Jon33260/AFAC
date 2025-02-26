@@ -43,6 +43,7 @@ INSERT INTO artwork(title, description, picture, category, user_id) VALUES
 ("Ecureuil", "Un petit ecureuil qui prend la pose", "https://img.freepik.com/photos-premium/close-up-ecureuil-poteau-bois_1048944-30370286.jpg?w=1380", "Dessin", 5),
 ("Photo madame", "Photo", "https://img.freepik.com/photos-gratuite/portrait-personne-assistant-soiree-musique-techno-dynamique_23-2150551577.jpg?t=st=1739959194~exp=1739962794~hmac=d503fde15dc3a3574e390ea38cd78836e14db1485751c3a61fa27d20240fbd43&w=1380", "Photographie", 6),
 ("Server", "Data center", "https://img.freepik.com/photos-gratuite/salle-hub-racks-serveurs-donnees-centre-informatique-big-data-interieur-bleu-pour-hebergement-materiel-stockage_90220-1033.jpg?t=st=1739958956~exp=1739962556~hmac=9898e2dd0229fdacffa7478b45fa8aa573156cefb3fdceb6ddc87a5ded8a7117&w=740", "Sculpture", 3),
+("Coloré", "Abstrait", "https://img.freepik.com/photos-gratuite/illustration-fond-motif-tropical-colore_53876-104122.jpg?t=st=1740576862~exp=1740580462~hmac=de1859c188739b63e133ae35c19d49abd249ed7db1a087602e2774ebd570e0fd&w=1060", "Peinture",5),
 ("Photo madame", "Photo", "https://img.freepik.com/photos-premium/paysage-panoramique-au-lever-du-soleil_335224-1307.jpg?w=1380", "Photographie", 6);
 
 CREATE TABLE event (
@@ -64,11 +65,13 @@ CREATE TABLE event_artwork (
 );
 
 INSERT INTO event(title, description, start_date, end_date, location) VALUES
-("Exposition d'art 1", "Exposition d'art moderne", "2024-03-15", "2024-03-20", "Paris"),
-("Exposition d'art 2", "Exposition d'art ancien", "2024-04-01", "2024-04-05", "En Ligne"),
-("Exposition d'art 3", "Exposition d'art contemporain", "2024-04-15", "2024-04-20", "Reims"),
-("Exposition d'art 4", "Exposition d'art street art", "2024-05-01", "2024-05-05", "Marseille"),
-("Exposition d'art 5", "Exposition d'art web", "2024-05-15", "2024-05-20", "En Ligne");
+("Exposition d'art 1", "Exposition d'art moderne", "2025-03-15", "2025-03-20", "Paris"),
+("Exposition d'art 2", "Exposition d'art ancien", "2025-04-01", "2025-04-05", "En Ligne"),
+("Exposition d'art 3", "Exposition d'art contemporain", "2025-04-15", "2025-04-20", "Reims"),
+("Exposition d'art 4", "Exposition d'art street art", "2025-05-01", "2025-05-05", "Marseille"),
+("Exposition d'art 5", "Exposition d'art web", "2025-05-15", "2025-05-20", "En Ligne"),
+("Exposition d'art 6", "Exposition d'art abstrait", "2025-02-25", "2025-03-01", "Lille");
+
 
 INSERT INTO event_artwork(event_id, artwork_id) VALUES
 (1, 1),
@@ -80,4 +83,4 @@ INSERT INTO event_artwork(event_id, artwork_id) VALUES
 (4, 7),
 (4, 8),
 (5, 9),
-(5, 10);
+(6, 10);

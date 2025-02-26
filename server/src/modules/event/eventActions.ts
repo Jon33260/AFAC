@@ -12,6 +12,24 @@ const browse: RequestHandler = async (req, res, next) => {
   }
 };
 
+const browseCurrent: RequestHandler = async (req, res, next) => {
+  try {
+    const events = await eventRepository.readCurrentEvents();
+    res.json(events);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const browseUpcoming: RequestHandler = async (req, res, next) => {
+  try {
+    const events = await eventRepository.readUpcomingEvents();
+    res.json(events);
+  } catch (err) {
+    next(err);
+  }
+};
+
 const read: RequestHandler = async (req, res, next) => {
   try {
     const eventId = Number(req.params.id);
@@ -82,6 +100,8 @@ const destroy: RequestHandler = async (req, res, next) => {
 
 export default {
   browse,
+  browseCurrent,
+  browseUpcoming,
   read,
   edit,
   add,
