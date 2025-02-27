@@ -16,7 +16,7 @@ INSERT INTO user(username, email, password, profile_picture, following, follower
 
 
 INSERT INTO user(username, email, password, profile_picture, following, followers, bio, portfolio, website) VALUES
-("Clément PICASSO", "test@test.fr", "123456", "", 150, 230, "I am a digital artist and photographer capturing the beauty of Earth's diverse landscapes. Through photography and digital art, I blend reality and imagination to create immersive scenes that highlight nature’s depth, light, and atmosphere, inviting viewers to explore the world through a new lens.", "https://johndoe.dev", "https://instagram.com/johndoe"),
+("Clément PICASSO", "test2@test.fr", "123456", "", 150, 230, "I am a digital artist and photographer capturing the beauty of Earth's diverse landscapes. Through photography and digital art, I blend reality and imagination to create immersive scenes that highlight nature’s depth, light, and atmosphere, inviting viewers to explore the world through a new lens.", "https://johndoe.dev", "https://instagram.com/johndoe"),
 ("Admin", "admin@test.fr", "123456",NULL,0,0,NULL,NULL,NULL),
 ("Alice", "alice@example.com", "password1",NULL,0,0,NULL,NULL,NULL),
 ("Bob", "bob@example.com", "password2",NULL,0,0,NULL,NULL,NULL),
