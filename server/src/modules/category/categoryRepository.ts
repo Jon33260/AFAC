@@ -8,15 +8,6 @@ type Category = {
 };
 
 class CategoryRepository {
-  async create(category: Omit<Category, "id">) {
-    const [result] = await databaseClient.query<Result>(
-      "insert into category (name) values (?)",
-      [category.name],
-    );
-
-    return result.insertId;
-  }
-
   async readAll() {
     const [rows] = await databaseClient.query<Rows>("select * from category");
 
