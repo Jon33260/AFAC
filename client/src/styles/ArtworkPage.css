@@ -1,0 +1,73 @@
+.artwork-page {
+  padding: 1rem;
+  margin: 0 auto;
+}
+
+.artwork-image {
+  width: 100%;
+}
+
+.artwork-image-link {
+  color: var(--text-gray-color);
+  text-decoration: none;
+}
+
+.artwork-image-link:hover {
+  color: var(--text-black-color);
+}
+
+.artwork-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.artwork-details div {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.artwork-details h1 {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+.separator {
+  margin: 2rem 0;
+  border: none;
+  border-top: 1px solid var(--text-gray-color);
+}
+
+.category {
+  color: var(--text-gray-color);
+  font-size: 0.9rem;
+}
+
+.description {
+  margin: 1rem 0;
+  color: var(--text-black-color);
+}
+
+.artist {
+  font-style: italic;
+  color: var(--text-gray-color);
+}
+
+/* Desktop styles */
+@media screen and (min-width: 768px) {
+  .artwork-page {
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .artwork-details h1 {
+    font-size: 3rem;
+  }
+}

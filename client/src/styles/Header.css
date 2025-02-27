@@ -1,0 +1,139 @@
+.barre {
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.barre-filtre {
+  flex-direction: column;
+}
+
+.barre input {
+  width: 70%;
+  font-size: 1rem;
+  border-radius: 2rem;
+  padding: 0.3rem;
+  border: 1px solid #ccc;
+}
+
+.filtre {
+  display: flex;
+  padding: 2rem;
+}
+
+.filtre select {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+}
+
+.creation-bouton {
+  display: flex;
+  margin: 2rem;
+}
+
+.categories {
+  width: 100%;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding: 0;
+  margin-top: -30px;
+  margin-bottom: 0;
+}
+
+.blochorizontal {
+  display: flex;
+  gap: 40px;
+  padding: 10px;
+}
+
+h1 {
+  display: flex;
+  align-items: center;
+  color: rgb(105, 103, 103);
+  font-size: 16px;
+}
+
+button {
+  background: none;
+  border: none;
+  color: rgba(136, 136, 136, 1);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 10px 20px;
+  text-align: center;
+  border-radius: 8px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+  background-color: transparent;
+}
+
+button.selected {
+  color: black !important;
+}
+
+.slide.one,
+.slide.two,
+.slide.three,
+.slide.four,
+.slide.five,
+.slide.six {
+  color: rgba(136, 136, 136, 1);
+}
+
+@media (min-width: 768px) {
+  .barre-filtre {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .barre {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px auto 0;
+    width: 100%;
+    max-width: 600px;
+    height: 80px;
+    padding: 6px 10px;
+  }
+
+  .barre input {
+    width: 100%;
+    max-width: 600px;
+    font-size: 1.2rem;
+    border-radius: 25px;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+  }
+  .filtre select {
+    padding: 10px 20px;
+    font-size: 1.1rem;
+  }
+
+  h1 {
+    display: flex;
+    font-size: 1.1rem;
+    align-items: center;
+    color: rgb(51, 49, 49);
+  }
+
+  .blochorizontal {
+    justify-content: center;
+    margin-top: 2rem;
+    gap: 50px;
+  }
+
+  button {
+    font-size: 18px;
+    padding: 12px 24px;
+  }
+}

@@ -13,9 +13,19 @@ const getAllArtwork = async () => {
   }
 };
 
+const getArtworkById = async (id: number) => {
+  try {
+    const response = await axios.get(`${baseUrl}/api/artworks/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to fetch artwork");
+  }
+};
+
 const getUserById = async (id: number) => {
   try {
-    const response = await axios.get(`${baseUrl}/api/user/${id}`);
+    const response = await axios.get(`${baseUrl}/api/users/${id}`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -25,7 +35,7 @@ const getUserById = async (id: number) => {
 
 const postCreateUser = async (userData: UserTypes) => {
   try {
-    const response = await axios.post(`${baseUrl}/api/user`, userData);
+    const response = await axios.post(`${baseUrl}/api/users`, userData);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -61,4 +71,5 @@ export {
   getUserById,
   getCurrentEvents,
   getUpcomingEvents,
+  getArtworkById,
 };
