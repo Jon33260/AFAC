@@ -13,33 +13,41 @@ export default function Navbar() {
       </NavLink>
 
       <ul className="link-nav">
-        <NavLink
-          to="#"
-          className={`nav-item ${activeLink && activeLink !== "/" ? "inactive" : ""}`}
-          onClick={() => setActiveLink("/")}
-        >
-          <li>■ Accueil</li>
-        </NavLink>
+        <li>
+          <NavLink
+            to="#"
+            className={`nav-item ${activeLink && activeLink !== "/" ? "inactive" : ""}`}
+            onClick={() => setActiveLink("/")}
+          >
+            ■ Accueil
+          </NavLink>
+        </li>
 
-        <NavLink
-          to="#"
-          className={`nav-item ${activeLink && activeLink !== "/evenements" ? "inactive" : ""}`}
-          onClick={() => setActiveLink("/evenements")}
-        >
-          <li>■ Évènements</li>
-        </NavLink>
+        <li>
+          <NavLink
+            to="#"
+            className={`nav-item ${activeLink && activeLink !== "/events" ? "inactive" : ""}`}
+            onClick={() => setActiveLink("/events")}
+          >
+            ■ Évènements
+          </NavLink>
+        </li>
 
-        <NavLink
-          to="#"
-          className={`nav-item ${activeLink && activeLink !== "/a-propos" ? "inactive" : ""}`}
-          onClick={() => setActiveLink("/a-propos")}
-        >
-          <li>■ À propos</li>
-        </NavLink>
+        <li>
+          <NavLink
+            to="#"
+            className={`nav-item ${activeLink && activeLink !== "/a-propos" ? "inactive" : ""}`}
+            onClick={() => setActiveLink("/a-propos")}
+          >
+            ■ À propos
+          </NavLink>
+        </li>
 
-        <NavLink to="#" className="btn-connexion">
-          <li>Connexion</li>
-        </NavLink>
+        <li>
+          <NavLink to="#" className="btn-connexion">
+            Connexion
+          </NavLink>
+        </li>
       </ul>
     </nav>
   );
