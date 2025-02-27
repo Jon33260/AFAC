@@ -24,13 +24,7 @@ export default function ArtworkPage() {
         <div>
           <p className="artist">Par {artwork.user_name}</p>
         </div>
-        <hr
-          style={{
-            margin: "2rem 0",
-            border: "none",
-            borderTop: "1px solid var(--text-gray-color)",
-          }}
-        />
+        <hr className="separator" />
       </section>
     </article>
   );
