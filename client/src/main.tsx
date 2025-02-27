@@ -8,16 +8,19 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 // Import the main app component
 import App from "./App";
 
-// Import additional components for new routes
-// Try creating these components in the "pages" folder
-
-// import About from "./pages/About";
-// import Contact from "./pages/Contact";
+// Import pages
+import ArtworkPage from "./pages/ArtworkPage";
 import ErrorPage from "./pages/ErrorPage";
 import Home from "./pages/Home";
+import Profile from "./pages/Profile";
+import Signup from "./pages/Signup";
 
 /* ************************************************************************* */
-import { getAllArtwork } from "./services/requests";
+import {
+  getAllArtwork,
+  getArtworkById,
+  getUserById,
+} from "./services/requests";
 
 // Create router configuration with routes
 // You can add more routes as you build out your app!
@@ -32,8 +35,25 @@ const router = createBrowserRouter([
         loader: () => getAllArtwork(),
         errorElement: <ErrorPage />,
       },
+      {
+        path: "/profile/:id",
+        element: <Profile />,
+        loader: ({ params }) => getUserById(Number(params.id)),
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/auth",
+        element: <Signup />,
+      },
+      {
+        path: "/artwork/:id",
+        element: <ArtworkPage />,
+        loader: ({ params }) => getArtworkById(Number(params.id)),
+        errorElement: <ErrorPage />,
+      },
     ],
   },
+
   // Try adding a new route! For example, "/about" with an About component
 ]);
 

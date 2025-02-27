@@ -4,16 +4,25 @@ CREATE TABLE user (
   email VARCHAR(255) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
   profile_picture VARCHAR(255) DEFAULT NULL,
-  bio TEXT DEFAULT NULL
+  following INT DEFAULT 0,
+  followers INT DEFAULT 0, 
+  bio TEXT DEFAULT NULL,
+  portfolio VARCHAR(255) DEFAULT NULL,
+  website VARCHAR(255) DEFAULT NULL
 );
 
-INSERT INTO user(username, email, password) VALUES
-("Admin", "test@test.fr", "123456"),
-("Alice", "alice@example.com", "password1"),
-("Bob", "bob@example.com", "password2"),
-("Charlie", "charlie@example.com", "password3"),
-("David", "david@example.com", "password4"),
-("Emma", "emma@example.com", "password5");
+INSERT INTO user(username, email, password, profile_picture, following, followers, bio, portfolio, website) VALUES
+("Admin", "test@test.fr", "123456", "", 150, 230, "Développeur passionné par le web et les nouvelles technologies.", "https://johndoe.dev", "https://instagram.com/johndoe");
+
+
+INSERT INTO user(username, email, password, profile_picture, following, followers, bio, portfolio, website) VALUES
+("Clément PICASSO", "test2@test.fr", "123456", "", 150, 230, "I am a digital artist and photographer capturing the beauty of Earth's diverse landscapes. Through photography and digital art, I blend reality and imagination to create immersive scenes that highlight nature’s depth, light, and atmosphere, inviting viewers to explore the world through a new lens.", "https://johndoe.dev", "https://instagram.com/johndoe"),
+("Admin", "admin@test.fr", "123456",NULL,0,0,NULL,NULL,NULL),
+("Alice", "alice@example.com", "password1",NULL,0,0,NULL,NULL,NULL),
+("Bob", "bob@example.com", "password2",NULL,0,0,NULL,NULL,NULL),
+("Charlie", "charlie@example.com", "password3",NULL,0,0,NULL,NULL,NULL),
+("David", "david@example.com", "password4",NULL,0,0,NULL,NULL,NULL),
+("Emma", "emma@example.com", "password5",NULL,0,0,NULL,NULL,NULL);
 
 CREATE TABLE category (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -39,6 +48,7 @@ CREATE TABLE artwork (
   FOREIGN KEY(category_id) REFERENCES category(id)
 );
 
+
 INSERT INTO artwork(title, description, picture, category_id, user_id) VALUES
 ("Masque de Carnval", "Un magnifique masque de carnaval sur fond jaune", "https://img.freepik.com/photos-gratuite/masque-elegant-perles-carnaval-mystere-plat_23-2148756051.jpg?t=st=1739958827~exp=1739962427~hmac=c407cabd4d0cc3dfa973f29cfdfb5a03180840dc1a8a0afcc30ab42d812316f0&w=1380", 5, 2),
 ("Server", "Data center", "https://img.freepik.com/photos-gratuite/salle-hub-racks-serveurs-donnees-centre-informatique-big-data-interieur-bleu-pour-hebergement-materiel-stockage_90220-1033.jpg?t=st=1739958956~exp=1739962556~hmac=9898e2dd0229fdacffa7478b45fa8aa573156cefb3fdceb6ddc87a5ded8a7117&w=740", 4, 3),
@@ -52,4 +62,41 @@ INSERT INTO artwork(title, description, picture, category_id, user_id) VALUES
 ("Server", "Data center", "https://img.freepik.com/photos-gratuite/salle-hub-racks-serveurs-donnees-centre-informatique-big-data-interieur-bleu-pour-hebergement-materiel-stockage_90220-1033.jpg?t=st=1739958956~exp=1739962556~hmac=9898e2dd0229fdacffa7478b45fa8aa573156cefb3fdceb6ddc87a5ded8a7117&w=740", 4, 3),
 ("Jolie madame", "Photo de jolie madame", "https://img.freepik.com/photos-premium/paysage-panoramique-au-lever-du-soleil_335224-1307.jpg?w=1380", 1, 6);
 
+
+CREATE TABLE event (
+  id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  description TEXT,
+  start_date DATE NOT NULL,
+  end_date DATE NOT NULL,
+  location VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE event_artwork (
+  id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  event_id INT NOT NULL,
+  artwork_id INT NOT NULL,
+  FOREIGN KEY (event_id) REFERENCES event(id) ON DELETE CASCADE,
+  FOREIGN KEY (artwork_id) REFERENCES artwork(id) ON DELETE CASCADE
+);
+
+INSERT INTO event(title, description, start_date, end_date, location) VALUES
+("Exposition d'art 1", "Exposition d'art moderne", "2024-03-15", "2024-03-20", "Paris"),
+("Exposition d'art 2", "Exposition d'art ancien", "2024-04-01", "2024-04-05", "En Ligne"),
+("Exposition d'art 3", "Exposition d'art contemporain", "2024-04-15", "2024-04-20", "Reims"),
+("Exposition d'art 4", "Exposition d'art street art", "2024-05-01", "2024-05-05", "Marseille"),
+("Exposition d'art 5", "Exposition d'art web", "2024-05-15", "2024-05-20", "En Ligne");
+
+INSERT INTO event_artwork(event_id, artwork_id) VALUES
+(1, 1),
+(1, 2),
+(2, 3),
+(2, 4),
+(3, 5),
+(3, 6),
+(4, 7),
+(4, 8),
+(5, 9),
+(5, 10);
 

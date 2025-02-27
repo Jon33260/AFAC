@@ -34,8 +34,10 @@ const edit: RequestHandler = async (req, res, next) => {
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
-      profile_picture: req.body.profile_picture,
-      bio: req.body.bio,
+      profile_picture: req.body.profile_picture || null,
+      bio: req.body.bio || null,
+      portfolio: req.body.portfolio || null,
+      website: req.body.website || null,
     };
 
     const affectedRows = await userRepository.update(user);
