@@ -31,6 +31,10 @@ router.put("/api/artwork/:id", artworkActions.edit);
 router.post("/api/artwork", artworkActions.add);
 router.delete("/api/artwork/:id", artworkActions.destroy);
 
+import categoryActions from "./modules/category/categoryActions";
+
+router.get("/api/category", categoryActions.browse);
+
 /* ************************************************************************* */
 
 export default router;
