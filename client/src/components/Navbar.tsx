@@ -36,8 +36,8 @@ export default function Navbar() {
         <li>
           <NavLink
             to="#"
-            className={`nav-item ${activeLink && activeLink !== "/a-propos" ? "inactive" : ""}`}
-            onClick={() => setActiveLink("/a-propos")}
+            className={`nav-item ${activeLink && activeLink !== "/about" ? "inactive" : ""}`}
+            onClick={() => setActiveLink("/about")}
           >
             ■ À propos
           </NavLink>
