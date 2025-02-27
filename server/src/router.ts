@@ -41,6 +41,10 @@ import eventArtworkActions from "./modules/event_artwork/event_artworkActions";
 router.post("/api/event_artworks", eventArtworkActions.add);
 router.delete("/api/event_artworks/:id", eventArtworkActions.destroy);
 
+import categoryActions from "./modules/category/categoryActions";
+
+router.get("/api/category", categoryActions.browse);
+
 /* ************************************************************************* */
 
 export default router;
