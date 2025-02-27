@@ -43,6 +43,8 @@ interface Event {
   start_date: string;
   end_date: string;
   location: string | null;
+  picture: string;
+  artists: string | null;
 }
 
 type Events = Event[];

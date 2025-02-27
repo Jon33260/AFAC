@@ -85,10 +85,16 @@ class EventRepository {
       e.description as event_description,
       e.start_date,
       e.end_date,
-      e.location
+      e.location,
+      e.picture as picture,
+      GROUP_CONCAT(u.username) as artists
     FROM Event e
+    LEFT JOIN event_artwork ea ON e.id = ea.event_id
+    LEFT JOIN artwork a ON ea.artwork_id = a.id
+    LEFT JOIN user u ON a.user_id = u.id
     WHERE e.start_date <= CURDATE() 
       AND e.end_date >= CURDATE()
+    GROUP BY e.id, e.title, e.description, e.start_date, e.end_date, e.location, e.picture
     ORDER BY e.start_date ASC`,
     );
 
@@ -103,9 +109,15 @@ class EventRepository {
       e.description as event_description,
       e.start_date,
       e.end_date,
-      e.location
+      e.location,
+      e.picture as picture,
+      GROUP_CONCAT(u.username) as artists
     FROM Event e
+    LEFT JOIN event_artwork ea ON e.id = ea.event_id
+    LEFT JOIN artwork a ON ea.artwork_id = a.id
+    LEFT JOIN user u ON a.user_id = u.id
     WHERE e.start_date > CURDATE()
+    GROUP BY e.id, e.title, e.description, e.start_date, e.end_date, e.location, e.picture
     ORDER BY e.start_date ASC`,
     );
 

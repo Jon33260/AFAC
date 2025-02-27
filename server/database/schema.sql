@@ -20,7 +20,8 @@ INSERT INTO user(username, email, password) VALUES
 ("Bob", "bob@example.com", "password2"),
 ("Charlie", "charlie@example.com", "password3"),
 ("David", "david@example.com", "password4"),
-("Emma", "emma@example.com", "password5");
+("Clément", "clément@example.com", "password5"),
+("Emma", "emma@example.com", "password6");
 
 CREATE TABLE artwork (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -44,12 +45,14 @@ INSERT INTO artwork(title, description, picture, category, user_id) VALUES
 ("Photo madame", "Photo", "https://img.freepik.com/photos-gratuite/portrait-personne-assistant-soiree-musique-techno-dynamique_23-2150551577.jpg?t=st=1739959194~exp=1739962794~hmac=d503fde15dc3a3574e390ea38cd78836e14db1485751c3a61fa27d20240fbd43&w=1380", "Photographie", 6),
 ("Server", "Data center", "https://img.freepik.com/photos-gratuite/salle-hub-racks-serveurs-donnees-centre-informatique-big-data-interieur-bleu-pour-hebergement-materiel-stockage_90220-1033.jpg?t=st=1739958956~exp=1739962556~hmac=9898e2dd0229fdacffa7478b45fa8aa573156cefb3fdceb6ddc87a5ded8a7117&w=740", "Sculpture", 3),
 ("Coloré", "Abstrait", "https://img.freepik.com/photos-gratuite/illustration-fond-motif-tropical-colore_53876-104122.jpg?t=st=1740576862~exp=1740580462~hmac=de1859c188739b63e133ae35c19d49abd249ed7db1a087602e2774ebd570e0fd&w=1060", "Peinture",5),
+("Test", "Data center", "https://img.freepik.com/photos-gratuite/salle-hub-racks-serveurs-donnees-centre-informatique-big-data-interieur-bleu-pour-hebergement-materiel-stockage_90220-1033.jpg?t=st=1739958956~exp=1739962556~hmac=9898e2dd0229fdacffa7478b45fa8aa573156cefb3fdceb6ddc87a5ded8a7117&w=740", "Sculpture", 5),
 ("Photo madame", "Photo", "https://img.freepik.com/photos-premium/paysage-panoramique-au-lever-du-soleil_335224-1307.jpg?w=1380", "Photographie", 6);
 
 CREATE TABLE event (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   title VARCHAR(255) NOT NULL,
   description TEXT,
+  picture text NOT NULL,
   start_date DATE NOT NULL,
   end_date DATE NOT NULL,
   location VARCHAR(255),
@@ -64,13 +67,13 @@ CREATE TABLE event_artwork (
   FOREIGN KEY (artwork_id) REFERENCES artwork(id) ON DELETE CASCADE
 );
 
-INSERT INTO event(title, description, start_date, end_date, location) VALUES
-("Exposition d'art 1", "Exposition d'art moderne", "2025-03-15", "2025-03-20", "Paris"),
-("Exposition d'art 2", "Exposition d'art ancien", "2025-04-01", "2025-04-05", "En Ligne"),
-("Exposition d'art 3", "Exposition d'art contemporain", "2025-04-15", "2025-04-20", "Reims"),
-("Exposition d'art 4", "Exposition d'art street art", "2025-05-01", "2025-05-05", "Marseille"),
-("Exposition d'art 5", "Exposition d'art web", "2025-05-15", "2025-05-20", "En Ligne"),
-("Exposition d'art 6", "Exposition d'art abstrait", "2025-02-25", "2025-03-01", "Lille");
+INSERT INTO event(title, description, picture, start_date, end_date, location) VALUES
+("Exposition d'art 1", "Exposition d'art moderne", "https://images.pexels.com/photos/1585325/pexels-photo-1585325.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "2025-03-15", "2025-03-20", "Paris"),
+("Exposition d'art 2", "Exposition d'art ancien","https://images.pexels.com/photos/631339/pexels-photo-631339.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "2025-04-01", "2025-04-05", "En Ligne"),
+("Exposition d'art 3", "Exposition d'art contemporain","https://images.pexels.com/photos/2215609/pexels-photo-2215609.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "2025-04-15", "2025-04-20", "Reims"),
+("Exposition d'art 4", "Exposition d'art street art","https://images.pexels.com/photos/1194420/pexels-photo-1194420.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "2025-05-01", "2025-05-05", "Marseille"),
+("Exposition d'art 5", "Exposition d'art web","https://images.pexels.com/photos/3094799/pexels-photo-3094799.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "2025-05-15", "2025-05-20", "En Ligne"),
+("Exposition d'art 6", "Exposition d'art abstrait", "https://images.pexels.com/photos/1193743/pexels-photo-1193743.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "2025-02-27", "2025-03-02", "Lille");
 
 
 INSERT INTO event_artwork(event_id, artwork_id) VALUES
@@ -83,4 +86,4 @@ INSERT INTO event_artwork(event_id, artwork_id) VALUES
 (4, 7),
 (4, 8),
 (5, 9),
-(6, 10);
+(6, 12);
