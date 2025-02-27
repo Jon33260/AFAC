@@ -29,7 +29,7 @@ class ArtworkRepository {
 
   async read(id: number) {
     const [rows] = await databaseClient.query<Rows>(
-      "select * from artwork where id = ?",
+      "select artwork.*, user.username as user_name from artwork JOIN user ON artwork.user_id = user.id where artwork.id = ?",
       [id],
     );
 
@@ -37,7 +37,9 @@ class ArtworkRepository {
   }
 
   async readAll() {
-    const [rows] = await databaseClient.query<Rows>("select * from artwork");
+    const [rows] = await databaseClient.query<Rows>(
+      "select artwork.*, user.username as user_name from artwork JOIN user ON artwork.user_id = user.id",
+    );
 
     return rows as Artwork[];
   }
