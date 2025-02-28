@@ -19,8 +19,8 @@ import Signup from "./pages/Signup";
 import {
   getAllArtwork,
   getArtworkById,
-  getUserById,
   getCategory,
+  getUserById,
 } from "./services/requests";
 
 // Create router configuration with routes

@@ -22,7 +22,7 @@ export default function ArtworkPage() {
         <p className="description">{artwork.description}</p>
 
         <div>
-          <p className="artist">Par {artwork.user_name}</p>
+          <p className="artist">Par {artwork.username}</p>
         </div>
         <hr className="separator" />
       </section>
