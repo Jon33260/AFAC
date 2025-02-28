@@ -5,7 +5,7 @@ interface Artwork {
   picture: string;
   category: string;
   user_id: number;
-  user_name: string;
+  username: string;
 }
 
 interface Artworks {
@@ -35,4 +35,19 @@ interface UserTypes {
 interface propsFormTypes {
   user: UserTypes;
   handleChangeForm: React.ChangeEventHandler<HTMLInputElement>;
+}
+
+interface Category {
+  name: string;
+}
+
+interface LoaderDataHome {
+  artworks: Artwork[];
+  category: Category[];
+}
+
+interface HeaderProps {
+  setFilteredImages: (artworks: Artwork[]) => void;
+  artworks: Artwork[];
+  category: Category[];
 }

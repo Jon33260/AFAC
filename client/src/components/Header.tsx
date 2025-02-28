@@ -1,95 +1,70 @@
-import axios from "axios";
 import "../styles/Header.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-interface Image {
-  id: number;
-  picture: string;
-  title: string;
-  description: string;
-  username: string;
-  category: string;
-}
+export default function Header({
+  setFilteredImages,
+  artworks,
+  category,
+}: HeaderProps) {
+  const [selectedCategory, setSelectedCategory] = useState("");
 
-export default function Header() {
-  const [selectedCategory, setSelectedCategory] = useState("" as string);
-  const [images, setImages] = useState<Image[]>([]);
+  const handleClick = (categoryName: string) => {
+    setSelectedCategory(categoryName);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:3310/api/artworks")
-      .then((response) => setImages(response.data))
-      .catch((error) =>
-        console.error("Erreur lors de la récupération des données :", error),
-      );
-  }, []);
+    const filteredArtworks = artworks.filter(
+      (artwork) => artwork.category === categoryName,
+    );
 
-  const filteredImages = selectedCategory
-    ? images.filter((image) => image.category === selectedCategory)
-    : [];
+    setFilteredImages(filteredArtworks);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const searchTerm = e.currentTarget.value.toLowerCase();
+
+    const filteredArtworks = artworks.filter(
+      (artwork) =>
+        artwork.title.toLowerCase().includes(searchTerm) ||
+        artwork.username.toLowerCase().includes(searchTerm),
+    );
+
+    setFilteredImages(filteredArtworks);
+  };
 
   return (
-    <>
-      <section className="container">
-        <div className="barre-filtre">
-          <div className="barre">
-            <input type="text" placeholder="Recherche" />
-          </div>
-          <div className="filtre-bouton">
-            <div className="filtre">
-              <select className="filtre">
-                <option value="">Filtre</option>
-                <option value="Populaire">Populaire</option>
-                <option value="Date">Date</option>
-              </select>
-            </div>
+    <section className="container">
+      <div className="barre-filtre">
+        <div className="barre">
+          <input
+            type="text"
+            placeholder="Recherche"
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
+        <div className="filtre-bouton">
+          <div className="filtre">
+            <select className="filtre">
+              <option value="">Filtre</option>
+              <option value="Populaire">Populaire</option>
+              <option value="Date">Date</option>
+            </select>
           </div>
         </div>
+      </div>
 
-        <div className="categories">
-          <div className="blochorizontal">
-            {[
-              "Peintures",
-              "Musique",
-              "Photos",
-              "Danse",
-              "Street art",
-              "Sculpture",
-            ].map((category) => (
-              <button
-                key={category}
-                className={`slide ${selectedCategory === category ? "selected" : ""}`}
-                type="button"
-                onClick={() => setSelectedCategory(category)}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
+      <div className="categories">
+        <div className="blochorizontal">
+          {category.map((categorie) => (
+            <button
+              key={categorie.name}
+              className={`slide ${selectedCategory === categorie.name ? "selected" : ""}`}
+              type="button"
+              onClick={() => handleClick(categorie.name)}
+            >
+              {categorie.name}
+            </button>
+          ))}
         </div>
-        {selectedCategory && (
-          <div className="image-gallery">
-            {filteredImages.length > 0 ? (
-              filteredImages.map((image) => (
-                <div key={image.id} className="gallery-item">
-                  <img
-                    src={image.picture}
-                    alt={image.title}
-                    className="gallery-image"
-                  />
-                </div>
-              ))
-            ) : (
-              <p>Aucune image trouvée pour cette catégorie.</p>
-            )}
-          </div>
-        )}
-
-        {/* Affichage d'un message si aucune catégorie n'est sélectionnée */}
-        {!selectedCategory && (
-          <p>Veuillez sélectionner une catégorie pour afficher les images.</p>
-        )}
-      </section>
-    </>
+      </div>
+    </section>
   );
 }

@@ -33,6 +33,16 @@ const getUserById = async (id: number) => {
   }
 };
 
+const getCategory = async () => {
+  try {
+    const response = await axios.get(`${baseUrl}/api/category`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to fetch category");
+  }
+};
+
 const postCreateUser = async (userData: UserTypes) => {
   try {
     const response = await axios.post(`${baseUrl}/api/users`, userData);
@@ -43,4 +53,10 @@ const postCreateUser = async (userData: UserTypes) => {
   }
 };
 
-export { getAllArtwork, getArtworkById, postCreateUser, getUserById };
+export {
+  getAllArtwork,
+  getArtworkById,
+  postCreateUser,
+  getUserById,
+  getCategory,
+};

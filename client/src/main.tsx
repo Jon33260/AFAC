@@ -20,6 +20,7 @@ import {
   getAllArtwork,
   getArtworkById,
   getUserById,
+  getCategory,
 } from "./services/requests";
 
 // Create router configuration with routes
@@ -32,7 +33,13 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader: () => getAllArtwork(),
+        loader: async () => {
+          const [artworks, category] = await Promise.all([
+            getAllArtwork(),
+            getCategory(),
+          ]);
+          return { artworks, category };
+        },
         errorElement: <ErrorPage />,
       },
       {
