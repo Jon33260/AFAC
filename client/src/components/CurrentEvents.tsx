@@ -4,9 +4,9 @@ interface CurrentEventsProps {
 export default function CurrentEvents({ currentEvents }: CurrentEventsProps) {
   return (
     <article>
-      <h2>Expositions en cours</h2>
       {currentEvents.length > 0 ? (
         <section className="events-container">
+          <h2>Expositions en cours</h2>
           <div className="scroll">
             <ul className="event-list">
               {currentEvents.map((currentEvents) => (
