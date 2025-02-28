@@ -36,3 +36,13 @@ interface propsFormTypes {
   user: UserTypes;
   handleChangeForm: React.ChangeEventHandler<HTMLInputElement>;
 }
+
+interface ProfilePictureProps {
+  artworks: Artwork[];
+  userData: UserData;
+}
+
+interface LoaderData {
+  userById: UserData;
+  artworks: Artwork[];
+}

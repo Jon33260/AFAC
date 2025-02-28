@@ -38,7 +38,13 @@ const router = createBrowserRouter([
       {
         path: "/profile/:id",
         element: <Profile />,
-        loader: ({ params }) => getUserById(Number(params.id)),
+        loader: async ({ params }) => {
+          const [userById, artworks] = await Promise.all([
+            getUserById(Number(params.id)),
+            getAllArtwork(),
+          ]);
+          return { userById, artworks };
+        },
         errorElement: <ErrorPage />,
       },
       {
