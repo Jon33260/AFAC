@@ -31,7 +31,7 @@ export default function Profile() {
 
   return (
     <div className="profile">
-      <>
+      <article className="profile-header">
         <img
           src={
             userData.profile_picture ||
@@ -39,65 +39,66 @@ export default function Profile() {
           }
           alt="pdeprofil"
         />
-        <h1>{userData.username}</h1>
-        <div className="username-followers">
-          <p>{userData.following} suivi(e)s</p>
-          <p>{userData.followers} followers</p>
-        </div>
-        <blockquote>
-          Art is a journey without a destination, an invitation to dream beyond
-          the visible.
-        </blockquote>
-        <hr className="separation" />
-        <div className="biography">
-          <h3>BIOGRAPHIE</h3>
-          <div className={`bio ${bioExpanded ? "expanded" : "normal"}`}>
-            <p>{bioText}</p>
-            {bioExpanded && (
-              <div className="links">
-                <h3>LIENS</h3>
-                <ul className="list">
-                  <li className="svg-portfolio">
-                    <SvgIcons
-                      path={icon[0].portfolio.path}
-                      height={icon[0].portfolio.height}
-                      width={icon[0].portfolio.width}
-                    />
-                    <a
-                      href={userData.portfolio ?? undefined}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {" "}
-                      Portfolio
-                    </a>
-                  </li>
-                  <li className="svg-website">
-                    <SvgIcons
-                      path={icon[0].website.path}
-                      height={icon[0].website.height}
-                      width={icon[0].website.width}
-                    />
-                    <a
-                      href={userData.website ?? undefined}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {" "}
-                      Website
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            )}
+        <div className="profile-header-text">
+          <h1>{userData.username}</h1>
+          <div className="username-followers">
+            <p>{userData.following} suivi(e)s</p>
+            <p>{userData.followers} followers</p>
           </div>
+          <blockquote>
+            Art is a journey without a destination, an invitation to dream
+            beyond the visible.
+          </blockquote>
         </div>
-        <button type="button" className="read-more" onClick={toggleBio}>
-          <span className={`arrow ${bioExpanded ? "left" : "right"}`}>▼</span>
-          {bioExpanded ? "Read Less" : "Read More"}
-        </button>
-        <hr className="separation2" />
-      </>
+      </article>
+      <hr className="separation" />
+      <div className="biography">
+        <h3>BIOGRAPHIE</h3>
+        <div className={`bio ${bioExpanded ? "expanded" : "normal"}`}>
+          <p>{bioText}</p>
+          {bioExpanded && (
+            <div className="links">
+              <h3>LIENS</h3>
+              <ul className="list">
+                <li className="svg-portfolio">
+                  <SvgIcons
+                    path={icon[0].portfolio.path}
+                    height={icon[0].portfolio.height}
+                    width={icon[0].portfolio.width}
+                  />
+                  <a
+                    href={userData.portfolio ?? undefined}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {" "}
+                    Portfolio
+                  </a>
+                </li>
+                <li className="svg-website">
+                  <SvgIcons
+                    path={icon[0].website.path}
+                    height={icon[0].website.height}
+                    width={icon[0].website.width}
+                  />
+                  <a
+                    href={userData.website ?? undefined}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {" "}
+                    Website
+                  </a>
+                </li>
+              </ul>
+            </div>
+          )}
+        </div>
+      </div>
+      <button type="button" className="read-more" onClick={toggleBio}>
+        <span className={`arrow ${bioExpanded ? "left" : "right"}`}>▼</span>
+        {bioExpanded ? "Read Less" : "Read More"}
+      </button>
     </div>
   );
 }
