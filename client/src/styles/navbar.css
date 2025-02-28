@@ -9,6 +9,12 @@
   padding: 1rem;
   margin-top: 2rem;
   margin-bottom: 3rem;
+  position: relative;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
 }
 
 .logo img {
@@ -22,7 +28,7 @@
   gap: 1rem;
   list-style: none;
   font-size: 0.5rem;
-  align-items: baseline;
+  align-items: center;
 }
 
 .btn-connexion {
@@ -42,6 +48,119 @@
   color: gray;
 }
 
+.burger-nav {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.burger-nav span {
+  display: block;
+  width: 30px;
+  height: 3px;
+  background-color: black;
+  transition: 0.3s;
+}
+
+@media screen and (max-width: 620px) {
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .burger-nav {
+    display: flex;
+    order: -1;
+  }
+
+  .logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .btn-connexion {
+    margin-left: auto;
+  }
+
+  .link-nav {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    width: auto;
+    min-width: 150px;
+    padding: 0.5rem 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    z-index: 100;
+    align-items: flex-start;
+  }
+
+  .link-nav.show {
+    display: flex;
+  }
+
+  .link-nav li {
+    padding: 0.5rem;
+    text-align: left;
+    padding: 0.3rem 1rem;
+  }
+
+  .link-nav li a {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: black;
+    text-decoration: none;
+    padding: 0.5rem;
+  }
+}
+
+@media screen and (min-width: 620px) {
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .logo {
+    position: static;
+    transform: none;
+  }
+
+  .link-nav {
+    display: flex;
+    font-size: 1rem;
+    gap: 2rem;
+    flex-grow: 1;
+    justify-content: center;
+    position: static;
+    background: none;
+    box-shadow: none;
+    width: auto;
+  }
+
+  .btn-connexion {
+    margin-left: auto;
+  }
+
+  .burger-nav {
+    display: none;
+  }
+}
+
 @media screen and (min-width: 900px) {
   .logo img {
     object-fit: cover;
@@ -50,7 +169,7 @@
   }
 
   .link-nav {
-    font-size: 2rem;
+    font-size: 1.5rem;
     gap: 4rem;
   }
 }
