@@ -1,11 +1,12 @@
 .masonry-gallery {
   column-count: 2;
   margin: 2rem;
+  margin-top: 0;
   column-gap: 0.25rem;
   row-gap: 0.5rem;
 }
 
-.masonry-gallery > img {
+.masonry-gallery > .masonry-item > img {
   width: 100%;
 }
 
@@ -13,5 +14,6 @@
   .masonry-gallery {
     column-count: 4;
     margin: 4rem;
+    margin-top: 3rem;
   }
 }

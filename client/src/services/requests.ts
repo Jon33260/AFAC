@@ -13,6 +13,16 @@ const getAllArtwork = async () => {
   }
 };
 
+const getArtworkById = async (id: number) => {
+  try {
+    const response = await axios.get(`${baseUrl}/api/artworks/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to fetch artwork");
+  }
+};
+
 const getUserById = async (id: number) => {
   try {
     const response = await axios.get(`${baseUrl}/api/users/${id}`);
@@ -33,4 +43,33 @@ const postCreateUser = async (userData: UserTypes) => {
   }
 };
 
-export { getAllArtwork, postCreateUser, getUserById };
+const getCurrentEvents = async () => {
+  try {
+    const response = await axios.get(`${baseUrl}/api/events/current`);
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to fetch current events");
+  }
+};
+
+const getUpcomingEvents = async () => {
+  try {
+    const response = await axios.get(`${baseUrl}/api/events/upcoming`);
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to fetch upcoming events");
+  }
+};
+
+export {
+  getAllArtwork,
+  postCreateUser,
+  getUserById,
+  getCurrentEvents,
+  getUpcomingEvents,
+  getArtworkById,
+};

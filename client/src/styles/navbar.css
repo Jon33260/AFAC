@@ -1,41 +1,37 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
-
 .navbar {
-  font-family: "Poppins", sans-serif;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 2rem;
-  padding: 1rem;
-  margin-top: 2rem;
-  margin-bottom: 3rem;
-  position: relative;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
+  padding: 0 1rem;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 }
 
 .logo img {
   object-fit: cover;
-  max-width: 6rem;
-  margin-top: 1rem;
+  max-width: 4rem;
+  margin-top: 0.4rem;
+}
+
+.logo img {
+  object-fit: cover;
+  max-width: 4rem;
+  margin-top: 0.4rem;
 }
 
 .link-nav {
   display: flex;
   gap: 1rem;
   list-style: none;
-  font-size: 0.5rem;
-  align-items: center;
+  font-size: calc(0.4rem + 0.8vw);
+  align-items: baseline;
 }
 
 .btn-connexion {
   display: flex;
   color: white;
   background-color: black;
-  padding: 0.5rem 1rem;
+  padding: 0.3rem 0.6rem;
+  font-size: calc(0.6rem + 0.8vw);
   text-decoration: none;
 }
 
@@ -106,6 +102,8 @@
     border-radius: 5px;
     z-index: 100;
     align-items: flex-start;
+    gap: 0;
+    font-size: 1rem;
   }
 
   .link-nav.show {
@@ -127,49 +125,14 @@
   }
 }
 
-@media screen and (min-width: 620px) {
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-  }
-
-  .logo {
-    position: static;
-    transform: none;
-  }
-
-  .link-nav {
-    display: flex;
-    font-size: 1rem;
-    gap: 2rem;
-    flex-grow: 1;
-    justify-content: center;
-    position: static;
-    background: none;
-    box-shadow: none;
-    width: auto;
-  }
-
-  .btn-connexion {
-    margin-left: auto;
-  }
-
-  .burger-nav {
-    display: none;
-  }
-}
-
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 768px) {
   .logo img {
     object-fit: cover;
-    max-width: 10rem;
-    margin-top: 1rem;
+    max-width: 8rem;
   }
 
   .link-nav {
-    font-size: 1.5rem;
-    gap: 4rem;
+    font-size: calc(0.8rem + 0.vw);
+    gap: 2rem;
   }
 }

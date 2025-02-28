@@ -30,6 +30,8 @@ router.delete("/api/artworks/:id", artworkActions.destroy);
 import eventActions from "./modules/event/eventActions";
 
 router.get("/api/events", eventActions.browse);
+router.get("/api/events/current", eventActions.browseCurrent);
+router.get("/api/events/upcoming", eventActions.browseUpcoming);
 router.get("/api/events/:id", eventActions.read);
 router.put("/api/events/:id", eventActions.edit);
 router.post("/api/events", eventActions.add);
@@ -40,6 +42,10 @@ import eventArtworkActions from "./modules/event_artwork/event_artworkActions";
 
 router.post("/api/event_artworks", eventArtworkActions.add);
 router.delete("/api/event_artworks/:id", eventArtworkActions.destroy);
+
+import categoryActions from "./modules/category/categoryActions";
+
+router.get("/api/category", categoryActions.browse);
 
 /* ************************************************************************* */
 
