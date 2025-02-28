@@ -9,9 +9,9 @@ export default function UpcomingEvents({
 }: UpcomingEventsProps) {
   return (
     <article>
-      <h2>Expositions à venir</h2>
       {upcomingEvents.length > 0 ? (
         <section className="events-container">
+          <h2>Expositions à venir</h2>
           <div className="scroll">
             <ul className="event-list">
               {upcomingEvents.map((upcomingEvents) => (
