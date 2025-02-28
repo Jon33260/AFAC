@@ -33,22 +33,26 @@ export default function Profile() {
 
   return (
     <div className="profile">
-      <img
-        src={
-          userData.profile_picture ||
-          "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
-        }
-        alt="Profile"
-      />
-      <h1>{userData.username}</h1>
-      <div className="username-followers">
-        <p>{userData.following} suivi(e)s</p>
-        <p>{userData.followers} followers</p>
-      </div>
-      <blockquote>
-        Art is a journey without a destination, an invitation to dream beyond
-        the visible.
-      </blockquote>
+      <article className="profile-header">
+        <img
+          src={
+            userData.profile_picture ||
+            "https://www.vhv.rs/dpng/d/138-1383989_default-svg-icon-free-avatar-png-transparent-png.png"
+          }
+          alt="pdeprofil"
+        />
+        <div className="profile-header-text">
+          <h1>{userData.username}</h1>
+          <div className="username-followers">
+            <p>{userData.following} suivi(e)s</p>
+            <p>{userData.followers} followers</p>
+          </div>
+          <blockquote>
+            Art is a journey without a destination, an invitation to dream
+            beyond the visible.
+          </blockquote>
+        </div>
+      </article>
 
       <hr className="separation" />
 
@@ -89,14 +93,11 @@ export default function Profile() {
           )}
         </div>
       </div>
-
       <button type="button" className="read-more" onClick={toggleBio}>
         <span className={`arrow ${bioExpanded ? "left" : "right"}`}>▼</span>
         {bioExpanded ? "Read Less" : "Read More"}
       </button>
-
       <hr className="separation2" />
-
       <div className="order-choice">
         {tabs.map((tab) => (
           <button

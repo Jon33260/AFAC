@@ -1,0 +1,53 @@
+article > h2 {
+  font-weight: 400;
+}
+.events-container {
+  margin: 0 auto;
+  max-width: 85%;
+}
+
+.event-list {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  padding: 0;
+}
+
+.event-card {
+  background: #fff;
+  box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  text-align: center;
+  flex-shrink: 0;
+  padding-bottom: 7px;
+  margin-bottom: 1rem;
+}
+.event-card > h3 {
+  font-weight: 400;
+  margin-top: 7px;
+}
+.event-card > p {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--text-gray-color);
+  margin-bottom: 7px;
+}
+.event-card > a {
+  text-decoration: none;
+  color: var(--text-black-color);
+}
+.event-image {
+  max-width: 70%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.scroll {
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 14px;
+  scrollbar-width: thin;
+  scrollbar-color: grey;
+  scroll-behavior: smooth;
+}

@@ -2,50 +2,56 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: var(--font-text);
 }
 
-.profile > img {
-  max-width: 33%;
-  height: auto;
-  aspect-ratio: 127 / 191;
-  object-fit: cover;
-  display: block;
-  margin: 0 auto;
-  margin-bottom: 4vw;
-}
-
-h1 {
+.profile-header {
   display: flex;
-  justify-content: center;
-  max-width: 80%;
-  font-weight: bold;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+
+.profile-header > img {
+  object-fit: cover;
+  max-width: 10rem;
+}
+
+.profile-header-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-header-text > h1 {
+  font-family: var(--font-title);
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-top: 1rem;
 }
 
 .username-followers {
-  max-width: 75%;
+  max-width: 80%;
   display: flex;
-  flex-direction: row;
-  gap: 10vw;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .username-followers > p {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
   color: var(--text-gray-color);
+  font-size: 0.8rem;
 }
 
 blockquote {
   position: relative;
   font-style: italic;
-  width: 85%;
   text-align: center;
-  padding-top: 6vw;
-  padding-bottom: 2vw;
+  padding-top: 2rem;
+  width: 80%;
 }
 blockquote::before {
   content: "“";
-  font-size: 12vw;
+  font-size: 5rem;
   position: absolute;
   left: 0;
   transform: translateY(-40%) translateX(+0%);
@@ -54,7 +60,7 @@ blockquote::before {
 
 .separation {
   border: none;
-  height: 1.5px;
+  height: 1px;
   background-color: var(--text-gray-color);
   width: 85%;
   align-self: center;
@@ -99,14 +105,6 @@ blockquote::before {
   max-height: 10vw;
   -webkit-line-clamp: 2;
   line-clamp: 2;
-}
-
-.separation2 {
-  border: none;
-  height: 1.5px;
-  background-color: var(--text-gray-color);
-  width: 85%;
-  align-self: center;
 }
 
 .read-more {
@@ -183,4 +181,18 @@ blockquote::before {
 
 .profile-gallery > .profile-item > img {
   width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .profile-header {
+    flex-direction: row;
+  }
+
+  .profile-header-text > h1 {
+    font-size: 3rem;
+  }
+
+  .profile-header > img {
+    max-width: 15rem;
+  }
 }

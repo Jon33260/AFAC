@@ -32,7 +32,7 @@ export default function Signup() {
           <LoginForm user={user} handleChangeForm={handleChangeForm} />
         )}
         <button type="button" className="login-link" onClick={toggleForm}>
-          Déjà un compte ?
+          {isSignup ? "Déjà un compte ?" : "Pas encore de compte ?"}
         </button>
       </section>
       <section className="img-section">

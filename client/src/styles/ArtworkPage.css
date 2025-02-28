@@ -52,9 +52,17 @@
   color: var(--text-black-color);
 }
 
+a {
+  text-decoration: none;
+}
+
 .artist {
   font-style: italic;
   color: var(--text-gray-color);
+}
+
+.artist:hover {
+  color: var(--text-black-color);
 }
 
 /* Desktop styles */

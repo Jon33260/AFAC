@@ -11,6 +11,7 @@ import App from "./App";
 // Import pages
 import ArtworkPage from "./pages/ArtworkPage";
 import ErrorPage from "./pages/ErrorPage";
+import Events from "./pages/Events";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Signup from "./pages/Signup";
@@ -19,6 +20,8 @@ import Signup from "./pages/Signup";
 import {
   getAllArtwork,
   getArtworkById,
+  getCurrentEvents,
+  getUpcomingEvents,
   getUserById,
 } from "./services/requests";
 
@@ -44,6 +47,18 @@ const router = createBrowserRouter([
             getAllArtwork(),
           ]);
           return { userById, artworks };
+        },
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/events",
+        element: <Events />,
+        loader: async () => {
+          const [currentEvents, upcomingEvents] = await Promise.all([
+            getCurrentEvents(),
+            getUpcomingEvents(),
+          ]);
+          return { currentEvents, upcomingEvents };
         },
         errorElement: <ErrorPage />,
       },
