@@ -1,4 +1,3 @@
--- SQLBook: Code
 CREATE TABLE user (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   username VARCHAR(255) NOT NULL,
@@ -76,8 +75,6 @@ INSERT INTO artwork(title, description, picture, category_id, user_id) VALUES
 ("Forêt en automne", "Forêt avec feuillage automnal", "https://img.freepik.com/photos-gratuite/foret-avec-arbres-automne_181624-14110.jpg?size=626&ext=jpg", 5, 5);
 
 
-
-
 CREATE TABLE event (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   title VARCHAR(255) NOT NULL,
@@ -118,6 +115,3 @@ INSERT INTO event_artwork(event_id, artwork_id) VALUES
 (5, 9),
 (5, 10),
 (6, 11);
-
-
-

@@ -53,10 +53,34 @@ const postCreateUser = async (userData: UserTypes) => {
   }
 };
 
+const getCurrentEvents = async () => {
+  try {
+    const response = await axios.get(`${baseUrl}/api/events/current`);
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to fetch current events");
+  }
+};
+
+const getUpcomingEvents = async () => {
+  try {
+    const response = await axios.get(`${baseUrl}/api/events/upcoming`);
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to fetch upcoming events");
+  }
+};
+
 export {
   getAllArtwork,
-  getArtworkById,
+  getCategory,
   postCreateUser,
   getUserById,
-  getCategory,
+  getCurrentEvents,
+  getUpcomingEvents,
+  getArtworkById,
 };

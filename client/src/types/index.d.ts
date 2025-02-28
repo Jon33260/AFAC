@@ -51,3 +51,26 @@ interface HeaderProps {
   artworks: Artwork[];
   category: Category[];
 }
+
+interface Event {
+  event_id: number;
+  event_title: string;
+  event_description: string | null;
+  start_date: string;
+  end_date: string;
+  location: string | null;
+  picture: string;
+  artists: string | null;
+}
+
+type Events = Event[];
+
+interface EventArtwork {
+  id: number;
+  event_id: number;
+  artwork_id: number;
+}
+interface LoaderEvents {
+  currentEvents: Events;
+  upcomingEvents: Events;
+}

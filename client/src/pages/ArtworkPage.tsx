@@ -22,7 +22,9 @@ export default function ArtworkPage() {
         <p className="description">{artwork.description}</p>
 
         <div>
-          <p className="artist">Par {artwork.username}</p>
+          <Link to={`/profile/${artwork.user_id}`}>
+            <p className="artist">Par {artwork.username}</p>
+          </Link>
         </div>
         <hr className="separator" />
       </section>

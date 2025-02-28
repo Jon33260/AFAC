@@ -40,30 +40,27 @@ export default function Header({
             onChange={(e) => handleChange(e)}
           />
         </div>
-        <div className="filtre-bouton">
-          <div className="filtre">
-            <select className="filtre">
-              <option value="">Filtre</option>
-              <option value="Populaire">Populaire</option>
-              <option value="Date">Date</option>
-            </select>
-          </div>
+
+        <div className="filtre">
+          <select className="filtre">
+            <option value="">Filtre</option>
+            <option value="Populaire">Populaire</option>
+            <option value="Date">Date</option>
+          </select>
         </div>
       </div>
 
       <div className="categories">
-        <div className="blochorizontal">
-          {category.map((categorie) => (
-            <button
-              key={categorie.name}
-              className={`slide ${selectedCategory === categorie.name ? "selected" : ""}`}
-              type="button"
-              onClick={() => handleClick(categorie.name)}
-            >
-              {categorie.name}
-            </button>
-          ))}
-        </div>
+        {category.map((categorie) => (
+          <button
+            key={categorie.name}
+            className={`slide ${selectedCategory === categorie.name ? "selected" : ""}`}
+            type="button"
+            onClick={() => handleClick(categorie.name)}
+          >
+            {categorie.name}
+          </button>
+        ))}
       </div>
     </section>
   );
