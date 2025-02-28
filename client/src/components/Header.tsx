@@ -1,8 +1,32 @@
+import axios from "axios";
 import "../styles/Header.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+interface Image {
+  id: number;
+  picture: string;
+  title: string;
+  description: string;
+  username: string;
+  category: string;
+}
 
 export default function Header() {
   const [selectedCategory, setSelectedCategory] = useState("" as string);
+  const [images, setImages] = useState<Image[]>([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3310/api/artworks")
+      .then((response) => setImages(response.data))
+      .catch((error) =>
+        console.error("Erreur lors de la récupération des données :", error),
+      );
+  }, []);
+
+  const filteredImages = selectedCategory
+    ? images.filter((image) => image.category === selectedCategory)
+    : [];
 
   return (
     <>
@@ -24,50 +48,47 @@ export default function Header() {
 
         <div className="categories">
           <div className="blochorizontal">
-            <button
-              className={`slide one ${selectedCategory === "Peintures" ? "selected" : ""}`}
-              type="button"
-              onClick={() => setSelectedCategory("Peintures")}
-            >
-              Peintures
-            </button>
-            <button
-              className={`slide two ${selectedCategory === "Musique" ? "selected" : ""}`}
-              type="button"
-              onClick={() => setSelectedCategory("Musique")}
-            >
-              Musique
-            </button>
-            <button
-              className={`slide three ${selectedCategory === "Photos" ? "selected" : ""}`}
-              type="button"
-              onClick={() => setSelectedCategory("Photos")}
-            >
-              Photos
-            </button>
-            <button
-              className={`slide four ${selectedCategory === "Danse" ? "selected" : ""}`}
-              type="button"
-              onClick={() => setSelectedCategory("Danse")}
-            >
-              Danse
-            </button>
-            <button
-              className={`slide five ${selectedCategory === "Street art" ? "selected" : ""}`}
-              type="button"
-              onClick={() => setSelectedCategory("Street art")}
-            >
-              Street art
-            </button>
-            <button
-              className={`slide six ${selectedCategory === "Sculpture" ? "selected" : ""}`}
-              type="button"
-              onClick={() => setSelectedCategory("Sculpture")}
-            >
-              Sculpture
-            </button>
+            {[
+              "Peintures",
+              "Musique",
+              "Photos",
+              "Danse",
+              "Street art",
+              "Sculpture",
+            ].map((category) => (
+              <button
+                key={category}
+                className={`slide ${selectedCategory === category ? "selected" : ""}`}
+                type="button"
+                onClick={() => setSelectedCategory(category)}
+              >
+                {category}
+              </button>
+            ))}
           </div>
         </div>
+        {selectedCategory && (
+          <div className="image-gallery">
+            {filteredImages.length > 0 ? (
+              filteredImages.map((image) => (
+                <div key={image.id} className="gallery-item">
+                  <img
+                    src={image.picture}
+                    alt={image.title}
+                    className="gallery-image"
+                  />
+                </div>
+              ))
+            ) : (
+              <p>Aucune image trouvée pour cette catégorie.</p>
+            )}
+          </div>
+        )}
+
+        {/* Affichage d'un message si aucune catégorie n'est sélectionnée */}
+        {!selectedCategory && (
+          <p>Veuillez sélectionner une catégorie pour afficher les images.</p>
+        )}
       </section>
     </>
   );
