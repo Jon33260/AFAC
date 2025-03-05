@@ -65,6 +65,17 @@ const getUpcomingEvents = async () => {
   }
 };
 
+const getArtworkByUser = async (id: number) => {
+  try {
+    const response = await axios.get(`${baseUrl}/api/artworks/user/${id}`);
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to fetch data");
+  }
+};
+
 export {
   getAllArtwork,
   postCreateUser,
@@ -72,4 +83,5 @@ export {
   getCurrentEvents,
   getUpcomingEvents,
   getArtworkById,
+  getArtworkByUser,
 };

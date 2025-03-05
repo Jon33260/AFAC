@@ -37,6 +37,16 @@ interface propsFormTypes {
   handleChangeForm: React.ChangeEventHandler<HTMLInputElement>;
 }
 
+interface ProfilePictureProps {
+  artworks: Artwork[];
+  userData: UserData;
+}
+
+interface ProfileData {
+  user: UserData;
+  artworks: Artwork[];
+}
+
 interface Event {
   event_id: number;
   event_title: string;

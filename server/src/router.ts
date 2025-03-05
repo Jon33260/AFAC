@@ -29,6 +29,7 @@ router.get("/api/artworks/:id", artworkActions.read);
 router.put("/api/artworks/:id", artworkActions.edit);
 router.post("/api/artworks", artworkActions.add);
 router.delete("/api/artworks/:id", artworkActions.destroy);
+router.get("/api/artworks/user/:id", artworkActions.readByUserId);
 
 //Events routes
 import eventActions from "./modules/event/eventActions";
