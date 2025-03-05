@@ -2,8 +2,6 @@ import { Link } from "react-router-dom";
 import "../styles/profile.css";
 
 export default function ProfilePicture({ artworks }: ProfilePictureProps) {
-  console.info(artworks);
-
   if (!Array.isArray(artworks) || artworks.length === 0) {
     return <p>Aucune publication</p>;
   }

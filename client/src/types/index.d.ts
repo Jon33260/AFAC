@@ -42,7 +42,7 @@ interface ProfilePictureProps {
   userData: UserData;
 }
 
-interface LoaderData {
+interface ProfileData {
   user: UserData;
   artworks: Artwork[];
 }

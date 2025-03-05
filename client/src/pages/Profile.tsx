@@ -1,5 +1,6 @@
 import "../styles/profile.css";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
 import ProfilePicture from "../components/ProfilePicture";
 import SvgIcons from "../components/SvgIcons";
@@ -18,8 +19,7 @@ const icons = {
 };
 
 export default function Profile() {
-  const data = useLoaderData() as LoaderData;
-  console.info(data);
+  const data = useLoaderData() as ProfileData;
 
   const [bioExpanded, setBioExpanded] = useState(false);
   const [choiceSelected, setChoiceSelected] = useState("Récent");
@@ -68,25 +68,13 @@ export default function Profile() {
                 {data.user.portfolio && (
                   <li className="svg-portfolio">
                     <SvgIcons {...icons.portfolio} />
-                    <a
-                      href={data.user.portfolio}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Portfolio
-                    </a>
+                    <Link to={data.user.portfolio}>Portfolio</Link>
                   </li>
                 )}
                 {data.user.website && (
                   <li className="svg-website">
                     <SvgIcons {...icons.website} />
-                    <a
-                      href={data.user.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Website
-                    </a>
+                    <Link to={data.user.website}>Website</Link>
                   </li>
                 )}
               </ul>
