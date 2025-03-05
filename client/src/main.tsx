@@ -20,9 +20,9 @@ import Signup from "./pages/Signup";
 import {
   getAllArtwork,
   getArtworkById,
+  getArtworkByUser,
   getCurrentEvents,
   getUpcomingEvents,
-  getUserById,
 } from "./services/requests";
 
 // Create router configuration with routes
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
       {
         path: "/profile/:id",
         element: <Profile />,
-        loader: ({ params }) => getUserById(Number(params.id)),
+        loader: ({ params }) => getArtworkByUser(Number(params.id)),
         errorElement: <ErrorPage />,
       },
       {
