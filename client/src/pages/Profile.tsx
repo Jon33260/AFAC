@@ -18,7 +18,8 @@ const icons = {
 };
 
 export default function Profile() {
-  const { userById: userData, artworks } = useLoaderData() as LoaderData;
+  const data = useLoaderData() as LoaderData;
+  console.info(data);
 
   const [bioExpanded, setBioExpanded] = useState(false);
   const [choiceSelected, setChoiceSelected] = useState("Récent");
@@ -27,7 +28,7 @@ export default function Profile() {
     setBioExpanded((prevState) => !prevState);
   };
 
-  const bioText = userData.bio || "Aucune biographie";
+  const bioText = data.user.bio || "Aucune biographie";
 
   const tabs = ["Récent", "Populaire", "Exposé"];
 
@@ -36,16 +37,16 @@ export default function Profile() {
       <article className="profile-header">
         <img
           src={
-            userData.profile_picture ||
+            data.user.profile_picture ||
             "https://www.vhv.rs/dpng/d/138-1383989_default-svg-icon-free-avatar-png-transparent-png.png"
           }
           alt="pdeprofil"
         />
         <div className="profile-header-text">
-          <h1>{userData.username}</h1>
+          <h1>{data.user.username}</h1>
           <div className="username-followers">
-            <p>{userData.following} suivi(e)s</p>
-            <p>{userData.followers} followers</p>
+            <p>{data.user.following} suivi(e)s</p>
+            <p>{data.user.followers} followers</p>
           </div>
           <blockquote>
             Art is a journey without a destination, an invitation to dream
@@ -60,15 +61,15 @@ export default function Profile() {
         <h3>BIOGRAPHIE</h3>
         <div className={`bio ${bioExpanded ? "expanded" : "normal"}`}>
           <p>{bioText}</p>
-          {bioExpanded && (userData.portfolio || userData.website) && (
+          {bioExpanded && (data.user.portfolio || data.user.website) && (
             <div className="links">
               <h3>LIENS</h3>
               <ul className="list">
-                {userData.portfolio && (
+                {data.user.portfolio && (
                   <li className="svg-portfolio">
                     <SvgIcons {...icons.portfolio} />
                     <a
-                      href={userData.portfolio}
+                      href={data.user.portfolio}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -76,11 +77,11 @@ export default function Profile() {
                     </a>
                   </li>
                 )}
-                {userData.website && (
+                {data.user.website && (
                   <li className="svg-website">
                     <SvgIcons {...icons.website} />
                     <a
-                      href={userData.website}
+                      href={data.user.website}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -97,7 +98,7 @@ export default function Profile() {
         <span className={`arrow ${bioExpanded ? "left" : "right"}`}>▼</span>
         {bioExpanded ? "Read Less" : "Read More"}
       </button>
-      <hr className="separation2" />
+      <hr className="separation" />
       <div className="order-choice">
         {tabs.map((tab) => (
           <button
@@ -111,7 +112,7 @@ export default function Profile() {
         ))}
       </div>
 
-      <ProfilePicture artworks={artworks} userData={userData} />
+      <ProfilePicture artworks={data.artworks} userData={data.user} />
     </div>
   );
 }

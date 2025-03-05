@@ -1,5 +1,6 @@
 import type { RequestHandler } from "express";
 
+import userRepository from "../user/userRepository";
 import artworkRepository from "./artworkRepository";
 
 const browse: RequestHandler = async (req, res, next) => {
@@ -81,4 +82,15 @@ const destroy: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browse, read, edit, add, destroy };
+const readByUserId: RequestHandler = async (req, res, next) => {
+  try {
+    const id = Number(req.params.id);
+    const user = await userRepository.read(id);
+    const artworks = await artworkRepository.readByUserId(id);
+    res.json({ user: user, artworks: artworks });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export default { browse, read, edit, add, destroy, readByUserId };

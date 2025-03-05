@@ -43,7 +43,7 @@ interface ProfilePictureProps {
 }
 
 interface LoaderData {
-  userById: UserData;
+  user: UserData;
   artworks: Artwork[];
 }
 
