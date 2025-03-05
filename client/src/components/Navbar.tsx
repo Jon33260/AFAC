@@ -4,51 +4,45 @@ import "../styles/navbar.css";
 import Logo from "../assets/images/LogoAFAC.png";
 
 export default function Navbar() {
-  const [activeLink, setActiveLink] = useState<string | null>(null);
+  const [showLinks, setShowLinks] = useState(false);
 
   return (
     <nav className="navbar">
+      <button
+        type="button"
+        className="burger-nav"
+        onClick={() => setShowLinks(!showLinks)}
+      >
+        <span> </span>
+        <span> </span>
+        <span> </span>
+      </button>
+
       <NavLink to="/" className="logo">
         <img src={Logo} alt="AFAC Logo" />
       </NavLink>
 
-      <ul className="link-nav">
+      <ul className={`link-nav ${showLinks ? "show" : ""}`}>
         <li>
-          <NavLink
-            to="#"
-            className={`nav-item ${activeLink && activeLink !== "/" ? "inactive" : ""}`}
-            onClick={() => setActiveLink("/")}
-          >
+          <NavLink to="#" className="nav-item">
             ■ Accueil
           </NavLink>
         </li>
-
         <li>
-          <NavLink
-            to="#"
-            className={`nav-item ${activeLink && activeLink !== "/events" ? "inactive" : ""}`}
-            onClick={() => setActiveLink("/events")}
-          >
+          <NavLink to="#" className="nav-item">
             ■ Évènements
           </NavLink>
         </li>
-
         <li>
-          <NavLink
-            to="#"
-            className={`nav-item ${activeLink && activeLink !== "/about" ? "inactive" : ""}`}
-            onClick={() => setActiveLink("/about")}
-          >
+          <NavLink to="#" className="nav-item">
             ■ À propos
           </NavLink>
         </li>
-
-        <li>
-          <NavLink to="#" className="btn-connexion">
-            Connexion
-          </NavLink>
-        </li>
       </ul>
+
+      <NavLink to="#" className="btn-connexion">
+        Connexion
+      </NavLink>
     </nav>
   );
 }

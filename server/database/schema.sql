@@ -106,4 +106,3 @@ INSERT INTO event_artwork(event_id, artwork_id) VALUES
 (5, 10),
 (6, 11);
 
-

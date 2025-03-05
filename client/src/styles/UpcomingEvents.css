@@ -1,43 +1,44 @@
-article > h2 {
-  font-weight: 400;
-}
 .events-container {
   margin: 0 auto;
-  max-width: 85%;
+}
+
+.events-container > h2 {
+  margin-left: 1rem;
+  font-weight: 400;
 }
 
 .event-list {
   display: flex;
   gap: 2rem;
   list-style: none;
-  padding: 0;
 }
 
 .event-card {
   background: #fff;
   box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
-  width: 100%;
   text-align: center;
-  flex-shrink: 0;
   padding-bottom: 7px;
   margin-bottom: 1rem;
+  flex-shrink: 0;
 }
+
 .event-card > h3 {
   font-weight: 400;
-  margin-top: 7px;
+  margin-top: 14px;
 }
+
 .event-card > p {
-  font-size: 0.9rem;
   font-weight: 400;
   color: var(--text-gray-color);
   margin-bottom: 7px;
 }
+
 .event-card > a {
   text-decoration: none;
   color: var(--text-black-color);
 }
+
 .event-image {
-  max-width: 70%;
   height: auto;
   aspect-ratio: 1 / 1;
   object-fit: cover;
@@ -50,4 +51,178 @@ article > h2 {
   scrollbar-width: thin;
   scrollbar-color: grey;
   scroll-behavior: smooth;
+}
+
+@media screen and (min-width: 300px) and (max-width: 600px) {
+  .events-container {
+    max-width: 75%;
+  }
+
+  .events-container > h2 {
+    font-size: 1rem;
+  }
+
+  .event-list {
+    padding-left: calc(50% - 120px);
+    padding-right: calc(50% - 120px);
+  }
+
+  .event-card {
+    width: 240px;
+    height: 240px;
+  }
+
+  .event-card > h3 {
+    font-size: 0.9rem;
+  }
+
+  .event-card > p {
+    font-size: 0.7rem;
+  }
+
+  .event-card > a {
+    font-size: 0.9rem;
+  }
+
+  .event-image {
+    max-width: 50%;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 768px) {
+  .events-container {
+    max-width: 80%;
+  }
+
+  .events-container > h2 {
+    font-size: 1.2rem;
+  }
+
+  .event-card {
+    width: 280px;
+    height: 280px;
+  }
+
+  .event-card > h3 {
+    font-size: 1rem;
+  }
+
+  .event-card > p {
+    font-size: 0.8rem;
+  }
+
+  .event-card > a {
+    font-size: 1rem;
+  }
+
+  .event-image {
+    max-width: 50%;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .events-container {
+    max-width: 85%;
+  }
+
+  .events-container > h2 {
+    font-size: 1.4rem;
+  }
+
+  .event-card {
+    width: 300px;
+    height: 300px;
+  }
+
+  .event-card > h3 {
+    font-size: 1.2rem;
+  }
+
+  .event-card > p,
+  .event-card > a {
+    font-size: 1rem;
+  }
+
+  .event-image {
+    max-width: 50%;
+  }
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+  .events-container {
+    max-width: 85%;
+  }
+
+  .events-container > h2 {
+    font-size: 1.5rem;
+  }
+
+  .event-card {
+    width: 340px;
+    height: 340px;
+  }
+
+  .event-card > h3 {
+    font-size: 1.2rem;
+  }
+
+  .event-image {
+    max-width: 55%;
+  }
+}
+
+@media screen and (min-width: 1281px) and (max-width: 1440px) {
+  .events-container {
+    max-width: 90%;
+  }
+
+  .events-container > h2 {
+    font-size: 1.6rem;
+  }
+
+  .event-card {
+    width: 400px;
+    height: 400px;
+  }
+
+  .event-card > h3 {
+    font-size: 1.4rem;
+    margin-top: 14px;
+  }
+
+  .event-card > a {
+    font-size: 1.3rem;
+  }
+
+  .event-image {
+    max-width: 60%;
+  }
+}
+
+@media screen and (min-width: 1441px) {
+  .events-container {
+    max-width: 90%;
+  }
+
+  .events-container > h2 {
+    font-size: 1.7rem;
+  }
+
+  .event-card {
+    width: 420px;
+    height: 420px;
+  }
+
+  .event-card > h3 {
+    font-size: 1.4rem;
+    margin-top: 14px;
+  }
+
+  .event-card > a {
+    font-size: 1.3rem;
+  }
+
+  .event-image {
+    max-width: 62%;
+  }
 }
