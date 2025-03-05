@@ -65,6 +65,17 @@ const getUpcomingEvents = async () => {
   }
 };
 
+const postLogin = async (credentials: CredentialsTypes) => {
+  try {
+    const response = await axios.post(`${baseUrl}/api/login`, credentials, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error();
+  }
+};
+
 export {
   getAllArtwork,
   postCreateUser,
@@ -72,4 +83,5 @@ export {
   getCurrentEvents,
   getUpcomingEvents,
   getArtworkById,
+  postLogin,
 };

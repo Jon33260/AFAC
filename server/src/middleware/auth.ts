@@ -1,5 +1,6 @@
 import argon2 from "argon2";
 import type { RequestHandler } from "express";
+import jwt from "jsonwebtoken";
 import userRepository from "../modules/user/userRepository";
 
 const hashingOptions = {
@@ -39,13 +40,26 @@ const login: RequestHandler = async (req, res, next) => {
     if (!verified) {
       res.status(422).json({ message: "Mot de passe incorrect" });
     } else {
-      // JWT ?
-      res.json({
-        user: { id: user.id, email: user.email, username: user.username },
+      // JWT
+      const payload = {
+        id: user.id,
+        email: user.email,
+      };
+
+      if (!process.env.APP_SECRET) {
+        throw new Error(
+          "Vous n'avez pas configuré votre APP SECRET dans le .env",
+        );
+      }
+
+      const token = await jwt.sign(payload, process.env.APP_SECRET, {
+        expiresIn: "1y",
       });
+
+      res.cookie("auth", token).send("Utilisateur connecté");
     }
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    next(error);
   }
 };
 

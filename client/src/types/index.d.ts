@@ -59,3 +59,16 @@ interface LoaderEvents {
   currentEvents: Events;
   upcomingEvents: Events;
 }
+
+interface CredentialsTypes {
+  email: string;
+  password: string;
+}
+
+interface LoginResponse {
+  token: string;
+  user: {
+    id: number;
+    email: string;
+  };
+}
