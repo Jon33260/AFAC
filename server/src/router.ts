@@ -10,13 +10,17 @@ const router = express.Router();
 /* ************************************************************************* */
 
 //Users routes
+import auth from "./middleware/auth";
 import userActions from "./modules/user/userActions";
+
+router.post("/api/login", auth.login);
 
 router.get("/api/users", userActions.browse);
 router.get("/api/users/:id", userActions.read);
 router.put("/api/users/:id", userActions.edit);
-router.post("/api/users", form.validate, userActions.add);
+router.post("/api/users", form.validate, auth.hashPassword, userActions.add);
 router.delete("/api/users/:id", userActions.destroy);
+
 //Artworks routes
 import artworkActions from "./modules/artwork/artworkActions";
 
