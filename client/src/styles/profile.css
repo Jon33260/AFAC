@@ -151,6 +151,38 @@ blockquote::before {
   align-items: center;
 }
 
+.order-choice {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  gap: 6vw;
+  padding-top: 4vw;
+}
+
+.order-choice > button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.order-choice > button.active {
+  text-decoration: underline;
+  font-weight: bold;
+  color: var(--text-black-color);
+}
+
+.profile-gallery {
+  column-count: 2;
+  margin: 5vw;
+  column-gap: 1vw;
+  row-gap: 2vw;
+}
+
+.profile-gallery > .profile-item > img {
+  width: 100%;
+}
+
 @media screen and (min-width: 768px) {
   .profile-header {
     flex-direction: row;

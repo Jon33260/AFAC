@@ -6,7 +6,7 @@ type User = {
   id: number;
   username: string;
   email: string;
-  password: string;
+  hashed_password: string;
   profile_picture?: string;
   bio?: string;
   portfolio?: string | null;
@@ -16,8 +16,8 @@ type User = {
 class UserRepository {
   async create(user: Omit<User, "id">) {
     const [result] = await databaseClient.query<Result>(
-      "insert into user (username, email, password) values (?, ?, ?)",
-      [user.username, user.email, user.password],
+      "insert into user (username, email, hashed_password) values (?, ?, ?)",
+      [user.username, user.email, user.hashed_password],
     );
 
     return result.insertId;
@@ -32,6 +32,14 @@ class UserRepository {
     return rows[0] as User;
   }
 
+  async readByEmailWithPassword(email: string) {
+    const [rows] = await databaseClient.query<Rows>(
+      "select * from user where email = ?",
+      [email],
+    );
+    return rows[0] as User;
+  }
+
   async readAll() {
     const [rows] = await databaseClient.query<Rows>("select * from user");
 
@@ -40,11 +48,11 @@ class UserRepository {
 
   async update(user: User) {
     const [result] = await databaseClient.query<Result>(
-      "update user set username = ?, email = ?, password = ?, bio = ?, profile_picture = ?,portfolio = ?, website = ? where id = ?",
+      "update user set username = ?, email = ?, hashed_password = ?, bio = ?, profile_picture = ?,portfolio = ?, website = ? where id = ?",
       [
         user.username,
         user.email,
-        user.password,
+        user.hashed_password,
         user.profile_picture,
         user.bio,
         user.portfolio,

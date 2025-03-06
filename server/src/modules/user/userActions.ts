@@ -33,7 +33,7 @@ const edit: RequestHandler = async (req, res, next) => {
       id: req.body.id,
       username: req.body.username,
       email: req.body.email,
-      password: req.body.password,
+      hashed_password: req.body.hashed_password,
       profile_picture: req.body.profile_picture || null,
       bio: req.body.bio || null,
       portfolio: req.body.portfolio || null,
@@ -57,7 +57,7 @@ const add: RequestHandler = async (req, res, next) => {
     const user = {
       username: req.body.username,
       email: req.body.email,
-      password: req.body.password,
+      hashed_password: req.body.hashed_password,
     };
 
     const insertId = await userRepository.create(user);

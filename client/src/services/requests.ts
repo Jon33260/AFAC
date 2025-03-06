@@ -78,11 +78,31 @@ const getUpcomingEvents = async () => {
 const getArtworksBySearch = async (search: string) => {
   try {
     const response = await axios.get(`${baseUrl}/api/search/${search}`);
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to fetch artworks");
+  }
+};
+
+const postLogin = async (credentials: CredentialsTypes) => {
+  try {
+    const response = await axios.post(`${baseUrl}/api/login`, credentials, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error();
+  }
+};
+
+const getArtworkByUser = async (id: number) => {
+  try {
+    const response = await axios.get(`${baseUrl}/api/artworks/user/${id}`);
 
     return response.data;
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to fetch artworks");
+    throw new Error("Failed to fetch data");
   }
 };
 
@@ -95,4 +115,6 @@ export {
   getCurrentEvents,
   getUpcomingEvents,
   getArtworkById,
+  postLogin,
+  getArtworkByUser,
 };

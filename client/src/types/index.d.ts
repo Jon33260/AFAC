@@ -52,6 +52,16 @@ interface HeaderProps {
   category: Category[];
 }
 
+interface ProfilePictureProps {
+  artworks: Artwork[];
+  userData: UserData;
+}
+
+interface ProfileData {
+  user: UserData;
+  artworks: Artwork[];
+}
+
 interface Event {
   event_id: number;
   event_title: string;
@@ -73,4 +83,17 @@ interface EventArtwork {
 interface LoaderEvents {
   currentEvents: Events;
   upcomingEvents: Events;
+}
+
+interface CredentialsTypes {
+  email: string;
+  password: string;
+}
+
+interface LoginResponse {
+  token: string;
+  user: {
+    id: number;
+    email: string;
+  };
 }
