@@ -1,5 +1,6 @@
 import "../styles/Header.css";
-import { useState } from "react";
+import { type FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Header({
   setFilteredImages,
@@ -7,6 +8,8 @@ export default function Header({
   category,
 }: HeaderProps) {
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+  const navigate = useNavigate();
 
   const handleClick = (categoryName: string) => {
     setSelectedCategory(categoryName);
@@ -18,28 +21,22 @@ export default function Header({
     setFilteredImages(filteredArtworks);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const searchTerm = e.currentTarget.value.toLowerCase();
-
-    const filteredArtworks = artworks.filter(
-      (artwork) =>
-        artwork.title.toLowerCase().includes(searchTerm) ||
-        artwork.username.toLowerCase().includes(searchTerm),
-    );
-
-    setFilteredImages(filteredArtworks);
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    navigate(`search/${searchValue}`);
   };
 
   return (
     <section className="container">
       <div className="barre-filtre">
-        <div className="barre">
+        <form className="barre" onSubmit={(e) => handleSubmit(e)}>
           <input
             type="text"
             placeholder="Recherche"
-            onChange={(e) => handleChange(e)}
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.currentTarget.value)}
           />
-        </div>
+        </form>
 
         <div className="filtre">
           <select className="filtre">

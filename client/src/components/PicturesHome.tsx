@@ -28,7 +28,7 @@ export default function PicturesHome({ artworks }: Artworks) {
           </Link>
         ))
       ) : (
-        <p>Aucune image disponible pour cette catégorie.</p>
+        <p>Aucun résultat</p>
       )}
     </section>
   );

@@ -75,8 +75,20 @@ const getUpcomingEvents = async () => {
   }
 };
 
+const getArtworksBySearch = async (search: string) => {
+  try {
+    const response = await axios.get(`${baseUrl}/api/search/${search}`);
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to fetch artworks");
+  }
+};
+
 export {
   getAllArtwork,
+  getArtworksBySearch,
   getCategory,
   postCreateUser,
   getUserById,

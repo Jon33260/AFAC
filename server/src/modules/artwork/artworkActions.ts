@@ -27,6 +27,20 @@ const read: RequestHandler = async (req, res, next) => {
   }
 };
 
+const readBySearch: RequestHandler = async (req, res, next) => {
+  try {
+    const { search } = req.params;
+    const artworks = await artworkRepository.readBySearch(search);
+    if (artworks == null) {
+      res.sendStatus(404);
+    } else {
+      res.json(artworks);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 const edit: RequestHandler = async (req, res, next) => {
   try {
     const artwork = {
@@ -81,4 +95,22 @@ const destroy: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browse, read, edit, add, destroy };
+const searchArtwork: RequestHandler = async (req, res, next) => {
+  try {
+    const { search } = req.params;
+    const artworks = await artworkRepository.readBySearch(search);
+    res.json(artworks);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export default {
+  browse,
+  read,
+  edit,
+  add,
+  destroy,
+  readBySearch,
+  searchArtwork,
+};

@@ -45,6 +45,14 @@ class ArtworkRepository {
     return rows as Artwork[];
   }
 
+  async readBySearch(search: string) {
+    const [rows] = await databaseClient.query<Rows>(
+      "select artwork.*, category.name as category, user.username as username from artwork join category on artwork.category_id = category.id JOIN user ON artwork.user_id = user.id WHERE artwork.title LIKE ?",
+      [`%${search}%`],
+    );
+    return rows;
+  }
+
   async update(artwork: Artwork) {
     const [result] = await databaseClient.query<Result>(
       "update artwork set title = ?, picture = ?, category = ?, description = ?, user_id = ? where id = ?",

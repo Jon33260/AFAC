@@ -14,12 +14,14 @@ import ErrorPage from "./pages/ErrorPage";
 import Events from "./pages/Events";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import Search from "./pages/Search";
 import Signup from "./pages/Signup";
 
 /* ************************************************************************* */
 import {
   getAllArtwork,
   getArtworkById,
+  getArtworksBySearch,
   getCategory,
   getCurrentEvents,
   getUpcomingEvents,
@@ -71,6 +73,12 @@ const router = createBrowserRouter([
         path: "/artwork/:id",
         element: <ArtworkPage />,
         loader: ({ params }) => getArtworkById(Number(params.id)),
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/search/:search",
+        element: <Search />,
+        loader: ({ params }) => getArtworksBySearch(String(params.search)),
         errorElement: <ErrorPage />,
       },
     ],
