@@ -29,7 +29,7 @@ export default function Signup() {
         {isSignup ? (
           <SignupForm user={user} handleChangeForm={handleChangeForm} />
         ) : (
-          <LoginForm user={user} handleChangeForm={handleChangeForm} />
+          <LoginForm />
         )}
         <button type="button" className="login-link" onClick={toggleForm}>
           {isSignup ? "Déjà un compte ?" : "Pas encore de compte ?"}

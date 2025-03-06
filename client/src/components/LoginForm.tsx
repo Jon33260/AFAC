@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import SvgIcons from "./SvgIcons";
 import "../styles/SignupForm.css";
+import { postLogin } from "../services/requests";
 
 const icon = [
   {
@@ -18,24 +19,46 @@ const icon = [
   },
 ];
 
-export default function LoginForm({ user, handleChangeForm }: propsFormTypes) {
+export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const togglePassword = () => {
     setShowPassword(!showPassword);
   };
   const currentIcon = showPassword ? icon[0].visible : icon[0].notVisible;
 
+  const [credentials, setCredentials] = useState<CredentialsTypes>({
+    email: "",
+    password: "",
+  });
+
+  const handleChangeCredentials = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCredentials({
+      ...credentials,
+      [e.currentTarget.name]: e.currentTarget.value,
+    });
+  };
+
+  const sendCredentials = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const response = await postLogin(credentials);
+      console.info(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <div className="signup-container">
-        <form className="signup-form">
+        <form className="signup-form" onSubmit={sendCredentials}>
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
               type="email"
               name="email"
-              value={user.email}
-              onChange={handleChangeForm}
+              value={credentials.email}
+              onChange={handleChangeCredentials}
               placeholder="Votre adresse mail"
               required
             />
@@ -46,8 +69,8 @@ export default function LoginForm({ user, handleChangeForm }: propsFormTypes) {
               <input
                 type={showPassword ? "text" : "password"}
                 name="password"
-                value={user.password}
-                onChange={handleChangeForm}
+                value={credentials.password}
+                onChange={handleChangeCredentials}
                 placeholder="Veuillez entrer un mot de passe"
                 required
               />
