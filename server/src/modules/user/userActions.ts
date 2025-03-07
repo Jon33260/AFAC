@@ -38,6 +38,7 @@ const edit: RequestHandler = async (req, res, next) => {
       bio: req.body.bio || null,
       portfolio: req.body.portfolio || null,
       website: req.body.website || null,
+      is_admin: false,
     };
 
     const affectedRows = await userRepository.update(user);
@@ -58,6 +59,7 @@ const add: RequestHandler = async (req, res, next) => {
       username: req.body.username,
       email: req.body.email,
       hashed_password: req.body.hashed_password,
+      is_admin: false,
     };
 
     const insertId = await userRepository.create(user);

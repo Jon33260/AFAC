@@ -9,21 +9,23 @@ CREATE TABLE user (
   followers INT DEFAULT 0, 
   bio TEXT DEFAULT NULL,
   portfolio VARCHAR(255) DEFAULT NULL,
-  website VARCHAR(255) DEFAULT NULL
+  website VARCHAR(255) DEFAULT NULL,
+  is_admin BOOLEAN DEFAULT FALSE
 );
 
-INSERT INTO user(username, email, hashed_password, profile_picture, following, followers, bio, portfolio, website) VALUES
-("Admin", "test@test.fr", "123456", "", 150, 230, "Développeur passionné par le web et les nouvelles technologies.", "https://johndoe.dev", "https://instagram.com/johndoe");
+-- le mdp est mdpAFAC@91
+INSERT INTO user(username, email, hashed_password, profile_picture, following, followers, bio, portfolio, website, is_admin) VALUES
+("Admin", "test@test.fr", "$argon2id$v=19$m=19456,t=2,p=1$Yme1gkTMwKkLvuW6KJwRLg$qUpg5FadAxfwrS1pTA8wHiEEq/7TvRBY/Yi8y4BT2J0", "", 150, 230, "Développeur passionné par le web et les nouvelles technologies.", "https://johndoe.dev", "https://instagram.com/johndoe", TRUE);
 
 
-INSERT INTO user(username, email, hashed_password, profile_picture, following, followers, bio, portfolio, website) VALUES
-("Clément PICASSO", "test3@test.fr", "123456", "", 150, 230, "I am a digital artist and photographer capturing the beauty of Earth's diverse landscapes. Through photography and digital art, I blend reality and imagination to create immersive scenes that highlight nature's depth, light, and atmosphere, inviting viewers to explore the world through a new lens.", "https://johndoe.dev", "https://instagram.com/johndoe"),
-("Admin", "admin@test.fr", "123456",NULL,0,0,NULL,NULL,NULL),
-("Alice", "alice@example.com", "password1",NULL,0,0,NULL,NULL,NULL),
-("Bob", "bob@example.com", "password2",NULL,0,0,NULL,NULL,NULL),
-("Charlie", "charlie@example.com", "password3",NULL,0,0,NULL,NULL,NULL),
-("David", "david@example.com", "password4",NULL,0,0,NULL,NULL,NULL),
-("Emma", "emma@example.com", "password5",NULL,0,0,NULL,NULL,NULL);
+INSERT INTO user(username, email, hashed_password, profile_picture, following, followers, bio, portfolio, website, is_admin) VALUES
+("Clément PICASSO", "test3@test.fr", "123456", "", 150, 230, "I am a digital artist and photographer capturing the beauty of Earth's diverse landscapes. Through photography and digital art, I blend reality and imagination to create immersive scenes that highlight nature's depth, light, and atmosphere, inviting viewers to explore the world through a new lens.", "https://johndoe.dev", "https://instagram.com/johndoe", FALSE),
+("Admin", "admin@test.fr", "123456",NULL,0,0,NULL,NULL,NULL, FALSE),
+("Alice", "alice@example.com", "password1",NULL,0,0,NULL,NULL,NULL, FALSE),
+("Bob", "bob@example.com", "password2",NULL,0,0,NULL,NULL,NULL, FALSE),
+("Charlie", "charlie@example.com", "password3",NULL,0,0,NULL,NULL,NULL, FALSE),
+("David", "david@example.com", "password4",NULL,0,0,NULL,NULL,NULL, FALSE),
+("Emma", "emma@example.com", "password5",NULL,0,0,NULL,NULL,NULL, FALSE);
 
 INSERT INTO user(username, email, hashed_password, profile_picture, following, followers, bio, portfolio, website) VALUES
 ("Sophie", "sophie@example.com", "password6", NULL, 0, 0, "Photographe amateur passionnée par la nature et les paysages.", NULL, NULL),
