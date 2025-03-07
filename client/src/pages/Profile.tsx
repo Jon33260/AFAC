@@ -32,75 +32,83 @@ export default function Profile() {
 
   const tabs = ["Récent", "Populaire", "Exposé"];
 
+  const desktop = window.innerWidth >= 768;
+
   return (
     <div className="profile">
-      <article className="profile-header">
-        <img
-          src={
-            data.user.profile_picture ||
-            "https://www.vhv.rs/dpng/d/138-1383989_default-svg-icon-free-avatar-png-transparent-png.png"
-          }
-          alt="pdeprofil"
-        />
-        <div className="profile-header-text">
-          <h1>{data.user.username}</h1>
-          <div className="username-followers">
-            <p>{data.user.following} suivi(e)s</p>
-            <p>{data.user.followers} followers</p>
-          </div>
-          <blockquote>
-            Art is a journey without a destination, an invitation to dream
-            beyond the visible.
-          </blockquote>
-        </div>
-      </article>
-
-      <hr className="separation" />
-
-      <div className="biography">
-        <h3>BIOGRAPHIE</h3>
-        <div className={`bio ${bioExpanded ? "expanded" : "normal"}`}>
-          <p>{bioText}</p>
-          {bioExpanded && (data.user.portfolio || data.user.website) && (
-            <div className="links">
-              <h3>LIENS</h3>
-              <ul className="list">
-                {data.user.portfolio && (
-                  <li className="svg-portfolio">
-                    <SvgIcons {...icons.portfolio} />
-                    <Link to={data.user.portfolio}>Portfolio</Link>
-                  </li>
-                )}
-                {data.user.website && (
-                  <li className="svg-website">
-                    <SvgIcons {...icons.website} />
-                    <Link to={data.user.website}>Website</Link>
-                  </li>
-                )}
-              </ul>
+      <div className="left-part">
+        <article className="profile-header">
+          <img
+            src={
+              data.user.profile_picture ||
+              "https://www.vhv.rs/dpng/d/138-1383989_default-svg-icon-free-avatar-png-transparent-png.png"
+            }
+            alt="pdeprofil"
+          />
+          <div className="profile-header-text">
+            <h1>{data.user.username}</h1>
+            <div className="username-followers">
+              <p>{data.user.following} suivi(e)s</p>
+              <p>{data.user.followers} followers</p>
             </div>
-          )}
-        </div>
-      </div>
-      <button type="button" className="read-more" onClick={toggleBio}>
-        <span className={`arrow ${bioExpanded ? "left" : "right"}`}>▼</span>
-        {bioExpanded ? "Read Less" : "Read More"}
-      </button>
-      <hr className="separation" />
-      <div className="order-choice">
-        {tabs.map((tab) => (
-          <button
-            type="button"
-            key={tab}
-            className={choiceSelected === tab ? "active" : ""}
-            onClick={() => setChoiceSelected(tab)}
-          >
-            {tab}
-          </button>
-        ))}
-      </div>
+            <blockquote>
+              Art is a journey without a destination, an invitation to dream
+              beyond the visible.
+            </blockquote>
+          </div>
+        </article>
 
-      <ProfilePicture artworks={data.artworks} userData={data.user} />
+        <hr className="separation" />
+
+        <div className="biography">
+          <h3>BIOGRAPHIE</h3>
+          <div className={`bio ${bioExpanded ? "expanded" : "normal"}`}>
+            <p>{bioText}</p>
+            {(bioExpanded || desktop) &&
+              (data.user.portfolio || data.user.website) && (
+                <div className="links">
+                  <h3>LIENS</h3>
+                  <ul className="list">
+                    {data.user.portfolio && (
+                      <li className="svg-portfolio">
+                        <SvgIcons {...icons.portfolio} />
+                        <Link to={data.user.portfolio}>Portfolio</Link>
+                      </li>
+                    )}
+                    {data.user.website && (
+                      <li className="svg-website">
+                        <SvgIcons {...icons.website} />
+                        <Link to={data.user.website}>Website</Link>
+                      </li>
+                    )}
+                  </ul>
+                </div>
+              )}
+          </div>
+        </div>
+
+        <button type="button" className="read-more" onClick={toggleBio}>
+          <span className={`arrow ${bioExpanded ? "left" : "right"}`}>▼</span>
+          {bioExpanded ? "Read Less" : "Read More"}
+        </button>
+        <hr className="separation2" />
+      </div>
+      <div className="right-part">
+        <div className="order-choice">
+          {tabs.map((tab) => (
+            <button
+              type="button"
+              key={tab}
+              className={choiceSelected === tab ? "active" : ""}
+              onClick={() => setChoiceSelected(tab)}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+
+        <ProfilePicture artworks={data.artworks} userData={data.user} />
+      </div>
     </div>
   );
 }

@@ -5,6 +5,18 @@
   font-family: var(--font-text);
 }
 
+.left-part {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.right-part {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .profile-header {
   display: flex;
   flex-direction: column;
@@ -65,6 +77,13 @@ blockquote::before {
   width: 85%;
   align-self: center;
 }
+.separation2 {
+  border: none;
+  height: 1px;
+  background-color: var(--text-gray-color);
+  width: 85%;
+  align-self: center;
+}
 
 .biography {
   text-align: left;
@@ -77,6 +96,7 @@ blockquote::before {
   font-weight: bold;
   letter-spacing: 1px;
   color: var(--text-gray-color);
+  font-family: var(--font-title);
 }
 
 .biography p {
@@ -164,12 +184,14 @@ blockquote::before {
   background: none;
   border: none;
   transition: background-color 0.3s ease, transform 0.3s ease;
+  font-family: var(--font-text);
 }
 
 .order-choice > button.active {
   text-decoration: underline;
   font-weight: bold;
   color: var(--text-black-color);
+  font-family: var(--font-text);
 }
 
 .profile-gallery {
@@ -184,15 +206,122 @@ blockquote::before {
 }
 
 @media screen and (min-width: 768px) {
+  /*LEFT PART*/
   .profile-header {
     flex-direction: row;
   }
 
-  .profile-header-text > h1 {
-    font-size: 3rem;
+  .profile-header > img {
+    max-width: 15rem;
+  }
+
+  .left-part {
+    max-width: 46%;
+  }
+
+  .profile {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    max-width: 100%;
+  }
+
+  .bio {
+    -webkit-line-clamp: none;
+    line-clamp: none;
+    max-height: none;
+    display: block;
+  }
+
+  .bio.expanded {
+    max-height: none;
+    -webkit-line-clamp: none;
+    line-clamp: none;
+  }
+
+  .bio.normal {
+    max-height: none;
+    -webkit-line-clamp: none;
+    line-clamp: none;
+  }
+
+  .read-more {
+    display: none;
   }
 
   .profile-header > img {
-    max-width: 15rem;
+    object-fit: cover;
+    max-width: 32%;
+  }
+
+  .biography {
+    width: 88%;
+  }
+
+  .separation {
+    width: 88%;
+  }
+
+  .separation2 {
+    rotate: 90deg;
+    width: 50%;
+    margin-right: -44vw;
+    margin-top: -5vw;
+  }
+
+  /*RIGHT PART*/
+  .right-part {
+    max-width: 54%;
+    max-height: 90vh;
+  }
+
+  .order-choice {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+    padding-right: 3vw;
+    padding-top: 2vw;
+    gap: 4vw;
+  }
+
+  .profile-gallery {
+    width: 90%;
+    margin: 1vw;
+    column-gap: 0.4vw;
+    overflow-y: scroll;
+  }
+
+  .biography h3 {
+    letter-spacing: 0.2vw;
+  }
+
+  .biography p {
+    padding-top: 0.5vw;
+  }
+
+  .links {
+    margin-top: 2vw;
+  }
+
+  .links > .list {
+    padding-top: 0.5vw;
+  }
+
+  blockquote {
+    padding-top: 4vw;
+    width: 80%;
+  }
+
+  .profile-header-text > h1 {
+    font-size: 2.4vw;
+  }
+
+  .username-followers {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
+    width: 100%;
+    padding-left: 2vw;
   }
 }
