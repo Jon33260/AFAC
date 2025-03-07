@@ -106,6 +106,16 @@ const getArtworkByUser = async (id: number) => {
   }
 };
 
+const deleteEvent = async (id: number) => {
+  try {
+    const response = await axios.delete(`${baseUrl}/api/events/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to delete data");
+  }
+};
+
 export {
   getAllArtwork,
   getArtworksBySearch,
@@ -117,4 +127,5 @@ export {
   getArtworkById,
   postLogin,
   getArtworkByUser,
+  deleteEvent,
 };

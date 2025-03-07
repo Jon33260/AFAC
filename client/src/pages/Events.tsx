@@ -4,7 +4,7 @@ import UpcomingEvents from "../components/UpcomingEvents";
 
 export default function Events() {
   const { currentEvents, upcomingEvents } = useLoaderData() as LoaderEvents;
-  console.info("Loader Data :", { currentEvents, upcomingEvents });
+
   return (
     <>
       <section className="currents">

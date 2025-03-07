@@ -10,6 +10,7 @@ import App from "./App";
 
 // Import pages
 import ArtworkPage from "./pages/ArtworkPage";
+import Dashboard from "./pages/Dashboard";
 import ErrorPage from "./pages/ErrorPage";
 import Events from "./pages/Events";
 import Home from "./pages/Home";
@@ -79,6 +80,18 @@ const router = createBrowserRouter([
         path: "/search/:search",
         element: <Search />,
         loader: ({ params }) => getArtworksBySearch(String(params.search)),
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
+        loader: async () => {
+          const [currentEvents, upcomingEvents] = await Promise.all([
+            getCurrentEvents(),
+            getUpcomingEvents(),
+          ]);
+          return { currentEvents, upcomingEvents };
+        },
         errorElement: <ErrorPage />,
       },
     ],
