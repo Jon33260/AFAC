@@ -44,6 +44,7 @@ const login: RequestHandler = async (req, res, next) => {
       const payload = {
         id: user.id,
         email: user.email,
+        is_admin: user.is_admin,
       };
 
       if (!process.env.APP_SECRET) {
@@ -84,6 +85,7 @@ const verify: RequestHandler = async (req, res, next) => {
     req.user = {
       id: resultPayload.id,
       email: resultPayload.email,
+      is_admin: resultPayload.is_admin,
     };
 
     next();
@@ -92,4 +94,12 @@ const verify: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { hashPassword, login, verify };
+const checkAdmin: RequestHandler = async (req, res, next) => {
+  if (!req.user.is_admin) {
+    res.status(403).json({ message: "Accès refusé" });
+  }
+
+  next();
+};
+
+export default { hashPassword, login, verify, checkAdmin };

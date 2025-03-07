@@ -11,13 +11,14 @@ type User = {
   bio?: string;
   portfolio?: string | null;
   website?: string | null;
+  is_admin: boolean;
 };
 
 class UserRepository {
   async create(user: Omit<User, "id">) {
     const [result] = await databaseClient.query<Result>(
-      "insert into user (username, email, hashed_password) values (?, ?, ?)",
-      [user.username, user.email, user.hashed_password],
+      "insert into user (username, email, hashed_password, is_admin) values (?, ?, ?, ?)",
+      [user.username, user.email, user.hashed_password, user.is_admin],
     );
 
     return result.insertId;
@@ -48,7 +49,7 @@ class UserRepository {
 
   async update(user: User) {
     const [result] = await databaseClient.query<Result>(
-      "update user set username = ?, email = ?, hashed_password = ?, bio = ?, profile_picture = ?,portfolio = ?, website = ? where id = ?",
+      "update user set username = ?, email = ?, hashed_password = ?, bio = ?, profile_picture = ?,portfolio = ?, website = ?, is_admin = ? where id = ?",
       [
         user.username,
         user.email,
@@ -57,6 +58,7 @@ class UserRepository {
         user.bio,
         user.portfolio,
         user.website,
+        user.is_admin,
         user.id,
       ],
     );

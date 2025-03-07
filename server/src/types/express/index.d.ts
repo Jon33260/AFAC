@@ -10,6 +10,7 @@ declare global {
       user: {
         id: number;
         email: string;
+        is_admin: boolean;
       };
       /* ************************************************************************* */
     }
