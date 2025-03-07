@@ -24,12 +24,12 @@ export default function Navbar() {
 
       <ul className={`link-nav ${showLinks ? "show" : ""}`}>
         <li>
-          <NavLink to="#" className="nav-item">
+          <NavLink to="/" className="nav-item">
             ■ Accueil
           </NavLink>
         </li>
         <li>
-          <NavLink to="#" className="nav-item">
+          <NavLink to="/events" className="nav-item">
             ■ Évènements
           </NavLink>
         </li>
@@ -40,7 +40,7 @@ export default function Navbar() {
         </li>
       </ul>
 
-      <NavLink to="#" className="btn-connexion">
+      <NavLink to="/auth" className="btn-connexion">
         Connexion
       </NavLink>
     </nav>

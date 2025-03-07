@@ -1,7 +1,7 @@
 import { useState } from "react";
-
 import SvgIcons from "./SvgIcons";
 import "../styles/SignupForm.css";
+import { useNavigate } from "react-router-dom";
 import { postLogin } from "../services/requests";
 
 const icon = [
@@ -25,11 +25,11 @@ export default function LoginForm() {
     setShowPassword(!showPassword);
   };
   const currentIcon = showPassword ? icon[0].visible : icon[0].notVisible;
-
   const [credentials, setCredentials] = useState<CredentialsTypes>({
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
 
   const handleChangeCredentials = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCredentials({
@@ -43,6 +43,7 @@ export default function LoginForm() {
     try {
       const response = await postLogin(credentials);
       console.info(response);
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
