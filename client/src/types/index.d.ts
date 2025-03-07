@@ -37,6 +37,21 @@ interface propsFormTypes {
   handleChangeForm: React.ChangeEventHandler<HTMLInputElement>;
 }
 
+interface Category {
+  name: string;
+}
+
+interface LoaderDataHome {
+  artworks: Artwork[];
+  category: Category[];
+}
+
+interface HeaderProps {
+  setFilteredImages: (artworks: Artwork[]) => void;
+  artworks: Artwork[];
+  category: Category[];
+}
+
 interface ProfilePictureProps {
   artworks: Artwork[];
   userData: UserData;

@@ -25,6 +25,13 @@ INSERT INTO user(username, email, hashed_password, profile_picture, following, f
 ("David", "david@example.com", "password4",NULL,0,0,NULL,NULL,NULL),
 ("Emma", "emma@example.com", "password5",NULL,0,0,NULL,NULL,NULL);
 
+INSERT INTO user(username, email, hashed_password, profile_picture, following, followers, bio, portfolio, website) VALUES
+("Sophie", "sophie@example.com", "password6", NULL, 0, 0, "Photographe amateur passionnée par la nature et les paysages.", NULL, NULL),
+("Antoine", "antoine@example.com", "password7", NULL, 0, 0, "Artiste digital créant des œuvres abstraites et modernes.", NULL, NULL),
+("Marie", "marie@example.com", "password8", NULL, 0, 0, "Illustratrice et peintre explorant le mélange des styles artistiques.", NULL, NULL),
+("Lucas", "lucas@example.com", "password9", NULL, 0, 0, "Passionné de photographie de rue et de portraits urbains.", NULL, NULL);
+
+
 CREATE TABLE category (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   name VARCHAR(255) NOT NULL
@@ -63,6 +70,11 @@ INSERT INTO artwork(title, description, picture, category_id, user_id) VALUES
 ("Server", "Data center", "https://img.freepik.com/photos-gratuite/salle-hub-racks-serveurs-donnees-centre-informatique-big-data-interieur-bleu-pour-hebergement-materiel-stockage_90220-1033.jpg?t=st=1739958956~exp=1739962556~hmac=9898e2dd0229fdacffa7478b45fa8aa573156cefb3fdceb6ddc87a5ded8a7117&w=740", 4, 3),
 ("Jolie madame", "Photo de jolie madame", "https://img.freepik.com/photos-premium/paysage-panoramique-au-lever-du-soleil_335224-1307.jpg?w=1380", 1, 6);
 
+INSERT INTO artwork(title, description, picture, category_id, user_id) VALUES
+("Coucher de soleil", "Un magnifique coucher de soleil sur la plage", "https://img.freepik.com/photos-gratuite/coucher-soleil-tour-eiffel-paris_181624-22712.jpg?size=626&ext=jpg", 3, 10),
+("Ville la nuit", "Vue aérienne d'une ville illuminée la nuit", "https://img.freepik.com/photos-gratuite/vue-aerienne-ville-illuminations-nuit_181624-13831.jpg?size=626&ext=jpg", 4, 3),
+("Paysage montagneux", "Paysage montagneux avec un lac au premier plan", "https://img.freepik.com/photos-gratuite/vue-montagnes-lac-contre-ciel-bleu_181624-20597.jpg?size=626&ext=jpg", 1, 4),
+("Forêt en automne", "Forêt avec feuillage automnal", "https://img.freepik.com/photos-gratuite/foret-avec-arbres-automne_181624-14110.jpg?size=626&ext=jpg", 5, 5);
 
 
 CREATE TABLE event (

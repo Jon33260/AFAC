@@ -14,6 +14,7 @@ import ErrorPage from "./pages/ErrorPage";
 import Events from "./pages/Events";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import Search from "./pages/Search";
 import Signup from "./pages/Signup";
 
 /* ************************************************************************* */
@@ -21,6 +22,8 @@ import {
   getAllArtwork,
   getArtworkById,
   getArtworkByUser,
+  getArtworksBySearch,
+  getCategory,
   getCurrentEvents,
   getUpcomingEvents,
 } from "./services/requests";
@@ -35,7 +38,13 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader: () => getAllArtwork(),
+        loader: async () => {
+          const [artworks, category] = await Promise.all([
+            getAllArtwork(),
+            getCategory(),
+          ]);
+          return { artworks, category };
+        },
         errorElement: <ErrorPage />,
       },
       {
@@ -64,6 +73,12 @@ const router = createBrowserRouter([
         path: "/artwork/:id",
         element: <ArtworkPage />,
         loader: ({ params }) => getArtworkById(Number(params.id)),
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/search/:search",
+        element: <Search />,
+        loader: ({ params }) => getArtworksBySearch(String(params.search)),
         errorElement: <ErrorPage />,
       },
     ],

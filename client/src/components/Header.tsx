@@ -1,71 +1,64 @@
 import "../styles/Header.css";
-import { useState } from "react";
+import { type FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function Header() {
-  const [selectedCategory, setSelectedCategory] = useState("" as string);
+export default function Header({
+  setFilteredImages,
+  artworks,
+  category,
+}: HeaderProps) {
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+  const navigate = useNavigate();
+
+  const handleClick = (categoryName: string) => {
+    setSelectedCategory(categoryName);
+
+    const filteredArtworks = artworks.filter(
+      (artwork) => artwork.category === categoryName,
+    );
+
+    setFilteredImages(filteredArtworks);
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    navigate(`search/${searchValue}`);
+  };
 
   return (
-    <>
-      <section className="container">
-        <div className="barre-filtre">
-          <div className="barre">
-            <input type="text" placeholder="Recherche" />
-          </div>
+    <section className="container">
+      <div className="barre-filtre">
+        <form className="barre" onSubmit={(e) => handleSubmit(e)}>
+          <input
+            type="text"
+            placeholder="Recherche"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.currentTarget.value)}
+          />
+        </form>
 
-          <div className="filtre">
-            <select>
-              <option value="">Filtre</option>
-              <option value="Populaire">Populaire</option>
-              <option value="Date">Date</option>
-            </select>
-          </div>
+        <div className="filtre">
+          <select className="filtre">
+            <option value="">Filtre</option>
+            <option value="Populaire">Populaire</option>
+            <option value="Date">Date</option>
+          </select>
         </div>
+      </div>
 
-        <div className="categories">
+      <div className="categories">
+        {category.map((categorie) => (
           <button
-            className={`slide one ${selectedCategory === "Peintures" ? "selected" : ""}`}
+            key={categorie.name}
+            className={`slide ${selectedCategory === categorie.name ? "selected" : ""}`}
             type="button"
-            onClick={() => setSelectedCategory("Peintures")}
+            onClick={() => handleClick(categorie.name)}
           >
-            Peintures
+            {categorie.name}
           </button>
-          <button
-            className={`slide two ${selectedCategory === "Musique" ? "selected" : ""}`}
-            type="button"
-            onClick={() => setSelectedCategory("Musique")}
-          >
-            Musique
-          </button>
-          <button
-            className={`slide three ${selectedCategory === "Photos" ? "selected" : ""}`}
-            type="button"
-            onClick={() => setSelectedCategory("Photos")}
-          >
-            Photos
-          </button>
-          <button
-            className={`slide four ${selectedCategory === "Danse" ? "selected" : ""}`}
-            type="button"
-            onClick={() => setSelectedCategory("Danse")}
-          >
-            Danse
-          </button>
-          <button
-            className={`slide five ${selectedCategory === "Street art" ? "selected" : ""}`}
-            type="button"
-            onClick={() => setSelectedCategory("Street art")}
-          >
-            Street art
-          </button>
-          <button
-            className={`slide six ${selectedCategory === "Sculpture" ? "selected" : ""}`}
-            type="button"
-            onClick={() => setSelectedCategory("Sculpture")}
-          >
-            Sculpture
-          </button>
-        </div>
-      </section>
-    </>
+        ))}
+      </div>
+    </section>
   );
 }
