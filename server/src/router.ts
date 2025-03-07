@@ -38,6 +38,8 @@ router.get("/api/artworks/user/:id", artworkActions.readByUserId);
 import eventActions from "./modules/event/eventActions";
 
 router.get("/api/events", eventActions.browse);
+router.get("/api/events/current", eventActions.browseCurrent);
+router.get("/api/events/upcoming", eventActions.browseUpcoming);
 router.get("/api/events/:id", eventActions.read);
 router.put("/api/events/:id", eventActions.edit);
 router.post("/api/events", eventActions.add);
