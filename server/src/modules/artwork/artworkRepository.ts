@@ -78,7 +78,7 @@ class ArtworkRepository {
 
   async readByUserId(id: number) {
     const [rows] = await databaseClient.query<Rows>(
-      "SELECT artwork.picture, artwork.description FROM artwork JOIN `user` ON `user`.id = artwork.user_id WHERE user_id=?",
+      "SELECT artwork.picture, artwork.description, artwork.id FROM artwork JOIN `user` ON `user`.id = artwork.user_id WHERE user_id=?",
       [id],
     );
     return rows;
