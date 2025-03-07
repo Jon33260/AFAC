@@ -49,7 +49,7 @@ const edit: RequestHandler = async (req, res, next) => {
       title: req.body.title,
       description: req.body.description,
       picture: req.body.picture,
-      category: req.body.category,
+      category_id: req.body.category_id,
       user_id: req.body.user_id,
     };
 
@@ -72,7 +72,7 @@ const add: RequestHandler = async (req, res, next) => {
       title: req.body.title,
       description: req.body.description,
       picture: req.body.picture,
-      category: req.body.category,
+      category_id: req.body.category_id,
       user_id: req.body.user_id,
     };
 
