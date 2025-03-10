@@ -44,6 +44,7 @@ const login: RequestHandler = async (req, res, next) => {
       const payload = {
         id: user.id,
         email: user.email,
+        is_admin: user.is_admin,
       };
 
       if (!process.env.APP_SECRET) {
@@ -63,4 +64,42 @@ const login: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { hashPassword, login };
+const verify: RequestHandler = async (req, res, next) => {
+  if (!process.env.APP_SECRET) {
+    throw new Error("Vous n'avez pas configuré votre APP SECRET dans le .env");
+  }
+
+  try {
+    const { auth } = req.cookies;
+
+    if (!auth) {
+      res.sendStatus(403);
+    }
+
+    const resultPayload = jwt.verify(auth, process.env.APP_SECRET);
+
+    if (typeof resultPayload !== "object") {
+      throw new Error("Token invalid");
+    }
+
+    req.user = {
+      id: resultPayload.id,
+      email: resultPayload.email,
+      is_admin: resultPayload.is_admin,
+    };
+
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+const checkAdmin: RequestHandler = async (req, res, next) => {
+  if (!req.user.is_admin) {
+    res.status(403).json({ message: "Accès refusé" });
+  }
+
+  next();
+};
+
+export default { hashPassword, login, verify, checkAdmin };

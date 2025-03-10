@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../../styles/CreateExposure.css";
+import "../styles/CreateExposure.css";
 
 export default function CreateExposure() {
   const [startDate, setStartDate] = useState("");

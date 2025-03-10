@@ -15,7 +15,7 @@ import userActions from "./modules/user/userActions";
 
 router.post("/api/login", auth.login);
 
-router.get("/api/users", userActions.browse);
+router.get("/api/users", auth.verify, auth.checkAdmin, userActions.browse);
 router.get("/api/users/:id", userActions.read);
 router.put("/api/users/:id", userActions.edit);
 router.post("/api/users", form.validate, auth.hashPassword, userActions.add);
@@ -27,8 +27,10 @@ import artworkActions from "./modules/artwork/artworkActions";
 router.get("/api/artworks", artworkActions.browse);
 router.get("/api/artworks/:id", artworkActions.read);
 router.get("/api/search/:search", artworkActions.searchArtwork);
+router.get("/api/events/current", eventActions.browseCurrent);
+router.get("/api/events/upcoming", eventActions.browseUpcoming);
 router.put("/api/artworks/:id", artworkActions.edit);
-router.post("/api/artworks", artworkActions.add);
+router.post("/api/artworks", auth.verify, artworkActions.add);
 router.delete("/api/artworks/:id", artworkActions.destroy);
 router.get("/api/artworks/user/:id", artworkActions.readByUserId);
 
@@ -36,6 +38,8 @@ router.get("/api/artworks/user/:id", artworkActions.readByUserId);
 import eventActions from "./modules/event/eventActions";
 
 router.get("/api/events", eventActions.browse);
+router.get("/api/events/current", eventActions.browseCurrent);
+router.get("/api/events/upcoming", eventActions.browseUpcoming);
 router.get("/api/events/:id", eventActions.read);
 router.put("/api/events/:id", eventActions.edit);
 router.post("/api/events", eventActions.add);

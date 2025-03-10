@@ -9,21 +9,23 @@ CREATE TABLE user (
   followers INT DEFAULT 0, 
   bio TEXT DEFAULT NULL,
   portfolio VARCHAR(255) DEFAULT NULL,
-  website VARCHAR(255) DEFAULT NULL
+  website VARCHAR(255) DEFAULT NULL,
+  is_admin BOOLEAN DEFAULT FALSE
 );
 
-INSERT INTO user(username, email, hashed_password, profile_picture, following, followers, bio, portfolio, website) VALUES
-("Admin", "test@test.fr", "123456", "", 150, 230, "Développeur passionné par le web et les nouvelles technologies.", "https://johndoe.dev", "https://instagram.com/johndoe");
+-- le mdp est mdpAFAC@91
+INSERT INTO user(username, email, hashed_password, profile_picture, following, followers, bio, portfolio, website, is_admin) VALUES
+("Admin", "test@test.fr", "$argon2id$v=19$m=19456,t=2,p=1$Yme1gkTMwKkLvuW6KJwRLg$qUpg5FadAxfwrS1pTA8wHiEEq/7TvRBY/Yi8y4BT2J0", "", 150, 230, "Développeur passionné par le web et les nouvelles technologies.", "https://johndoe.dev", "https://instagram.com/johndoe", TRUE);
 
 
-INSERT INTO user(username, email, hashed_password, profile_picture, following, followers, bio, portfolio, website) VALUES
-("Clément PICASSO", "test3@test.fr", "123456", "", 150, 230, "I am a digital artist and photographer capturing the beauty of Earth's diverse landscapes. Through photography and digital art, I blend reality and imagination to create immersive scenes that highlight nature's depth, light, and atmosphere, inviting viewers to explore the world through a new lens.", "https://johndoe.dev", "https://instagram.com/johndoe"),
-("Admin", "admin@test.fr", "123456",NULL,0,0,NULL,NULL,NULL),
-("Alice", "alice@example.com", "password1",NULL,0,0,NULL,NULL,NULL),
-("Bob", "bob@example.com", "password2",NULL,0,0,NULL,NULL,NULL),
-("Charlie", "charlie@example.com", "password3",NULL,0,0,NULL,NULL,NULL),
-("David", "david@example.com", "password4",NULL,0,0,NULL,NULL,NULL),
-("Emma", "emma@example.com", "password5",NULL,0,0,NULL,NULL,NULL);
+INSERT INTO user(username, email, hashed_password, profile_picture, following, followers, bio, portfolio, website, is_admin) VALUES
+("Clément PICASSO", "test3@test.fr", "123456", "", 150, 230, "I am a digital artist and photographer capturing the beauty of Earth's diverse landscapes. Through photography and digital art, I blend reality and imagination to create immersive scenes that highlight nature's depth, light, and atmosphere, inviting viewers to explore the world through a new lens.", "https://johndoe.dev", "https://instagram.com/johndoe", FALSE),
+("Admin", "admin@test.fr", "123456",NULL,0,0,NULL,NULL,NULL, FALSE),
+("Alice", "alice@example.com", "password1",NULL,0,0,NULL,NULL,NULL, FALSE),
+("Bob", "bob@example.com", "password2",NULL,0,0,NULL,NULL,NULL, FALSE),
+("Charlie", "charlie@example.com", "password3",NULL,0,0,NULL,NULL,NULL, FALSE),
+("David", "david@example.com", "password4",NULL,0,0,NULL,NULL,NULL, FALSE),
+("Emma", "emma@example.com", "password5",NULL,0,0,NULL,NULL,NULL, FALSE);
 
 INSERT INTO user(username, email, hashed_password, profile_picture, following, followers, bio, portfolio, website) VALUES
 ("Sophie", "sophie@example.com", "password6", NULL, 0, 0, "Photographe amateur passionnée par la nature et les paysages.", NULL, NULL),
@@ -58,6 +60,25 @@ CREATE TABLE artwork (
 );
 
 INSERT INTO artwork(title, description, picture, category_id, user_id) VALUES
+("Masque de Carnval", "Un magnifique masque de carnaval sur fond jaune", "https://img.freepik.com/photos-gratuite/masque-elegant-perles-carnaval-mystere-plat_23-2148756051.jpg?t=st=1739958827~exp=1739962427~hmac=c407cabd4d0cc3dfa973f29cfdfb5a03180840dc1a8a0afcc30ab42d812316f0&w=1380", 5, 2),
+("Masque de Carnval", "Un magnifique masque de carnaval sur fond jaune", "https://img.freepik.com/photos-gratuite/masque-elegant-perles-carnaval-mystere-plat_23-2148756051.jpg?t=st=1739958827~exp=1739962427~hmac=c407cabd4d0cc3dfa973f29cfdfb5a03180840dc1a8a0afcc30ab42d812316f0&w=1380", 5, 2),
+("Masque de Carnval", "Un magnifique masque de carnaval sur fond jaune", "https://img.freepik.com/photos-gratuite/masque-elegant-perles-carnaval-mystere-plat_23-2148756051.jpg?t=st=1739958827~exp=1739962427~hmac=c407cabd4d0cc3dfa973f29cfdfb5a03180840dc1a8a0afcc30ab42d812316f0&w=1380", 5, 2),
+("Masque de Carnval", "Un magnifique masque de carnaval sur fond jaune", "https://img.freepik.com/photos-gratuite/masque-elegant-perles-carnaval-mystere-plat_23-2148756051.jpg?t=st=1739958827~exp=1739962427~hmac=c407cabd4d0cc3dfa973f29cfdfb5a03180840dc1a8a0afcc30ab42d812316f0&w=1380", 5, 2),
+("Masque de Carnval", "Un magnifique masque de carnaval sur fond jaune", "https://img.freepik.com/photos-gratuite/masque-elegant-perles-carnaval-mystere-plat_23-2148756051.jpg?t=st=1739958827~exp=1739962427~hmac=c407cabd4d0cc3dfa973f29cfdfb5a03180840dc1a8a0afcc30ab42d812316f0&w=1380", 5, 2),
+("Masque de Carnval", "Un magnifique masque de carnaval sur fond jaune", "https://img.freepik.com/photos-gratuite/masque-elegant-perles-carnaval-mystere-plat_23-2148756051.jpg?t=st=1739958827~exp=1739962427~hmac=c407cabd4d0cc3dfa973f29cfdfb5a03180840dc1a8a0afcc30ab42d812316f0&w=1380", 5, 2),
+("Masque de Carnval", "Un magnifique masque de carnaval sur fond jaune", "https://img.freepik.com/photos-gratuite/masque-elegant-perles-carnaval-mystere-plat_23-2148756051.jpg?t=st=1739958827~exp=1739962427~hmac=c407cabd4d0cc3dfa973f29cfdfb5a03180840dc1a8a0afcc30ab42d812316f0&w=1380", 5, 2),
+("Masque de Carnval", "Un magnifique masque de carnaval sur fond jaune", "https://img.freepik.com/photos-gratuite/masque-elegant-perles-carnaval-mystere-plat_23-2148756051.jpg?t=st=1739958827~exp=1739962427~hmac=c407cabd4d0cc3dfa973f29cfdfb5a03180840dc1a8a0afcc30ab42d812316f0&w=1380", 5, 2),
+("Masque de Carnval", "Un magnifique masque de carnaval sur fond jaune", "https://img.freepik.com/photos-gratuite/masque-elegant-perles-carnaval-mystere-plat_23-2148756051.jpg?t=st=1739958827~exp=1739962427~hmac=c407cabd4d0cc3dfa973f29cfdfb5a03180840dc1a8a0afcc30ab42d812316f0&w=1380", 5, 2),
+("Masque de Carnval", "Un magnifique masque de carnaval sur fond jaune", "https://img.freepik.com/photos-gratuite/masque-elegant-perles-carnaval-mystere-plat_23-2148756051.jpg?t=st=1739958827~exp=1739962427~hmac=c407cabd4d0cc3dfa973f29cfdfb5a03180840dc1a8a0afcc30ab42d812316f0&w=1380", 5, 2),
+("Masque de Carnval", "Un magnifique masque de carnaval sur fond jaune", "https://img.freepik.com/photos-gratuite/masque-elegant-perles-carnaval-mystere-plat_23-2148756051.jpg?t=st=1739958827~exp=1739962427~hmac=c407cabd4d0cc3dfa973f29cfdfb5a03180840dc1a8a0afcc30ab42d812316f0&w=1380", 5, 2),
+("Masque de Carnval", "Un magnifique masque de carnaval sur fond jaune", "https://img.freepik.com/photos-gratuite/masque-elegant-perles-carnaval-mystere-plat_23-2148756051.jpg?t=st=1739958827~exp=1739962427~hmac=c407cabd4d0cc3dfa973f29cfdfb5a03180840dc1a8a0afcc30ab42d812316f0&w=1380", 5, 2),
+("Masque de Carnval", "Un magnifique masque de carnaval sur fond jaune", "https://img.freepik.com/photos-gratuite/masque-elegant-perles-carnaval-mystere-plat_23-2148756051.jpg?t=st=1739958827~exp=1739962427~hmac=c407cabd4d0cc3dfa973f29cfdfb5a03180840dc1a8a0afcc30ab42d812316f0&w=1380", 5, 2),
+("Masque de Carnval", "Un magnifique masque de carnaval sur fond jaune", "https://img.freepik.com/photos-gratuite/masque-elegant-perles-carnaval-mystere-plat_23-2148756051.jpg?t=st=1739958827~exp=1739962427~hmac=c407cabd4d0cc3dfa973f29cfdfb5a03180840dc1a8a0afcc30ab42d812316f0&w=1380", 5, 2),
+("Masque de Carnval", "Un magnifique masque de carnaval sur fond jaune", "https://img.freepik.com/photos-gratuite/masque-elegant-perles-carnaval-mystere-plat_23-2148756051.jpg?t=st=1739958827~exp=1739962427~hmac=c407cabd4d0cc3dfa973f29cfdfb5a03180840dc1a8a0afcc30ab42d812316f0&w=1380", 5, 2),
+("Masque de Carnval", "Un magnifique masque de carnaval sur fond jaune", "https://img.freepik.com/photos-gratuite/masque-elegant-perles-carnaval-mystere-plat_23-2148756051.jpg?t=st=1739958827~exp=1739962427~hmac=c407cabd4d0cc3dfa973f29cfdfb5a03180840dc1a8a0afcc30ab42d812316f0&w=1380", 5, 2),
+("Masque de Carnval", "Un magnifique masque de carnaval sur fond jaune", "https://img.freepik.com/photos-gratuite/masque-elegant-perles-carnaval-mystere-plat_23-2148756051.jpg?t=st=1739958827~exp=1739962427~hmac=c407cabd4d0cc3dfa973f29cfdfb5a03180840dc1a8a0afcc30ab42d812316f0&w=1380", 5, 2),
+("Masque de Carnval", "Un magnifique masque de carnaval sur fond jaune", "https://img.freepik.com/photos-gratuite/masque-elegant-perles-carnaval-mystere-plat_23-2148756051.jpg?t=st=1739958827~exp=1739962427~hmac=c407cabd4d0cc3dfa973f29cfdfb5a03180840dc1a8a0afcc30ab42d812316f0&w=1380", 5, 2),
+("Masque de Carnval", "Un magnifique masque de carnaval sur fond jaune", "https://img.freepik.com/photos-gratuite/masque-elegant-perles-carnaval-mystere-plat_23-2148756051.jpg?t=st=1739958827~exp=1739962427~hmac=c407cabd4d0cc3dfa973f29cfdfb5a03180840dc1a8a0afcc30ab42d812316f0&w=1380", 5, 2),
 ("Masque de Carnval", "Un magnifique masque de carnaval sur fond jaune", "https://img.freepik.com/photos-gratuite/masque-elegant-perles-carnaval-mystere-plat_23-2148756051.jpg?t=st=1739958827~exp=1739962427~hmac=c407cabd4d0cc3dfa973f29cfdfb5a03180840dc1a8a0afcc30ab42d812316f0&w=1380", 5, 2),
 ("Server", "Data center", "https://img.freepik.com/photos-gratuite/salle-hub-racks-serveurs-donnees-centre-informatique-big-data-interieur-bleu-pour-hebergement-materiel-stockage_90220-1033.jpg?t=st=1739958956~exp=1739962556~hmac=9898e2dd0229fdacffa7478b45fa8aa573156cefb3fdceb6ddc87a5ded8a7117&w=740", 4, 3),
 ("Masque de Carnval", "Un magnifique masque de carnaval sur fond jaune", "https://img.freepik.com/photos-gratuite/masque-elegant-perles-carnaval-mystere-plat_23-2148756051.jpg?t=st=1739958827~exp=1739962427~hmac=c407cabd4d0cc3dfa973f29cfdfb5a03180840dc1a8a0afcc30ab42d812316f0&w=1380", 3, 2),
@@ -102,7 +123,11 @@ INSERT INTO event(title, description, picture, start_date, end_date, location) V
 ("Exposition d'art 3", "Exposition d'art contemporain","https://images.pexels.com/photos/2215609/pexels-photo-2215609.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "2025-04-15", "2025-04-20", "Reims"),
 ("Exposition d'art 4", "Exposition d'art street art","https://images.pexels.com/photos/1194420/pexels-photo-1194420.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "2025-05-01", "2025-05-05", "Marseille"),
 ("Exposition d'art 5", "Exposition d'art web","https://images.pexels.com/photos/3094799/pexels-photo-3094799.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "2025-05-15", "2025-05-20", "En Ligne"),
-("Exposition d'art 6", "Exposition d'art abstrait", "https://images.pexels.com/photos/1193743/pexels-photo-1193743.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "2025-02-27", "2025-03-02", "Lille");
+("Exposition SUPP3", "Exposition d'art abstrait", "https://images.pexels.com/photos/1193743/pexels-photo-1193743.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "2025-03-07", "2025-03-10", "Lille"),
+("Exposition SUPP2", "Exposition d'art abstrait", "https://images.pexels.com/photos/1193743/pexels-photo-1193743.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "2025-03-07", "2025-03-10", "Lille"),
+("Exposition SUPP1", "Exposition d'art abstrait", "https://images.pexels.com/photos/1193743/pexels-photo-1193743.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "2025-03-07", "2025-03-10", "Lille"),
+("Exposition SUPP4", "Exposition d'art abstrait", "https://images.pexels.com/photos/1193743/pexels-photo-1193743.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "2025-03-07", "2025-03-10", "Lille"),
+("Exposition d'art 6", "Exposition d'art abstrait", "https://images.pexels.com/photos/1193743/pexels-photo-1193743.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "2025-03-07", "2025-03-10", "Lille");
 
 
 INSERT INTO event_artwork(event_id, artwork_id) VALUES

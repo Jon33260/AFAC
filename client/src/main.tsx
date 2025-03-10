@@ -85,6 +85,14 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <Dashboard />,
+        loader: async () => {
+          const [currentEvents, upcomingEvents] = await Promise.all([
+            getCurrentEvents(),
+            getUpcomingEvents(),
+          ]);
+          return { currentEvents, upcomingEvents };
+        },
+        errorElement: <ErrorPage />,
       },
     ],
   },

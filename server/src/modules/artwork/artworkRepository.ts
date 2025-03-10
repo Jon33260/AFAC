@@ -7,18 +7,18 @@ type Artwork = {
   title: string;
   description?: string;
   picture: string;
-  category: string;
+  category_id: number;
   user_id: number;
 };
 
 class ArtworkRepository {
   async create(artwork: Omit<Artwork, "id">) {
     const [result] = await databaseClient.query<Result>(
-      "insert into artwork (title, picture, category, description, user_id) values (?, ?, ?, ?, ?)",
+      "insert into artwork (title, picture, category_id, description, user_id) values (?, ?, ?, ?, ?)",
       [
         artwork.title,
         artwork.picture,
-        artwork.category,
+        artwork.category_id,
         artwork.description,
         artwork.user_id,
       ],
@@ -59,7 +59,7 @@ class ArtworkRepository {
       [
         artwork.title,
         artwork.picture,
-        artwork.category,
+        artwork.category_id,
         artwork.description,
         artwork.user_id,
         artwork.id,
@@ -78,7 +78,7 @@ class ArtworkRepository {
 
   async readByUserId(id: number) {
     const [rows] = await databaseClient.query<Rows>(
-      "SELECT artwork.picture, artwork.description FROM artwork JOIN `user` ON `user`.id = artwork.user_id WHERE user_id=?",
+      "SELECT artwork.picture, artwork.description, artwork.id FROM artwork JOIN `user` ON `user`.id = artwork.user_id WHERE user_id=?",
       [id],
     );
     return rows;
