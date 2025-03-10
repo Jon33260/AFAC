@@ -106,6 +106,20 @@ const getArtworkByUser = async (id: number) => {
   }
 };
 
+const postArtwork = async (artworkData: Artwork) => {
+  try {
+    const response = await axios.post(`${baseUrl}/api/artworks`, artworkData, {
+      withCredentials: true,
+    });
+
+    return response.data;
+  } catch (error) {
+    alert("Vous devez être connecté");
+    console.error(error);
+    throw new Error("Failed to create artwork");
+  }
+};
+
 export {
   getAllArtwork,
   getArtworksBySearch,
@@ -117,4 +131,5 @@ export {
   getArtworkById,
   postLogin,
   getArtworkByUser,
+  postArtwork,
 };
