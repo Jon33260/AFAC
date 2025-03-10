@@ -18,7 +18,7 @@ export default function NewPost({ category }: { category: Category[] }) {
     title: "",
     description: "",
     picture: "",
-    category_id: 0,
+    category_id: category[0].id,
   });
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
