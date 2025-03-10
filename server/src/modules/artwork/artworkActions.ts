@@ -68,12 +68,11 @@ const edit: RequestHandler = async (req, res, next) => {
 const add: RequestHandler = async (req, res, next) => {
   try {
     const artwork = {
-      id: req.body.id,
       title: req.body.title,
       description: req.body.description,
       picture: req.body.picture,
       category_id: req.body.category_id,
-      user_id: req.body.user_id,
+      user_id: req.user.id,
     };
 
     const insertId = await artworkRepository.create(artwork);

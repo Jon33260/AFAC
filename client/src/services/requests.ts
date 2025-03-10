@@ -106,6 +106,20 @@ const getArtworkByUser = async (id: number) => {
   }
 };
 
+const postArtwork = async (artworkData: Artwork) => {
+  try {
+    const response = await axios.post(`${baseUrl}/api/artworks`, artworkData, {
+      withCredentials: true,
+    });
+
+    return response.data;
+  } catch (error) {
+    alert("Vous devez être connecté");
+    console.error(error);
+    throw new Error("Failed to create artwork");
+  }
+};
+
 const deleteEvent = async (id: number) => {
   try {
     const response = await axios.delete(`${baseUrl}/api/events/${id}`);
@@ -117,6 +131,7 @@ const deleteEvent = async (id: number) => {
 };
 
 export {
+  deleteEvent,
   getAllArtwork,
   getArtworksBySearch,
   getCategory,
@@ -125,7 +140,7 @@ export {
   getCurrentEvents,
   getUpcomingEvents,
   getArtworkById,
-  postLogin,
   getArtworkByUser,
-  deleteEvent,
+  postLogin,
+  postArtwork,
 };
