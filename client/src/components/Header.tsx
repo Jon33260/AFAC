@@ -37,7 +37,7 @@ export default function Header({
   };
 
   return (
-    <section className="container">
+    <section className="header-container">
       <div className="barre-filtre">
         <form className="barre" onSubmit={(e) => handleSubmit(e)}>
           <input
