@@ -81,15 +81,23 @@ button.selected {
   }
 
   .categories {
-    justify-content: flex-start;
-    max-width: 50%;
-    gap: 1rem;
+    margin: 0 auto;
     margin-top: 1rem;
+    margin-bottom: -1rem;
+    justify-content: center;
+    overflow-x: auto;
+    cursor: pointer;
+    max-width: 80%;
+    scrollbar-width: none;
+    scrollbar-width: thin;
+    scrollbar-color: #9e9e9e #fff;
+    scroll-behavior: smooth;
+    gap: 0;
   }
 
   .categories button {
     padding: 1rem 2rem;
-    font-size: 1.3rem;
+    font-size: min(1.8vw, 1.5rem);
   }
 }
 
