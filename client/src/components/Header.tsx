@@ -30,11 +30,10 @@ export default function Header({
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    if (searchValue === "") {
-      return;
+    if (searchValue) {
+      e.preventDefault();
+      navigate(`search/${searchValue}`);
     }
-    e.preventDefault();
-    navigate(`search/${searchValue}`);
   };
 
   return (

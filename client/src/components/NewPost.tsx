@@ -49,7 +49,12 @@ export default function NewPost({ category }: { category: Category[] }) {
     }
   };
 
-  const handleChangeForm = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeForm = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+      | React.ChangeEvent<HTMLSelectElement>,
+  ) => {
     setFormValues({
       ...formValues,
       [e.currentTarget.name]: e.currentTarget.value,
@@ -86,12 +91,7 @@ export default function NewPost({ category }: { category: Category[] }) {
             placeholder="Description"
             value={formValues.description}
             name="description"
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-              setFormValues({
-                ...formValues,
-                [e.currentTarget.name]: e.currentTarget.value,
-              });
-            }}
+            onChange={handleChangeForm}
           />
           <input
             type="text"
@@ -103,12 +103,7 @@ export default function NewPost({ category }: { category: Category[] }) {
           <select
             name="category_id"
             id="category_id"
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-              setFormValues({
-                ...formValues,
-                [e.currentTarget.name]: e.currentTarget.value,
-              });
-            }}
+            onChange={handleChangeForm}
           >
             {category.map((categorie) => (
               <option key={categorie.id} value={categorie.id}>
