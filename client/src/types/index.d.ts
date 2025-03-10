@@ -4,6 +4,7 @@ interface Artwork {
   description: string;
   picture: string;
   category: string;
+  category_id: number;
   user_id: number;
   username: string;
 }
@@ -38,6 +39,7 @@ interface propsFormTypes {
 }
 
 interface Category {
+  id: number;
   name: string;
 }
 
