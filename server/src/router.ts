@@ -27,8 +27,6 @@ import artworkActions from "./modules/artwork/artworkActions";
 router.get("/api/artworks", artworkActions.browse);
 router.get("/api/artworks/:id", artworkActions.read);
 router.get("/api/search/:search", artworkActions.searchArtwork);
-router.get("/api/events/current", eventActions.browseCurrent);
-router.get("/api/events/upcoming", eventActions.browseUpcoming);
 router.put("/api/artworks/:id", artworkActions.edit);
 router.post("/api/artworks", auth.verify, artworkActions.add);
 router.delete("/api/artworks/:id", artworkActions.destroy);

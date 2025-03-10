@@ -1,4 +1,5 @@
 import "../styles/UpcomingEvents.css";
+import { useNavigate } from "react-router-dom";
 
 interface UpcomingEventsProps {
   upcomingEvents: Events;
@@ -7,6 +8,8 @@ interface UpcomingEventsProps {
 export default function UpcomingEvents({
   upcomingEvents,
 }: UpcomingEventsProps) {
+  const navigate = useNavigate();
+
   return (
     <article>
       {upcomingEvents.length > 0 ? (
@@ -29,7 +32,14 @@ export default function UpcomingEvents({
                     className="event-image"
                   />
                   <p>{upcomingEvents.artists}</p>
-                  <a href="test">En savoir plus</a>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      navigate(`/events/${upcomingEvents.event_id}`)
+                    }
+                  >
+                    En savoir plus
+                  </button>
                 </li>
               ))}
             </ul>

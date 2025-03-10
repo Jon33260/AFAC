@@ -12,6 +12,7 @@ import App from "./App";
 import ArtworkPage from "./pages/ArtworkPage";
 import Dashboard from "./pages/Dashboard";
 import ErrorPage from "./pages/ErrorPage";
+import EventDetails from "./pages/EventDetails";
 import Events from "./pages/Events";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
@@ -26,6 +27,7 @@ import {
   getArtworksBySearch,
   getCategory,
   getCurrentEvents,
+  getEventDetails,
   getUpcomingEvents,
 } from "./services/requests";
 
@@ -64,6 +66,12 @@ const router = createBrowserRouter([
           ]);
           return { currentEvents, upcomingEvents };
         },
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/events/:id",
+        element: <EventDetails />,
+        loader: ({ params }) => getEventDetails(Number(params.id)),
         errorElement: <ErrorPage />,
       },
       {

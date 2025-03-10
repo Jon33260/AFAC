@@ -1,7 +1,13 @@
+import "../styles/UpcomingEvents.css";
+
+import { useNavigate } from "react-router-dom";
+
 interface CurrentEventsProps {
   currentEvents: Events;
 }
 export default function CurrentEvents({ currentEvents }: CurrentEventsProps) {
+  const navigate = useNavigate();
+
   return (
     <article>
       {currentEvents.length > 0 ? (
@@ -24,7 +30,14 @@ export default function CurrentEvents({ currentEvents }: CurrentEventsProps) {
                     className="event-image"
                   />
                   <p>{currentEvents.artists}</p>
-                  <a href="test">En savoir plus</a>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      navigate(`/events/${currentEvents.event_id}`)
+                    }
+                  >
+                    En savoir plus
+                  </button>
                 </li>
               ))}
             </ul>
