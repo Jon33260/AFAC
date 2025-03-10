@@ -1,4 +1,5 @@
 import { useLoaderData } from "react-router-dom";
+import CreateExposure from "../components/CreateExposure";
 import EventsDashboard from "../components/EventsDashboard";
 
 export default function Dashboard() {
@@ -7,6 +8,7 @@ export default function Dashboard() {
   return (
     <>
       <h1>Dashboard</h1>
+      <CreateExposure />
       <EventsDashboard
         currentEvents={currentEvents}
         upcomingEvents={upcomingEvents}
