@@ -1,5 +1,5 @@
 import "../styles/UpcomingEvents.css";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface UpcomingEventsProps {
   upcomingEvents: Events;
@@ -8,8 +8,6 @@ interface UpcomingEventsProps {
 export default function UpcomingEvents({
   upcomingEvents,
 }: UpcomingEventsProps) {
-  const navigate = useNavigate();
-
   return (
     <article>
       {upcomingEvents.length > 0 ? (
@@ -32,14 +30,12 @@ export default function UpcomingEvents({
                     className="event-image"
                   />
                   <p>{upcomingEvents.artists}</p>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      navigate(`/events/${upcomingEvents.event_id}`)
-                    }
+                  <Link
+                    to={`/events/${upcomingEvents.event_id}`}
+                    className="ed-artist-name"
                   >
                     En savoir plus
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>

@@ -1,11 +1,9 @@
-import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 import "../styles/EventDetails.css";
 
 export default function EventDetails() {
   const eventDetails = useLoaderData() as EventDetails;
-
-  const navigate = useNavigate();
 
   if (!eventDetails.length) {
     return <div>Aucun détail trouvé pour cet événement.</div>;
@@ -37,13 +35,9 @@ export default function EventDetails() {
           </Link>
         </article>
       ))}
-      <button
-        className="ed-return"
-        type="button"
-        onClick={() => navigate("/events")}
-      >
-        Retour
-      </button>
+      <Link to={"/events"} className="ed-return">
+        retour
+      </Link>
     </section>
   );
 }
