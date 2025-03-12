@@ -1,10 +1,10 @@
 import "../styles/profile.css";
-import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
 import ProfilePicture from "../components/ProfilePicture";
 import SvgIcons from "../components/SvgIcons";
+import { updateUserData } from "../services/requests";
 
 const icons = {
   portfolio: {
@@ -56,11 +56,7 @@ export default function Profile() {
     const updatedUserData = { ...user };
 
     try {
-      const apiUrl = import.meta.env.VITE_API_URL;
-      await axios.put(`${apiUrl}/api/users`, updatedUserData, {
-        withCredentials: true,
-      });
-
+      await updateUserData(updatedUserData);
       setEditing(false);
     } catch (error) {
       console.error(error);

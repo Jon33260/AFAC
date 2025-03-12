@@ -106,6 +106,18 @@ const getArtworkByUser = async (id: number) => {
   }
 };
 
+const updateUserData = async (updatedUserData: UserData) => {
+  try {
+    const response = await axios.put(`${baseUrl}/api/users`, updatedUserData, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error();
+  }
+};
+
 export {
   getAllArtwork,
   getArtworksBySearch,
@@ -117,4 +129,5 @@ export {
   getArtworkById,
   postLogin,
   getArtworkByUser,
+  updateUserData,
 };
