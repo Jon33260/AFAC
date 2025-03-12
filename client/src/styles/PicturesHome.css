@@ -2,8 +2,7 @@
   column-count: 2;
   margin: 2rem;
   margin-top: 0;
-  column-gap: 0.25rem;
-  row-gap: 0.5rem;
+  column-gap: 0.4rem;
 }
 
 .masonry-gallery > .masonry-item > img {

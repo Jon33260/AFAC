@@ -1,5 +1,6 @@
 import "../styles/ArtworkPage.css";
 import { Link, useLoaderData } from "react-router-dom";
+import EditPost from "../components/EditPost";
 
 export default function ArtworkPage() {
   const artwork = useLoaderData() as Artwork;
@@ -7,9 +8,12 @@ export default function ArtworkPage() {
   return (
     <article className="artwork-page">
       <figure className="artwork-image">
-        <Link to="/" className="artwork-image-link">
-          Retour
-        </Link>
+        <div className="artwork-image-link-container">
+          <Link to="/" className="artwork-image-link">
+            Retour
+          </Link>
+          <EditPost />
+        </div>
         <img src={artwork.picture} alt={artwork.description} />
       </figure>
 
