@@ -47,18 +47,15 @@ class UserRepository {
     return rows as User[];
   }
 
-  async update(user: User) {
+  async update(user: Omit<User, "email" | "hashed_password" | "is_admin">) {
     const [result] = await databaseClient.query<Result>(
-      "update user set username = ?, email = ?, hashed_password = ?, bio = ?, profile_picture = ?,portfolio = ?, website = ?, is_admin = ? where id = ?",
+      "update user set username = ?, bio = ?, profile_picture = ?,portfolio = ?, website = ? where id = ?",
       [
         user.username,
-        user.email,
-        user.hashed_password,
-        user.profile_picture,
         user.bio,
+        user.profile_picture,
         user.portfolio,
         user.website,
-        user.is_admin,
         user.id,
       ],
     );
