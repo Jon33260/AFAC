@@ -45,20 +45,23 @@ const readBySearch: RequestHandler = async (req, res, next) => {
 const edit: RequestHandler = async (req, res, next) => {
   try {
     const artwork = {
-      id: req.body.id,
       title: req.body.title,
       description: req.body.description,
-      picture: req.body.picture,
       category_id: req.body.category_id,
       user_id: req.body.user_id,
+      id: Number(req.params.id),
     };
 
-    const affectedRows = await artworkRepository.update(artwork);
+    if (Number(req.user.id) === Number(artwork.user_id)) {
+      const affectedRows = await artworkRepository.update(artwork);
 
-    if (affectedRows === 0) {
-      res.sendStatus(404);
+      if (affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
     } else {
-      res.sendStatus(204);
+      res.sendStatus(403);
     }
   } catch (error) {
     next(error);
@@ -85,11 +88,16 @@ const add: RequestHandler = async (req, res, next) => {
 
 const destroy: RequestHandler = async (req, res, next) => {
   try {
-    const artworkId = Number.parseInt(req.params.id);
+    const artworkId = Number(req.params.id);
+    const userId = Number(req.body.user_id);
 
-    await artworkRepository.delete(artworkId);
+    if (Number(req.user.id) === Number(userId)) {
+      await artworkRepository.delete(artworkId);
 
-    res.sendStatus(204);
+      res.sendStatus(204);
+    } else {
+      res.sendStatus(403);
+    }
   } catch (error) {
     next(error);
   }

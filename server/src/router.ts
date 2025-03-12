@@ -29,9 +29,9 @@ router.get("/api/artworks/:id", artworkActions.read);
 router.get("/api/search/:search", artworkActions.searchArtwork);
 router.get("/api/artworks/user/:id", artworkActions.readByUserId);
 
-router.put("/api/artworks/:id", artworkActions.edit);
+router.put("/api/artworks/:id", auth.verify, artworkActions.edit);
 router.post("/api/artworks", auth.verify, artworkActions.add);
-router.delete("/api/artworks/:id", artworkActions.destroy);
+router.delete("/api/artworks/:id", auth.verify, artworkActions.destroy);
 
 //Events routes
 import eventActions from "./modules/event/eventActions";
