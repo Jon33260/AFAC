@@ -3,7 +3,10 @@ import { Link, useLoaderData } from "react-router-dom";
 import EditPost from "../components/EditPost";
 
 export default function ArtworkPage() {
-  const artwork = useLoaderData() as Artwork;
+  const { artwork, category } = useLoaderData() as {
+    artwork: Artwork;
+    category: Category[];
+  };
 
   return (
     <article className="artwork-page">
@@ -12,7 +15,7 @@ export default function ArtworkPage() {
           <Link to="/" className="artwork-image-link">
             Retour
           </Link>
-          <EditPost />
+          <EditPost artwork={artwork} category={category} />
         </div>
         <img src={artwork.picture} alt={artwork.description} />
       </figure>

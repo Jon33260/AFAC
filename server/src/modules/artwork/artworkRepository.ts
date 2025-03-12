@@ -39,7 +39,7 @@ class ArtworkRepository {
 
   async readAll() {
     const [rows] = await databaseClient.query<Rows>(
-      "select artwork.*, category.name as category, user.username as username from artwork join category on artwork.category_id = category.id JOIN user ON artwork.user_id = user.id",
+      "select artwork.*, category.name as category, user.username as username from artwork join category on artwork.category_id = category.id JOIN user ON artwork.user_id = user.id ORDER BY artwork.created_at DESC",
     );
 
     return rows as Artwork[];
@@ -53,17 +53,10 @@ class ArtworkRepository {
     return rows;
   }
 
-  async update(artwork: Artwork) {
+  async update(artwork: Partial<Artwork>) {
     const [result] = await databaseClient.query<Result>(
-      "update artwork set title = ?, picture = ?, category = ?, description = ?, user_id = ? where id = ?",
-      [
-        artwork.title,
-        artwork.picture,
-        artwork.category_id,
-        artwork.description,
-        artwork.user_id,
-        artwork.id,
-      ],
+      "update artwork set title = ?, description = ?, category_id = ? where id = ?",
+      [artwork.title, artwork.description, artwork.category_id, artwork.id],
     );
     return result.affectedRows;
   }

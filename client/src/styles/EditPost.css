@@ -1,43 +1,42 @@
 .edit-post:hover {
-    background-color: #f0f0f0;
-    cursor: pointer;
+  background-color: #f0f0f0;
+  cursor: pointer;
 }
 
 .edit-post_sum {
-    list-style: none;
+  list-style: none;
 }
 
 .edit-post_menu {
-    list-style: none;
-    position: absolute;
-    background-color: white;
-    border: 1px solid #f0f0f0;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-    right: 50%;
+  list-style: none;
+  position: absolute;
+  background-color: white;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  right: 50%;
 }
 
 .edit-post_btn {
-    color: gray;
-    font-size: .8rem;
-    width: 100%;
+  color: gray;
+  font-size: .8rem;
+  width: 100%;
 }
 
 .delete-post_btn {
-    color: red;
-    font-size: .8rem;
+  color: red;
+  font-size: .8rem;
 }
 
-
 .edit-post_btn:hover {
-    background-color: #f0f0f0;
+  background-color: #f0f0f0;
 }
 
 .delete-post_btn:hover {
-    background-color: #f0f0f0;
+  background-color: #f0f0f0;
 }
 
 @media screen and (max-width: 768px) {
-    .edit-post_menu {
-        right: 1rem;
-    }
+  .edit-post_menu {
+    right: 1rem;
+  }
 }

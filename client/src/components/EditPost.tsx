@@ -1,5 +1,6 @@
 import SvgIcons from "./SvgIcons";
 import "../styles/EditPost.css";
+import EditPostModal from "./EditPostModal";
 
 const icons = {
   threeDots: {
@@ -9,7 +10,13 @@ const icons = {
   },
 };
 
-export default function EditPost() {
+export default function EditPost({
+  artwork,
+  category,
+}: {
+  artwork: Artwork;
+  category: Category[];
+}) {
   return (
     <details className="edit-post">
       <summary className="edit-post_sum">
@@ -17,7 +24,16 @@ export default function EditPost() {
       </summary>
       <ul className="edit-post_menu">
         <li>
-          <button type="button" className="edit-post_btn">
+          <button
+            type="button"
+            className="edit-post_btn"
+            onClick={() => {
+              const modal = document.getElementById(
+                "edit-post-modal",
+              ) as HTMLDialogElement;
+              modal?.showModal();
+            }}
+          >
             Modifier
           </button>
         </li>
@@ -27,6 +43,9 @@ export default function EditPost() {
           </button>
         </li>
       </ul>
+
+      {/* Edit post modal */}
+      <EditPostModal artwork={artwork} category={category} />
     </details>
   );
 }
