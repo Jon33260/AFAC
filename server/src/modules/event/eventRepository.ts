@@ -40,7 +40,7 @@ class EventRepository {
         a.title as artwork_title,
         a.description as artwork_description,
         a.picture,
-        a.category,
+        u.id as user_id,
         u.username as artist_name
       FROM Event e
       LEFT JOIN Event_artwork ea ON e.id = ea.event_id 

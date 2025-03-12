@@ -18,15 +18,10 @@
 }
 
 .filtre select {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   border: none;
   padding: 0.3rem;
   border-radius: 5px;
-}
-
-.creation-bouton {
-  display: flex;
-  margin: 2rem;
 }
 
 .categories {
@@ -34,7 +29,7 @@
   display: flex;
   overflow-x: scroll;
   margin-top: -1rem;
-  max-width: calc(3 * 100px);
+  max-width: calc(3 * 105px);
   scrollbar-width: none;
   scroll-snap-type: x mandatory;
 }
@@ -55,12 +50,18 @@ button.selected {
   text-decoration: underline;
 }
 
+.btn-search {
+  padding-top: 1rem;
+  margin-left: -4rem;
+}
+
 @media (min-width: 768px) {
   .barre-filtre {
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
     align-items: center;
+    margin-right: 15rem;
   }
 
   .barre {
@@ -81,15 +82,23 @@ button.selected {
   }
 
   .categories {
-    justify-content: flex-start;
-    max-width: 50%;
-    gap: 1rem;
+    margin: 0 auto;
     margin-top: 1rem;
+    margin-bottom: -1rem;
+    justify-content: center;
+    overflow-x: auto;
+    cursor: pointer;
+    max-width: 85%;
+    scrollbar-width: none;
+    scrollbar-width: thin;
+    scrollbar-color: #9e9e9e #fff;
+    scroll-behavior: smooth;
+    gap: 0;
   }
 
   .categories button {
     padding: 1rem 2rem;
-    font-size: 1.3rem;
+    font-size: min(1.8vw, 1.2rem);
   }
 }
 
