@@ -116,7 +116,21 @@ const deleteEvent = async (id: number) => {
   }
 };
 
+const addLike = async (artworkId: number) => {
+  try {
+    const response = await axios.post(`${baseUrl}/api/likes/${artworkId}`, {
+      withCredentials: true,
+    });
+    console.info(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Erreur lors de l'ajout du like:", error);
+    return false;
+  }
+};
+
 export {
+  addLike,
   getAllArtwork,
   getArtworksBySearch,
   getCategory,
