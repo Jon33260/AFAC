@@ -141,13 +141,19 @@ const deleteEvent = async (id: number) => {
   }
 };
 
-const deleteArtwork = async (id: number) => {
+const deleteArtwork = async (id: number, userId: number) => {
   try {
     const response = await axios.delete(`${baseUrl}/api/artworks/${id}`, {
+      data: {
+        user_id: userId,
+      },
       withCredentials: true,
     });
     return response.data;
   } catch (error) {
+    if (error instanceof AxiosError && error.response?.status === 403) {
+      alert("Vous n'avez pas les permissions pour supprimer cette oeuvre");
+    }
     console.error(error);
     throw new Error("Failed to delete artwork");
   }

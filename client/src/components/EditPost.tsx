@@ -1,5 +1,7 @@
 import SvgIcons from "./SvgIcons";
 import "../styles/EditPost.css";
+import { useNavigate } from "react-router-dom";
+import { deleteArtwork } from "../services/requests";
 import EditPostModal from "./EditPostModal";
 
 const icons = {
@@ -17,6 +19,20 @@ export default function EditPost({
   artwork: Artwork;
   category: Category[];
 }) {
+  const navigate = useNavigate();
+
+  const handleDelete = async () => {
+    try {
+      if (confirm("Voulez-vous vraiment supprimer cette oeuvre ?")) {
+        await deleteArtwork(artwork.id, artwork.user_id);
+        alert("Oeuvre supprimée avec succès");
+        navigate("/");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <details className="edit-post">
       <summary className="edit-post_sum">
@@ -38,7 +54,11 @@ export default function EditPost({
           </button>
         </li>
         <li>
-          <button type="button" className="delete-post_btn">
+          <button
+            type="button"
+            className="delete-post_btn"
+            onClick={handleDelete}
+          >
             Supprimer
           </button>
         </li>

@@ -88,11 +88,16 @@ const add: RequestHandler = async (req, res, next) => {
 
 const destroy: RequestHandler = async (req, res, next) => {
   try {
-    const artworkId = Number.parseInt(req.params.id);
+    const artworkId = Number(req.params.id);
+    const userId = Number(req.body.user_id);
 
-    await artworkRepository.delete(artworkId);
+    if (Number(req.user.id) === Number(userId)) {
+      await artworkRepository.delete(artworkId);
 
-    res.sendStatus(204);
+      res.sendStatus(204);
+    } else {
+      res.sendStatus(403);
+    }
   } catch (error) {
     next(error);
   }

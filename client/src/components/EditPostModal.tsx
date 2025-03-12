@@ -3,7 +3,6 @@ import { editArtwork } from "../services/requests";
 import "../styles/NewPost.css";
 
 export default function EditPostModal({ artwork, category }: EditPostProps) {
-  console.info(artwork);
   const [formValues, setFormValues] = useState<Partial<Artwork>>({
     title: artwork.title,
     description: artwork.description,
