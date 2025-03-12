@@ -27,12 +27,11 @@ import artworkActions from "./modules/artwork/artworkActions";
 router.get("/api/artworks", artworkActions.browse);
 router.get("/api/artworks/:id", artworkActions.read);
 router.get("/api/search/:search", artworkActions.searchArtwork);
-router.get("/api/events/current", eventActions.browseCurrent);
-router.get("/api/events/upcoming", eventActions.browseUpcoming);
+router.get("/api/artworks/user/:id", artworkActions.readByUserId);
+
 router.put("/api/artworks/:id", artworkActions.edit);
 router.post("/api/artworks", auth.verify, artworkActions.add);
 router.delete("/api/artworks/:id", artworkActions.destroy);
-router.get("/api/artworks/user/:id", artworkActions.readByUserId);
 
 //Events routes
 import eventActions from "./modules/event/eventActions";

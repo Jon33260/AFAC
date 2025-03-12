@@ -53,6 +53,17 @@ const postCreateUser = async (userData: UserTypes) => {
   }
 };
 
+const getEventDetails = async (id: number) => {
+  try {
+    const response = await axios.get(`${baseUrl}/api/events/${id}`);
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to fetch event details");
+  }
+};
+
 const getCurrentEvents = async () => {
   try {
     const response = await axios.get(`${baseUrl}/api/events/current`);
@@ -106,6 +117,20 @@ const getArtworkByUser = async (id: number) => {
   }
 };
 
+const postArtwork = async (artworkData: Artwork) => {
+  try {
+    const response = await axios.post(`${baseUrl}/api/artworks`, artworkData, {
+      withCredentials: true,
+    });
+
+    return response.data;
+  } catch (error) {
+    alert("Vous devez être connecté");
+    console.error(error);
+    throw new Error("Failed to create artwork");
+  }
+};
+
 const deleteEvent = async (id: number) => {
   try {
     const response = await axios.delete(`${baseUrl}/api/events/${id}`);
@@ -137,15 +162,17 @@ const addLike = async (id: number) => {
 
 export {
   addLike,
+  deleteEvent,
   getAllArtwork,
   getArtworksBySearch,
   getCategory,
   postCreateUser,
   getUserById,
+  getEventDetails,
   getCurrentEvents,
   getUpcomingEvents,
   getArtworkById,
-  postLogin,
   getArtworkByUser,
-  deleteEvent,
+  postLogin,
+  postArtwork,
 };

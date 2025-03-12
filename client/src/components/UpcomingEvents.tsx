@@ -1,4 +1,5 @@
 import "../styles/UpcomingEvents.css";
+import { Link } from "react-router-dom";
 
 interface UpcomingEventsProps {
   upcomingEvents: Events;
@@ -29,7 +30,12 @@ export default function UpcomingEvents({
                     className="event-image"
                   />
                   <p>{upcomingEvents.artists}</p>
-                  <a href="test">En savoir plus</a>
+                  <Link
+                    to={`/events/${upcomingEvents.event_id}`}
+                    className="ed-artist-name"
+                  >
+                    En savoir plus
+                  </Link>
                 </li>
               ))}
             </ul>

@@ -1,6 +1,6 @@
 import "../styles/EventsDashboard.css";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { deleteEvent } from "../services/requests";
 
 interface EventsDashboardProps {
@@ -12,13 +12,8 @@ export default function EventsDashboard({
   currentEvents: initialCurrentEvents,
   upcomingEvents: initialUpcomingEvents,
 }: EventsDashboardProps) {
-  const naviguate = useNavigate();
   const [currentEvents, setCurrentEvents] = useState(initialCurrentEvents);
   const [upcomingEvents, setUpcomingEvents] = useState(initialUpcomingEvents);
-
-  const handleNaviguate = () => {
-    naviguate("/events");
-  };
 
   const handleDelete = async (id: number) => {
     try {
@@ -41,13 +36,12 @@ export default function EventsDashboard({
             {currentEvents.map((event) => (
               <article key={event.event_id}>
                 <h3>{event.event_title}</h3>
-                <button
-                  type="button"
-                  className="see-event-button"
-                  onClick={handleNaviguate}
+                <Link
+                  to={`/events/${event.event_id}`}
+                  className="see-event-link"
                 >
                   voir
-                </button>
+                </Link>
                 <button
                   type="button"
                   className="delete-event-button"
@@ -73,14 +67,12 @@ export default function EventsDashboard({
             {upcomingEvents.map((event) => (
               <article key={event.event_id}>
                 <h3>{event.event_title}</h3>
-                <button
-                  type="button"
-                  className="see-event-button"
-                  onClick={handleNaviguate}
+                <Link
+                  to={`/events/${event.event_id}`}
+                  className="see-event-link"
                 >
                   voir
-                </button>
-
+                </Link>
                 <button
                   type="button"
                   className="delete-event-button"
