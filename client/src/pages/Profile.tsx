@@ -1,4 +1,5 @@
 import "../styles/profile.css";
+import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
@@ -20,10 +21,6 @@ const icons = {
 
 export default function Profile() {
   const data = useLoaderData() as ProfileData;
-
-  const [bioExpanded, setBioExpanded] = useState(false);
-  const [choiceSelected, setChoiceSelected] = useState("Récent");
-
   const toggleBio = () => {
     setBioExpanded((prevState) => !prevState);
   };
@@ -33,82 +30,185 @@ export default function Profile() {
   const tabs = ["Récent", "Populaire", "Exposé"];
 
   const desktop = window.innerWidth >= 768;
+  const [bioExpanded, setBioExpanded] = useState(false);
+  const [choiceSelected, setChoiceSelected] = useState("Récent");
+
+  const [user, setUser] = useState({
+    profile_picture:
+      data.user.profile_picture ||
+      "https://www.vhv.rs/dpng/d/138-1383989_default-svg-icon-free-avatar-png-transparent-png.png",
+    username: data.user.username,
+    bio: data.user.bio || "Aucune biographie",
+    portfolio: data.user.portfolio,
+    website: data.user.website,
+  } as UserData);
+
+  const [editing, setEditing] = useState(false);
+
+  const handleChangeEdited = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { name, value } = event.target;
+    setUser((prevUser) => ({ ...prevUser, [name]: value }));
+  };
+
+  const handleSave = async () => {
+    const updatedUserData = { ...user };
+
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL;
+      await axios.put(`${apiUrl}/api/users`, updatedUserData, {
+        withCredentials: true,
+      });
+
+      setEditing(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="profile">
-      <div className="left-part">
+      <div className={`left-part ${editing ? "editing" : ""}`}>
         <article className="profile-header">
-          <img
-            src={
-              data.user.profile_picture ||
-              "https://www.vhv.rs/dpng/d/138-1383989_default-svg-icon-free-avatar-png-transparent-png.png"
-            }
-            alt="pdeprofil"
-          />
-          <div className="profile-header-text">
-            <h1>{data.user.username}</h1>
-            <div className="username-followers">
-              <p>{data.user.following} suivi(e)s</p>
-              <p>{data.user.followers} followers</p>
-            </div>
-            <blockquote>
-              Art is a journey without a destination, an invitation to dream
-              beyond the visible.
-            </blockquote>
+          <img src={data.user.profile_picture ?? ""} alt="pdeprofil" />
+          <div className="profile-header-edit">
+            {editing ? (
+              <form className="edit-form" onSubmit={handleSave}>
+                <input
+                  type="text"
+                  name="profile_picture"
+                  value={user.profile_picture ?? ""}
+                  onChange={handleChangeEdited}
+                  placeholder="URL photo de profil"
+                />
+                <input
+                  type="text"
+                  name="username"
+                  value={user.username}
+                  onChange={handleChangeEdited}
+                  placeholder="Username"
+                  required
+                />
+                <textarea
+                  name="bio"
+                  value={user.bio ?? ""}
+                  onChange={handleChangeEdited}
+                  placeholder="Biographie"
+                />
+                <input
+                  type="text"
+                  name="portfolio"
+                  value={user.portfolio ?? ""}
+                  onChange={handleChangeEdited}
+                  placeholder="Portfolio"
+                />
+                <input
+                  type="text"
+                  name="website"
+                  value={user.website ?? ""}
+                  onChange={handleChangeEdited}
+                  placeholder="Site Web"
+                />
+                <button type="submit" className="save-button">
+                  Sauvegarder
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setEditing(false)}
+                  className="cancel-button"
+                >
+                  Annuler
+                </button>
+              </form>
+            ) : (
+              <div className="profile-header-text">
+                <h1>{data.user.username}</h1>
+                <div className="username-followers">
+                  <p>{data.user.following} suivi(e)s</p>
+                  <p>{data.user.followers} followers</p>
+                  <button
+                    type="button"
+                    className="edit-button"
+                    onClick={() => setEditing(true)}
+                  >
+                    Modifier
+                  </button>
+                </div>
+                <blockquote>
+                  "Art is a journey without a destination, an invitation to
+                  dream beyond the visible."
+                </blockquote>
+              </div>
+            )}
           </div>
         </article>
 
-        <hr className="separation" />
+        {!editing && <hr className="separation" />}
 
-        <div className="biography">
-          <h3>BIOGRAPHIE</h3>
-          <div className={`bio ${bioExpanded ? "expanded" : "normal"}`}>
-            <p>{bioText}</p>
-            {(bioExpanded || desktop) &&
-              (data.user.portfolio || data.user.website) && (
-                <div className="links">
-                  <h3>LIENS</h3>
-                  <ul className="list">
-                    {data.user.portfolio && (
-                      <li className="svg-portfolio">
-                        <SvgIcons {...icons.portfolio} />
-                        <Link to={data.user.portfolio}>Portfolio</Link>
-                      </li>
-                    )}
-                    {data.user.website && (
-                      <li className="svg-website">
-                        <SvgIcons {...icons.website} />
-                        <Link to={data.user.website}>Website</Link>
-                      </li>
-                    )}
-                  </ul>
-                </div>
-              )}
-          </div>
-        </div>
+        {!editing && (
+          <>
+            <div className="biography">
+              <h3>BIOGRAPHIE</h3>
+              <div className={`bio ${bioExpanded ? "expanded" : "normal"}`}>
+                <p>{bioText}</p>
+                {(bioExpanded || desktop) &&
+                  (data.user.portfolio || data.user.website) && (
+                    <div className="links">
+                      <h3>LIENS</h3>
+                      <ul className="list">
+                        {data.user.portfolio && (
+                          <li className="svg-portfolio">
+                            <SvgIcons {...icons.portfolio} />
+                            <Link to={data.user.portfolio}>
+                              {data.user.portfolio.replace(/^https?:\/\//, "")}
+                            </Link>
+                          </li>
+                        )}
+                        {data.user.website && (
+                          <li className="svg-website">
+                            <SvgIcons {...icons.website} />
+                            <Link to={data.user.website}>
+                              {data.user.website.replace(/^https?:\/\//, "")}
+                            </Link>
+                          </li>
+                        )}
+                      </ul>
+                    </div>
+                  )}
+              </div>
+            </div>
 
-        <button type="button" className="read-more" onClick={toggleBio}>
-          <span className={`arrow ${bioExpanded ? "left" : "right"}`}>▼</span>
-          {bioExpanded ? "Read Less" : "Read More"}
-        </button>
-        <hr className="separation2" />
-      </div>
-      <div className="right-part">
-        <div className="order-choice">
-          {tabs.map((tab) => (
-            <button
-              type="button"
-              key={tab}
-              className={choiceSelected === tab ? "active" : ""}
-              onClick={() => setChoiceSelected(tab)}
-            >
-              {tab}
+            <button type="button" className="read-more" onClick={toggleBio}>
+              <span className={`arrow ${bioExpanded ? "left" : "right"}`}>
+                ▼
+              </span>
+              {bioExpanded ? "Read Less" : "Read More"}
             </button>
-          ))}
-        </div>
+          </>
+        )}
 
-        <ProfilePicture artworks={data.artworks} userData={data.user} />
+        {!editing && <hr className="separation2" />}
       </div>
+
+      {!editing && (
+        <div className="right-part">
+          <div className="order-choice">
+            {tabs.map((tab) => (
+              <button
+                type="button"
+                key={tab}
+                className={choiceSelected === tab ? "active" : ""}
+                onClick={() => setChoiceSelected(tab)}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+
+          <ProfilePicture artworks={data.artworks} userData={data.user} />
+        </div>
+      )}
     </div>
   );
 }

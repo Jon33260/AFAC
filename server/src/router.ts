@@ -17,7 +17,7 @@ router.post("/api/login", auth.login);
 
 router.get("/api/users", auth.verify, auth.checkAdmin, userActions.browse);
 router.get("/api/users/:id", userActions.read);
-router.put("/api/users/:id", userActions.edit);
+router.put("/api/users", auth.verify, userActions.edit);
 router.post("/api/users", form.validate, auth.hashPassword, userActions.add);
 router.delete("/api/users/:id", userActions.destroy);
 
