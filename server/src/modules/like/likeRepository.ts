@@ -16,8 +16,11 @@ class LikeRepository {
     return result.insertId;
   }
 
-  async readAll(): Promise<Like[]> {
-    const [rows] = await databaseClient.query<Rows>("SELECT * FROM likes");
+  async readByCount(artworkId: number) {
+    const [rows] = await databaseClient.query<Rows>(
+      "SELECT Count(*) FROM likes where artwork_id = ?",
+      [artworkId],
+    );
     return rows as Like[];
   }
 

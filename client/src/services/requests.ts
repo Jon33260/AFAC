@@ -116,11 +116,17 @@ const deleteEvent = async (id: number) => {
   }
 };
 
-const addLike = async (artworkId: number) => {
+const addLike = async (id: number) => {
   try {
-    const response = await axios.post(`${baseUrl}/api/likes/${artworkId}`, {
-      withCredentials: true,
-    });
+    const response = await axios.post(
+      `${baseUrl}/api/likes`,
+      {
+        artwork_id: id,
+      },
+      {
+        withCredentials: true,
+      },
+    );
     console.info(response.data);
     return response.data;
   } catch (error) {

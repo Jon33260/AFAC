@@ -1,6 +1,4 @@
 interface Artwork {
-  likes: number;
-  liked: boolean;
   id: number;
   title: string;
   description: string;
@@ -8,6 +6,7 @@ interface Artwork {
   category: string;
   user_id: number;
   username: string;
+  likeCount: number;
 }
 
 interface Artworks {

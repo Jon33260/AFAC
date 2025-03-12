@@ -1,5 +1,5 @@
 import "../styles/ArtworkPage.css";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useParams } from "react-router-dom";
 import SvgIcons from "../components/SvgIcons";
 import { addLike } from "../services/requests";
 
@@ -12,11 +12,8 @@ const likeIcon = {
 };
 
 export default function ArtworkPage() {
+  const { id } = useParams();
   const artwork = useLoaderData() as Artwork;
-
-  const submitLike = async () => {
-    await addLike(Number(artwork.id));
-  };
 
   return (
     <article className="artwork-page">
@@ -43,8 +40,9 @@ export default function ArtworkPage() {
         <hr className="separator" />
 
         <div className="like-section">
-          <button type="button" onClick={submitLike}>
+          <button type="button" onClick={() => addLike(Number(id))}>
             <SvgIcons {...likeIcon.like} />
+            <span>{artwork.likeCount}</span>
           </button>
         </div>
       </section>
