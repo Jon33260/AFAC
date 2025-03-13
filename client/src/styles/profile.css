@@ -54,6 +54,10 @@
   font-size: 0.8rem;
 }
 
+.username-followers > button {
+  margin-left: auto;
+}
+
 blockquote {
   position: relative;
   font-style: italic;
@@ -205,8 +209,53 @@ blockquote::before {
   width: 100%;
 }
 
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 3vw;
+  padding: 4vw;
+  background-color: #f9f9f9;
+  border-radius: 1vw;
+  box-shadow: 0 0.4vw 1vw rgba(0, 0, 0, 0.1);
+  width: 90vw;
+}
+
+.edit-form input,
+.edit-form textarea {
+  padding: 2vw;
+  font-size: 3.5vw;
+  border: 0.2vw solid #ccc;
+  border-radius: 0.6vw;
+  background-color: #fff;
+  width: 100%;
+  transition: border-color 0.3s ease;
+}
+
+.edit-form textarea {
+  resize: vertical;
+  min-height: 40vw;
+}
+
+.edit-button {
+  padding: 3vw;
+  font-size: 4vw;
+  border: none;
+  border-radius: 1vw;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.save-button {
+  background-color: #4e6bff;
+  color: white;
+}
+
+.cancel-button {
+  background-color: white;
+  color: var(--text-black-color);
+}
+
 @media screen and (min-width: 768px) {
-  /*LEFT PART*/
   .profile-header {
     flex-direction: row;
   }
@@ -269,7 +318,6 @@ blockquote::before {
     margin-top: -5vw;
   }
 
-  /*RIGHT PART*/
   .right-part {
     max-width: 54%;
     max-height: 90vh;
@@ -279,7 +327,7 @@ blockquote::before {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    width: 100%;
+    width: 54vw;
     padding-right: 3vw;
     padding-top: 2vw;
     gap: 4vw;
@@ -322,6 +370,45 @@ blockquote::before {
     justify-content: flex-start;
     gap: 1rem;
     width: 100%;
-    padding-left: 2vw;
+    padding-left: 3vw;
+  }
+
+  .left-part.editing {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    max-width: none;
+    padding: 0;
+  }
+
+  .edit-form {
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0.4vw;
+    padding: 0.4vw;
+  }
+
+  .edit-form input,
+  .edit-form textarea {
+    padding: 0.8vw;
+    font-size: 1vw;
+    border-radius: 0.8vw;
+    width: 100%;
+    margin: 0;
+  }
+
+  .edit-form textarea {
+    resize: vertical;
+    min-height: 8vw;
+  }
+
+  .edit-button {
+    font-size: 1vw;
+    margin: 0;
+    padding: 0;
   }
 }

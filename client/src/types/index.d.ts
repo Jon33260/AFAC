@@ -117,3 +117,8 @@ interface LoginResponse {
     email: string;
   };
 }
+
+interface EditPostProps {
+  artwork: Artwork;
+  category: Category[];
+}

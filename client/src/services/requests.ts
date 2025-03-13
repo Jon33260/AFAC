@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 const baseUrl = import.meta.env.VITE_API_URL;
 
@@ -117,6 +117,18 @@ const getArtworkByUser = async (id: number) => {
   }
 };
 
+const updateUserData = async (updatedUserData: UserData) => {
+  try {
+    const response = await axios.put(`${baseUrl}/api/users`, updatedUserData, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error();
+  }
+};
+
 const postArtwork = async (artworkData: Artwork) => {
   try {
     const response = await axios.post(`${baseUrl}/api/artworks`, artworkData, {
@@ -159,10 +171,48 @@ const addLike = async (id: number) => {
     return false;
   }
 };
+const deleteArtwork = async (id: number, userId: number) => {
+  try {
+    const response = await axios.delete(`${baseUrl}/api/artworks/${id}`, {
+      data: {
+        user_id: userId,
+      },
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.status === 403) {
+      alert("Vous n'avez pas les permissions pour supprimer cette oeuvre");
+    }
+    console.error(error);
+    throw new Error("Failed to delete artwork");
+  }
+};
+
+const editArtwork = async (id: number, artworkData: Partial<Artwork>) => {
+  try {
+    const response = await axios.put(
+      `${baseUrl}/api/artworks/${id}`,
+      artworkData,
+      {
+        withCredentials: true,
+      },
+    );
+    return response.data;
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.status === 403) {
+      alert("Vous n'avez pas les permissions pour modifier cet Oeuvre");
+    }
+    console.error(error);
+    throw new Error("Failed to update artwork");
+  }
+};
 
 export {
   addLike,
+  deleteArtwork,
   deleteEvent,
+  editArtwork,
   getAllArtwork,
   getArtworksBySearch,
   getCategory,
@@ -173,6 +223,7 @@ export {
   getUpcomingEvents,
   getArtworkById,
   getArtworkByUser,
+  updateUserData,
   postLogin,
   postArtwork,
 };

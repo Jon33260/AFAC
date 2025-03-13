@@ -30,15 +30,12 @@ const read: RequestHandler = async (req, res, next) => {
 const edit: RequestHandler = async (req, res, next) => {
   try {
     const user = {
-      id: req.body.id,
+      id: req.user.id,
       username: req.body.username,
-      email: req.body.email,
-      hashed_password: req.body.hashed_password,
       profile_picture: req.body.profile_picture || null,
       bio: req.body.bio || null,
       portfolio: req.body.portfolio || null,
       website: req.body.website || null,
-      is_admin: false,
     };
 
     const affectedRows = await userRepository.update(user);

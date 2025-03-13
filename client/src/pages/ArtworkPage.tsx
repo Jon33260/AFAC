@@ -1,5 +1,6 @@
 import "../styles/ArtworkPage.css";
 import { Link, useLoaderData, useParams } from "react-router-dom";
+import EditPost from "../components/EditPost";
 import SvgIcons from "../components/SvgIcons";
 import { addLike } from "../services/requests";
 
@@ -13,14 +14,20 @@ const likeIcon = {
 
 export default function ArtworkPage() {
   const { id } = useParams();
-  const artwork = useLoaderData() as Artwork;
+  const { artwork, category } = useLoaderData() as {
+    artwork: Artwork;
+    category: Category[];
+  };
 
   return (
     <article className="artwork-page">
       <figure className="artwork-image">
-        <Link to="/" className="artwork-image-link">
-          Retour
-        </Link>
+        <div className="artwork-image-link-container">
+          <Link to="/" className="artwork-image-link">
+            Retour
+          </Link>
+          <EditPost artwork={artwork} category={category} />
+        </div>
         <img src={artwork.picture} alt={artwork.description} />
       </figure>
 

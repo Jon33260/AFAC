@@ -65,6 +65,13 @@ a {
   color: var(--text-black-color);
 }
 
+.artwork-image-link-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
 /* Desktop styles */
 @media screen and (min-width: 768px) {
   .artwork-page {

@@ -81,7 +81,13 @@ const router = createBrowserRouter([
       {
         path: "/artwork/:id",
         element: <ArtworkPage />,
-        loader: ({ params }) => getArtworkById(Number(params.id)),
+        loader: async ({ params }) => {
+          const [artwork, category] = await Promise.all([
+            getArtworkById(Number(params.id)),
+            getCategory(),
+          ]);
+          return { artwork, category };
+        },
         errorElement: <ErrorPage />,
       },
       {

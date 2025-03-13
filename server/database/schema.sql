@@ -45,7 +45,8 @@ INSERT INTO category (name) VALUES
   ('Photos'),
   ('Danse'),
   ('Street Art'),
-  ('Sculpture');
+  ('Sculpture'),
+  ('Autres');
 
 
 CREATE TABLE artwork (
@@ -55,6 +56,7 @@ CREATE TABLE artwork (
   picture text NOT NULL,
   category_id INT NOT NULL,
   user_id INT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY(user_id) REFERENCES user(id),
   FOREIGN KEY(category_id) REFERENCES category(id)
 );
@@ -95,8 +97,8 @@ INSERT INTO artwork(title, description, picture, category_id, user_id) VALUES
 ("Coucher de soleil", "Un magnifique coucher de soleil sur la plage", "https://img.freepik.com/photos-gratuite/coucher-soleil-tour-eiffel-paris_181624-22712.jpg?size=626&ext=jpg", 3, 10),
 ("Ville la nuit", "Vue aérienne d'une ville illuminée la nuit", "https://img.freepik.com/photos-gratuite/vue-aerienne-ville-illuminations-nuit_181624-13831.jpg?size=626&ext=jpg", 4, 3),
 ("Paysage montagneux", "Paysage montagneux avec un lac au premier plan", "https://img.freepik.com/photos-gratuite/vue-montagnes-lac-contre-ciel-bleu_181624-20597.jpg?size=626&ext=jpg", 1, 4),
-("Forêt en automne", "Forêt avec feuillage automnal", "https://img.freepik.com/photos-gratuite/foret-avec-arbres-automne_181624-14110.jpg?size=626&ext=jpg", 5, 5);
-
+("Forêt en automne", "Forêt avec feuillage automnal", "https://img.freepik.com/photos-gratuite/foret-avec-arbres-automne_181624-14110.jpg?size=626&ext=jpg", 5, 5),
+("Forêt en automne", "Forêt avec feuillage automnal", "https://img.freepik.com/photos-gratuite/foret-avec-arbres-automne_181624-14110.jpg?size=626&ext=jpg", 5, 1);
 
 CREATE TABLE event (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
