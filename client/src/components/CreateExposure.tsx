@@ -1,76 +1,117 @@
 import { useState } from "react";
 import "../styles/CreateExposure.css";
+import { postEvent } from "../services/requests";
 
 export default function CreateExposure() {
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
   const [showDateOptions, setShowDateOptions] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    start_date: "",
+    end_date: "",
+    location: "",
+  } as FormDataCreateEvent);
+
+  const handleSubmit = () => {
+    postEvent(formData);
+  };
 
   return (
     <section className="create-exposure">
-      <div className="container">
-        <h1>Créer Exposition</h1>
-        <button className="create" type="button">
-          + Créer
-        </button>
-      </div>
-      <section className="event-container">
-        <section className="info-event">
-          <p>Nom de l'évènement</p>
-          <input type="text" />
+      <form className="search" onSubmit={handleSubmit}>
+        <div className="container">
+          <h1>Créer Exposition</h1>
+          <button className="create" type="submit">
+            + Créer
+          </button>
+        </div>
+        <div className="event-container">
+          <article className="info-event">
+            <label htmlFor="title">Nom de l'évènement</label>
+            <input
+              type="text"
+              id="title"
+              value={formData.title}
+              onChange={(e) =>
+                setFormData({ ...formData, title: e.target.value })
+              }
+            />
 
-          <p>Description</p>
-          <input type="text" />
+            <label htmlFor="description">Description</label>
+            <textarea
+              id="description"
+              value={formData.description}
+              onChange={(e) =>
+                setFormData({ ...formData, description: e.target.value })
+              }
+            />
 
-          <p>Date de début</p>
-          <input
-            type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-            onFocus={() => setShowDateOptions(true)}
-            onBlur={() => setShowDateOptions(false)}
-          />
+            <label htmlFor="startDate">Date de début</label>
+            <input
+              type="date"
+              id="startDate"
+              value={formData.start_date}
+              onChange={(e) =>
+                setFormData({ ...formData, start_date: e.target.value })
+              }
+              onFocus={() => setShowDateOptions(true)}
+              onBlur={() => setShowDateOptions(false)}
+            />
 
-          <p>Date de fin</p>
-          <input
-            type="date"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-          />
+            <label htmlFor="endDate">Date de fin</label>
+            <input
+              type="date"
+              id="endDate"
+              value={formData.end_date}
+              onChange={(e) =>
+                setFormData({ ...formData, end_date: e.target.value })
+              }
+            />
 
-          {showDateOptions && (
-            <div className="date-options">
-              <p>Format: JJ/MM/AAAA</p>
-              <p>Exemple: 10/03/2025</p>
+            {showDateOptions && (
+              <div className="date-options">
+                <p>Format: JJ/MM/AAAA</p>
+                <p>Exemple: 10/03/2025</p>
+              </div>
+            )}
+          </article>
+          <div className="details-event">
+            <div className="lieu-container">
+              <label htmlFor="lieu">Lieu</label>
+              <div className="toggle-btn">
+                <input
+                  type="checkbox"
+                  checked={checked}
+                  onChange={() => {
+                    setChecked(!checked);
+                    setFormData({ ...formData, location: "En ligne" });
+                  }}
+                />
+                {checked ? "En ligne" : "Hors ligne"}
+              </div>
             </div>
-          )}
-        </section>
-        <section className="details-event">
-          <div className="lieu-container">
-            <p>Lieu</p>
-            <button
-              className={`toggle-btn ${checked ? "checked" : ""}`}
-              onClick={() => setChecked(!checked)}
-              type="button"
-            >
+            <input
+              type="text"
+              className="lieu-input"
+              disabled={checked}
+              value={formData.location}
+              id="lieu"
+              onChange={(e) =>
+                setFormData({ ...formData, location: e.target.value })
+              }
+            />
+            <div className="select-artworks">
+              <label htmlFor="artworks">Choix des arts à exposer</label>
               <input
-                type="checkbox"
-                checked={checked}
-                onChange={() => setChecked(!checked)}
+                type="text"
+                id="artworks"
+                placeholder="Nom de l'oeuvre etc..."
               />
-              {checked ? "En ligne" : "Hors ligne"}
-            </button>
+            </div>
           </div>
-          <input type="text" className="lieu-input" disabled={checked} />
-          <div className="select-artworks">
-            <h2>Choix des arts à exposer</h2>
-            <form className="search">
-              <input type="text" placeholder="Nom de l'oeuvre etc..." />
-            </form>
-          </div>
-        </section>
-      </section>
+        </div>
+      </form>
     </section>
   );
 }

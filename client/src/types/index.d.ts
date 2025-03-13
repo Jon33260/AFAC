@@ -121,3 +121,11 @@ interface EditPostProps {
   artwork: Artwork;
   category: Category[];
 }
+
+interface FormDataCreateEvent {
+  title: string;
+  description: string;
+  start_date: string;
+  end_date: string;
+  location: string;
+}

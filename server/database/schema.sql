@@ -104,7 +104,7 @@ CREATE TABLE event (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   title VARCHAR(255) NOT NULL,
   description TEXT,
-  picture text NOT NULL,
+  picture text DEFAULT NULL,
   start_date DATE NOT NULL,
   end_date DATE NOT NULL,
   location VARCHAR(255),

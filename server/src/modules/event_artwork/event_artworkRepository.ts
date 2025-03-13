@@ -18,10 +18,10 @@ class EventArtworkRepository {
     return result.insertId;
   }
 
-  async delete(id: number) {
+  async deleteByEventId(eventId: number) {
     const [result] = await databaseClient.query<Result>(
-      "delete from event_artwork where id = ?",
-      [id],
+      "delete from event_artwork where event_id = ?",
+      [eventId],
     );
 
     return result.affectedRows;

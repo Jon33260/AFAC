@@ -17,6 +17,7 @@ router.post("/api/login", auth.login);
 
 router.get("/api/users", auth.verify, auth.checkAdmin, userActions.browse);
 router.get("/api/users/:id", userActions.read);
+
 router.put("/api/users", auth.verify, userActions.edit);
 router.post("/api/users", form.validate, auth.hashPassword, userActions.add);
 router.delete("/api/users/:id", userActions.destroy);
@@ -40,15 +41,31 @@ router.get("/api/events", eventActions.browse);
 router.get("/api/events/current", eventActions.browseCurrent);
 router.get("/api/events/upcoming", eventActions.browseUpcoming);
 router.get("/api/events/:id", eventActions.read);
-router.put("/api/events/:id", eventActions.edit);
-router.post("/api/events", eventActions.add);
-router.delete("/api/events/:id", eventActions.destroy);
+
+router.put("/api/events/:id", auth.verify, auth.checkAdmin, eventActions.edit);
+router.post("/api/events", auth.verify, auth.checkAdmin, eventActions.add);
+router.delete(
+  "/api/events/:id",
+  auth.verify,
+  auth.checkAdmin,
+  eventActions.destroy,
+);
 
 //Event_artwork routes
 import eventArtworkActions from "./modules/event_artwork/event_artworkActions";
 
-router.post("/api/event_artworks", eventArtworkActions.add);
-router.delete("/api/event_artworks/:id", eventArtworkActions.destroy);
+router.post(
+  "/api/event_artworks",
+  auth.verify,
+  auth.checkAdmin,
+  eventArtworkActions.add,
+);
+router.delete(
+  "/api/event_artworks/:id",
+  auth.verify,
+  auth.checkAdmin,
+  eventArtworkActions.destroy,
+);
 
 import categoryActions from "./modules/category/categoryActions";
 

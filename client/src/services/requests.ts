@@ -143,9 +143,23 @@ const postArtwork = async (artworkData: Artwork) => {
   }
 };
 
+const postEvent = async (eventData: FormDataCreateEvent) => {
+  try {
+    const response = await axios.post(`${baseUrl}/api/events`, eventData, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to create event");
+  }
+};
+
 const deleteEvent = async (id: number) => {
   try {
-    const response = await axios.delete(`${baseUrl}/api/events/${id}`);
+    const response = await axios.delete(`${baseUrl}/api/events/${id}`, {
+      withCredentials: true,
+    });
     return response.data;
   } catch (error) {
     console.error(error);
@@ -207,4 +221,5 @@ export {
   updateUserData,
   postLogin,
   postArtwork,
+  postEvent,
 };
