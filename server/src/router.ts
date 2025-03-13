@@ -54,6 +54,13 @@ import categoryActions from "./modules/category/categoryActions";
 
 router.get("/api/category", categoryActions.browse);
 
+//Likes routes
+import likeActions from "./modules/like/likeActions";
+
+router.get("/api/likes/:id", likeActions.read);
+router.post("/api/likes", auth.verify, likeActions.add);
+router.delete("/api/likes/:id", auth.verify, likeActions.destroy);
+
 /* ************************************************************************* */
 
 export default router;

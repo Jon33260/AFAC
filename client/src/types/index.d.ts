@@ -7,6 +7,7 @@ interface Artwork {
   category_id: number;
   user_id: number;
   username: string;
+  likeCount: number;
 }
 
 interface Artworks {
