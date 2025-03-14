@@ -40,11 +40,13 @@ const login: RequestHandler = async (req, res, next) => {
     if (!verified) {
       res.status(422).json({ message: "Mot de passe incorrect" });
     } else {
+      const role = user.is_admin ? "user" : "anonymous";
       // JWT
       const payload = {
         id: user.id,
         email: user.email,
         is_admin: user.is_admin,
+        role,
       };
 
       if (!process.env.APP_SECRET) {
@@ -57,7 +59,11 @@ const login: RequestHandler = async (req, res, next) => {
         expiresIn: "1y",
       });
 
-      res.cookie("auth", token).send("Utilisateur connecté");
+      res.cookie("auth", token).json({
+        message: "Connexion réussie",
+        role: payload.role,
+        email: payload.email,
+      });
     }
   } catch (error) {
     next(error);
