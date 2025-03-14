@@ -29,8 +29,20 @@ class ArtworkRepository {
 
   async read(id: number) {
     const [rows] = await databaseClient.query<Rows>(
-      "select artwork.*, category.name as category, user.username as username from artwork join category on artwork.category_id = category.id JOIN user ON artwork.user_id = user.id where artwork.id = ?",
-
+      `
+      SELECT
+        artwork.*,
+        category.name AS category,
+        user.username AS username,
+        COUNT(likes.artwork_id) AS likeCount
+      FROM
+        artwork
+        JOIN category ON artwork.category_id = category.id
+        JOIN user ON artwork.user_id = user.id
+        LEFT JOIN likes ON artwork.id = likes.artwork_id
+      WHERE
+        artwork.id = ?
+      `,
       [id],
     );
 

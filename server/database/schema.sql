@@ -145,3 +145,20 @@ INSERT INTO event_artwork(event_id, artwork_id) VALUES
 (5, 10),
 (6, 11);
 
+CREATE TABLE likes (
+  id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  user_id INT NOT NULL,
+  artwork_id INT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
+  FOREIGN KEY (artwork_id) REFERENCES artwork(id) ON DELETE CASCADE
+);
+
+INSERT INTO likes(user_id, artwork_id) VALUES
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 1),
+(5, 1),
+(6, 1),
+(7, 1);

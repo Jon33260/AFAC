@@ -186,6 +186,24 @@ const postArtworkToEvent = async (artworkId: number, eventId: number) => {
   }
 };
 
+const addLike = async (id: number) => {
+  try {
+    const response = await axios.post(
+      `${baseUrl}/api/likes`,
+      {
+        artwork_id: id,
+      },
+      {
+        withCredentials: true,
+      },
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Erreur lors de l'ajout du like:", error);
+    return false;
+  }
+};
+
 const deleteArtwork = async (id: number, userId: number) => {
   try {
     const response = await axios.delete(`${baseUrl}/api/artworks/${id}`, {
@@ -224,6 +242,7 @@ const editArtwork = async (id: number, artworkData: Partial<Artwork>) => {
 };
 
 export {
+  addLike,
   deleteArtwork,
   deleteEvent,
   editArtwork,
