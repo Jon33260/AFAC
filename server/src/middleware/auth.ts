@@ -40,13 +40,11 @@ const login: RequestHandler = async (req, res, next) => {
     if (!verified) {
       res.status(422).json({ message: "Mot de passe incorrect" });
     } else {
-      const role = user.is_admin ? "user" : "anonymous";
       // JWT
       const payload = {
         id: user.id,
         email: user.email,
         is_admin: user.is_admin,
-        role,
       };
 
       if (!process.env.APP_SECRET) {
@@ -61,8 +59,8 @@ const login: RequestHandler = async (req, res, next) => {
 
       res.cookie("auth", token).json({
         message: "Connexion réussie",
-        role: payload.role,
-        email: payload.email,
+        is_admin: payload.is_admin,
+        user_id: payload.id,
       });
     }
   } catch (error) {
@@ -77,8 +75,9 @@ const verify: RequestHandler = async (req, res, next) => {
 
   try {
     const { auth } = req.cookies;
-
+    console.info(auth, "coucou je m'appelle Lisa");
     if (!auth) {
+      console.info("coucou");
       res.sendStatus(403);
     }
 
