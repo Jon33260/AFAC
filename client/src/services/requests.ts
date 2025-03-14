@@ -143,13 +143,49 @@ const postArtwork = async (artworkData: Artwork) => {
   }
 };
 
+const postEvent = async (eventData: FormDataCreateEvent) => {
+  try {
+    const response = await axios.post(`${baseUrl}/api/events`, eventData, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.status === 403) {
+      alert("Vous n'avez pas les permissions pour créer un événement");
+    }
+    console.error(error);
+    throw new Error("Failed to create event");
+  }
+};
+
 const deleteEvent = async (id: number) => {
   try {
-    const response = await axios.delete(`${baseUrl}/api/events/${id}`);
+    const response = await axios.delete(`${baseUrl}/api/events/${id}`, {
+      withCredentials: true,
+    });
     return response.data;
   } catch (error) {
     console.error(error);
     throw new Error("Failed to delete data");
+  }
+};
+
+const postArtworkToEvent = async (artworkId: number, eventId: number) => {
+  try {
+    const response = await axios.post(
+      `${baseUrl}/api/event_artworks`,
+      {
+        artwork_id: artworkId,
+        event_id: eventId,
+      },
+      {
+        withCredentials: true,
+      },
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to add artwork to event");
   }
 };
 
@@ -164,13 +200,13 @@ const addLike = async (id: number) => {
         withCredentials: true,
       },
     );
-    console.info(response.data);
     return response.data;
   } catch (error) {
     console.error("Erreur lors de l'ajout du like:", error);
     return false;
   }
 };
+
 const deleteArtwork = async (id: number, userId: number) => {
   try {
     const response = await axios.delete(`${baseUrl}/api/artworks/${id}`, {
@@ -226,4 +262,6 @@ export {
   updateUserData,
   postLogin,
   postArtwork,
+  postArtworkToEvent,
+  postEvent,
 };

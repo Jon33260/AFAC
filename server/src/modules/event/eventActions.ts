@@ -1,5 +1,6 @@
 import type { RequestHandler } from "express";
 
+import event_artworkRepository from "../event_artwork/event_artworkRepository";
 import eventRepository from "./eventRepository";
 
 const browse: RequestHandler = async (req, res, next) => {
@@ -91,6 +92,7 @@ const destroy: RequestHandler = async (req, res, next) => {
     const eventId = Number.parseInt(req.params.id);
 
     await eventRepository.delete(eventId);
+    await event_artworkRepository.deleteByEventId(eventId);
 
     res.sendStatus(204);
   } catch (err) {

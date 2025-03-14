@@ -21,7 +21,7 @@ const destroy: RequestHandler = async (req, res, next) => {
   try {
     const eventArtworkId = Number.parseInt(req.params.id);
 
-    await eventArtworkRepository.delete(eventArtworkId);
+    await eventArtworkRepository.deleteByEventId(eventArtworkId);
 
     res.sendStatus(204);
   } catch (err) {

@@ -39,7 +39,7 @@ class ArtworkRepository {
         artwork
         JOIN category ON artwork.category_id = category.id
         JOIN user ON artwork.user_id = user.id
-        JOIN likes ON artwork.id = likes.artwork_id
+        LEFT JOIN likes ON artwork.id = likes.artwork_id
       WHERE
         artwork.id = ?
       `,

@@ -1,76 +1,165 @@
 import { useState } from "react";
 import "../styles/CreateExposure.css";
+import { ToastContainer, toast } from "react-toastify";
+import { getArtworksBySearch, postArtworkToEvent } from "../services/requests";
+import { postEvent } from "../services/requests";
 
 export default function CreateExposure() {
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
   const [showDateOptions, setShowDateOptions] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    start_date: "",
+    end_date: "",
+    location: "",
+  } as FormDataCreateEvent);
+
+  const [artworks, setArtworks] = useState<Artwork[]>([]);
+  const [selectedArtworks, setSelectedArtworks] = useState<Artwork[]>([]);
+
+  const handleAddArtwork = (artwork: Artwork) => {
+    if (selectedArtworks.some((a) => a.id === artwork.id)) {
+      setSelectedArtworks(selectedArtworks.filter((a) => a.id !== artwork.id));
+      toast.error("Cette oeuvre a été retirée de la liste");
+      return;
+    }
+    setSelectedArtworks((prevSelected) => [...prevSelected, artwork]);
+    toast.success("Cette oeuvre a été ajoutée à la liste");
+  };
+
+  const handleChangeArtworks = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const value = e.currentTarget.value;
+    const artworks = await getArtworksBySearch(value);
+    setArtworks(artworks);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const event = await postEvent(formData);
+    for (const artwork of selectedArtworks) {
+      await postArtworkToEvent(artwork.id, event.insertId);
+    }
+    toast.success("Exposition créée avec succès");
+  };
 
   return (
     <section className="create-exposure">
-      <div className="container">
-        <h1>Créer Exposition</h1>
-        <button className="create" type="button">
-          + Créer
-        </button>
-      </div>
-      <section className="event-container">
-        <section className="info-event">
-          <p>Nom de l'évènement</p>
-          <input type="text" />
+      <form className="search" onSubmit={handleSubmit}>
+        <div className="container">
+          <h1>Créer Exposition</h1>
+          <button className="create" type="submit">
+            + Créer
+          </button>
+        </div>
+        <div className="event-container">
+          <article className="info-event">
+            <label htmlFor="title">Nom de l'évènement</label>
+            <input
+              type="text"
+              id="title"
+              value={formData.title}
+              onChange={(e) =>
+                setFormData({ ...formData, title: e.target.value })
+              }
+            />
 
-          <p>Description</p>
-          <input type="text" />
+            <label htmlFor="description">Description</label>
+            <textarea
+              id="description"
+              value={formData.description}
+              onChange={(e) =>
+                setFormData({ ...formData, description: e.target.value })
+              }
+            />
 
-          <p>Date de début</p>
-          <input
-            type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-            onFocus={() => setShowDateOptions(true)}
-            onBlur={() => setShowDateOptions(false)}
-          />
+            <label htmlFor="startDate">Date de début</label>
+            <input
+              type="date"
+              id="startDate"
+              value={formData.start_date}
+              onChange={(e) =>
+                setFormData({ ...formData, start_date: e.target.value })
+              }
+              onFocus={() => setShowDateOptions(true)}
+              onBlur={() => setShowDateOptions(false)}
+            />
 
-          <p>Date de fin</p>
-          <input
-            type="date"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-          />
+            <label htmlFor="endDate">Date de fin</label>
+            <input
+              type="date"
+              id="endDate"
+              value={formData.end_date}
+              onChange={(e) =>
+                setFormData({ ...formData, end_date: e.target.value })
+              }
+            />
 
-          {showDateOptions && (
-            <div className="date-options">
-              <p>Format: JJ/MM/AAAA</p>
-              <p>Exemple: 10/03/2025</p>
+            {showDateOptions && (
+              <div className="date-options">
+                <p>Format: JJ/MM/AAAA</p>
+                <p>Exemple: 10/03/2025</p>
+              </div>
+            )}
+          </article>
+          <div className="details-event">
+            <div className="lieu-container">
+              <label htmlFor="lieu">Lieu</label>
+              <div className="toggle-btn">
+                <input
+                  type="checkbox"
+                  checked={checked}
+                  onChange={() => {
+                    setChecked(!checked);
+                    setFormData({ ...formData, location: "En ligne" });
+                  }}
+                />
+                {checked ? "En ligne" : "Hors ligne"}
+              </div>
             </div>
-          )}
-        </section>
-        <section className="details-event">
-          <div className="lieu-container">
-            <p>Lieu</p>
-            <button
-              className={`toggle-btn ${checked ? "checked" : ""}`}
-              onClick={() => setChecked(!checked)}
-              type="button"
-            >
+            <input
+              type="text"
+              className="lieu-input"
+              disabled={checked}
+              value={formData.location}
+              id="lieu"
+              onChange={(e) =>
+                setFormData({ ...formData, location: e.target.value })
+              }
+            />
+            <div className="select-artworks">
+              <label htmlFor="artworks">Choix des arts à exposer</label>
               <input
-                type="checkbox"
-                checked={checked}
-                onChange={() => setChecked(!checked)}
+                type="text"
+                id="artworks"
+                placeholder="Nom de l'oeuvre etc..."
+                onChange={handleChangeArtworks}
               />
-              {checked ? "En ligne" : "Hors ligne"}
-            </button>
+              <div className="artwork-container">
+                {artworks.map((artwork) => (
+                  <div key={artwork.id} className="artwork-item">
+                    <img
+                      src={artwork.picture}
+                      alt={artwork.title}
+                      className="search-artwork"
+                    />
+                    <span className="artist-name">{artwork.username}</span>
+                    <input
+                      type="checkbox"
+                      className="add-artwork"
+                      value="Add"
+                      onChange={() => handleAddArtwork(artwork)}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-          <input type="text" className="lieu-input" disabled={checked} />
-          <div className="select-artworks">
-            <h2>Choix des arts à exposer</h2>
-            <form className="search">
-              <input type="text" placeholder="Nom de l'oeuvre etc..." />
-            </form>
-          </div>
-        </section>
-      </section>
+        </div>
+      </form>
+      <ToastContainer />
     </section>
   );
 }
