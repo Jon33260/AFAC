@@ -25,6 +25,11 @@ export default function Navbar() {
       role: ["anonymous", "user"],
     },
     {
+      name: "■ Dashboard",
+      path: "/dashboard",
+      role: ["user"],
+    },
+    {
       name: "■ Profile",
       path: "/profile/:id",
       role: ["user"],
