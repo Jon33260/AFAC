@@ -150,6 +150,9 @@ const postEvent = async (eventData: FormDataCreateEvent) => {
     });
     return response.data;
   } catch (error) {
+    if (error instanceof AxiosError && error.response?.status === 403) {
+      alert("Vous n'avez pas les permissions pour créer un événement");
+    }
     console.error(error);
     throw new Error("Failed to create event");
   }
