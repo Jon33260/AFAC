@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "../styles/CreateExposure.css";
+import { ToastContainer, toast } from "react-toastify";
+import { getArtworksBySearch, postArtworkToEvent } from "../services/requests";
 import { postEvent } from "../services/requests";
 
 export default function CreateExposure() {
@@ -13,8 +15,34 @@ export default function CreateExposure() {
     location: "",
   } as FormDataCreateEvent);
 
-  const handleSubmit = () => {
-    postEvent(formData);
+  const [artworks, setArtworks] = useState<Artwork[]>([]);
+  const [selectedArtworks, setSelectedArtworks] = useState<Artwork[]>([]);
+
+  const handleAddArtwork = (artwork: Artwork) => {
+    if (selectedArtworks.some((a) => a.id === artwork.id)) {
+      setSelectedArtworks(selectedArtworks.filter((a) => a.id !== artwork.id));
+      toast.error("Cette oeuvre a été retirée de la liste");
+      return;
+    }
+    setSelectedArtworks((prevSelected) => [...prevSelected, artwork]);
+    toast.success("Cette oeuvre a été ajoutée à la liste");
+  };
+
+  const handleChangeArtworks = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const value = e.currentTarget.value;
+    const artworks = await getArtworksBySearch(value);
+    setArtworks(artworks);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const event = await postEvent(formData);
+    for (const artwork of selectedArtworks) {
+      await postArtworkToEvent(artwork.id, event.insertId);
+    }
+    toast.success("Exposition créée avec succès");
   };
 
   return (
@@ -107,11 +135,31 @@ export default function CreateExposure() {
                 type="text"
                 id="artworks"
                 placeholder="Nom de l'oeuvre etc..."
+                onChange={handleChangeArtworks}
               />
+              <div className="artwork-container">
+                {artworks.map((artwork) => (
+                  <div key={artwork.id} className="artwork-item">
+                    <img
+                      src={artwork.picture}
+                      alt={artwork.title}
+                      className="search-artwork"
+                    />
+                    <span className="artist-name">{artwork.username}</span>
+                    <input
+                      type="checkbox"
+                      className="add-artwork"
+                      value="Add"
+                      onChange={() => handleAddArtwork(artwork)}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </form>
+      <ToastContainer />
     </section>
   );
 }

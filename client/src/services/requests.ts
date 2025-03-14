@@ -167,6 +167,25 @@ const deleteEvent = async (id: number) => {
   }
 };
 
+const postArtworkToEvent = async (artworkId: number, eventId: number) => {
+  try {
+    const response = await axios.post(
+      `${baseUrl}/api/event_artworks`,
+      {
+        artwork_id: artworkId,
+        event_id: eventId,
+      },
+      {
+        withCredentials: true,
+      },
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to add artwork to event");
+  }
+};
+
 const deleteArtwork = async (id: number, userId: number) => {
   try {
     const response = await axios.delete(`${baseUrl}/api/artworks/${id}`, {
@@ -221,5 +240,6 @@ export {
   updateUserData,
   postLogin,
   postArtwork,
+  postArtworkToEvent,
   postEvent,
 };
