@@ -1,10 +1,45 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import useAuth from "../services/AuthContext";
 import "../styles/navbar.css";
 import Logo from "../assets/images/LogoAFAC.png";
 
 export default function Navbar() {
   const [showLinks, setShowLinks] = useState(false);
+
+  const { role, setRole } = useAuth();
+
+  const disconnet = () => {
+    setRole("anonymous");
+  };
+
+  const links = [
+    {
+      name: "■ Accueil",
+      path: "/",
+      role: ["anonymous", "user"],
+    },
+    {
+      name: "■ Evènements",
+      path: "/events",
+      role: ["anonymous", "user"],
+    },
+    {
+      name: "■ Dashboard",
+      path: "/dashboard",
+      role: ["user"],
+    },
+    {
+      name: "■ Profile",
+      path: "/profile/:id",
+      role: ["user"],
+    },
+    {
+      name: "Connexion",
+      path: "/auth",
+      role: ["anonymous"],
+    },
+  ];
 
   return (
     <nav className="navbar">
@@ -21,33 +56,29 @@ export default function Navbar() {
       <NavLink to="/" className="logo">
         <img src={Logo} alt="AFAC Logo" />
       </NavLink>
-
       <ul className={`link-nav ${showLinks ? "show" : ""}`}>
-        <li>
-          <NavLink to="/" className="nav-item">
-            ■ Accueil
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/events" className="nav-item">
-            ■ Évènements
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/dashboard" className="nav-item">
-            ■ Dashboard
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="#" className="nav-item">
-            ■ À propos
-          </NavLink>
-        </li>
+        {links
+          .filter((link) => link.role.includes(role))
+          .map((link) => (
+            <li key={link.name}>
+              <NavLink
+                className={
+                  link.name === "Connexion" ? "btn-connexion" : "nav-item"
+                }
+                to={link.path}
+              >
+                {link.name}
+              </NavLink>
+            </li>
+          ))}
+        {role !== "anonymous" ? (
+          <li>
+            <button type="button" onClick={disconnet}>
+              Se déconnecter
+            </button>
+          </li>
+        ) : null}
       </ul>
-
-      <NavLink to="/auth" className="btn-connexion">
-        Connexion
-      </NavLink>
     </nav>
   );
 }

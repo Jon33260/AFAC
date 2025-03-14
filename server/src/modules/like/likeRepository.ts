@@ -21,6 +21,7 @@ class LikeRepository {
       "SELECT Count(*) FROM likes where artwork_id = ?",
       [artworkId],
     );
+
     return rows as Like[];
   }
 
