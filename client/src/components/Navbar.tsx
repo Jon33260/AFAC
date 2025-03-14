@@ -34,6 +34,11 @@ export default function Navbar() {
           </NavLink>
         </li>
         <li>
+          <NavLink to="/dashboard" className="nav-item">
+            ■ Dashboard
+          </NavLink>
+        </li>
+        <li>
           <NavLink to="#" className="nav-item">
             ■ À propos
           </NavLink>
