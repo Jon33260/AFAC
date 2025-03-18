@@ -208,7 +208,26 @@ const editArtwork = async (id: number, artworkData: Partial<Artwork>) => {
   }
 };
 
+const addComment = async (id: number, commentText: string) => {
+  try {
+    const response = await axios.post(
+      `${baseUrl}/api/comment`,
+      {
+        artwork_id: id,
+        comment_text: commentText,
+      },
+      {
+        withCredentials: true,
+      },
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export {
+  addComment,
   addLike,
   deleteArtwork,
   deleteEvent,

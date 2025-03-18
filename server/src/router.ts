@@ -61,6 +61,13 @@ router.get("/api/likes/:id", likeActions.read);
 router.post("/api/likes", auth.verify, likeActions.add);
 router.delete("/api/likes/:id", auth.verify, likeActions.destroy);
 
+//Comments routes
+import commentActions from "./modules/comment/commentActions";
+
+router.get("/api/comment/:id", commentActions.readByArtwork);
+router.post("/api/comment", auth.verify, commentActions.add);
+router.delete("/api/comment/:id", auth.verify, commentActions.destroy);
+
 /* ************************************************************************* */
 
 export default router;
