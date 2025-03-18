@@ -1,5 +1,6 @@
 import type { RequestHandler } from "express";
 
+import commentRepository from "../comment/commentRepository";
 import userRepository from "../user/userRepository";
 import artworkRepository from "./artworkRepository";
 
@@ -17,11 +18,12 @@ const read: RequestHandler = async (req, res, next) => {
   try {
     const artworkId = Number(req.params.id);
     const artwork = await artworkRepository.read(artworkId);
+    const comments = await commentRepository.readByArtworkId(artworkId);
 
     if (artwork == null) {
       res.sendStatus(404);
     } else {
-      res.json(artwork);
+      res.json({ artwork: artwork, comments: comments });
     }
   } catch (err) {
     next(err);
