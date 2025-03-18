@@ -2,6 +2,7 @@ import "../styles/ArtworkPage.css";
 import { Link, useLoaderData, useParams } from "react-router-dom";
 import EditPost from "../components/EditPost";
 import SvgIcons from "../components/SvgIcons";
+import useAuth from "../services/AuthContext";
 import { addLike } from "../services/requests";
 
 const likeIcon = {
@@ -19,6 +20,8 @@ export default function ArtworkPage() {
     category: Category[];
   };
 
+  const { currentUser } = useAuth();
+
   return (
     <article className="artwork-page">
       <figure className="artwork-image">
@@ -26,7 +29,9 @@ export default function ArtworkPage() {
           <Link to="/" className="artwork-image-link">
             Retour
           </Link>
-          <EditPost artwork={artwork} category={category} />
+          {currentUser.id === artwork.user_id && (
+            <EditPost artwork={artwork} category={category} />
+          )}
         </div>
         <img src={artwork.picture} alt={artwork.description} />
       </figure>

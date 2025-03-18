@@ -26,7 +26,7 @@ export default function Signup() {
           <h1>Explorez nos</h1>
           <h2>galeries.</h2>
         </div>
-        {isSignup ? (
+        {!isSignup ? (
           <SignupForm user={user} handleChangeForm={handleChangeForm} />
         ) : (
           <LoginForm />

@@ -15,8 +15,8 @@ CREATE TABLE user (
 
 -- le mdp est mdpAFAC@91
 INSERT INTO user(username, email, hashed_password, profile_picture, following, followers, bio, portfolio, website, is_admin) VALUES
-("Admin", "test@test.fr", "$argon2id$v=19$m=19456,t=2,p=1$Yme1gkTMwKkLvuW6KJwRLg$qUpg5FadAxfwrS1pTA8wHiEEq/7TvRBY/Yi8y4BT2J0", "", 150, 230, "Développeur passionné par le web et les nouvelles technologies.", "https://johndoe.dev", "https://instagram.com/johndoe", TRUE);
-
+("Admin", "test@test.fr", "$argon2id$v=19$m=19456,t=2,p=1$Yme1gkTMwKkLvuW6KJwRLg$qUpg5FadAxfwrS1pTA8wHiEEq/7TvRBY/Yi8y4BT2J0", "https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/025.png", 150, 230, "Développeur passionné par le web et les nouvelles technologies.", "https://johndoe.dev", "https://instagram.com/johndoe", TRUE),
+("User02", "user02@test.fr", "$argon2id$v=19$m=19456,t=2,p=1$Yme1gkTMwKkLvuW6KJwRLg$qUpg5FadAxfwrS1pTA8wHiEEq/7TvRBY/Yi8y4BT2J0", "https://cdn.pixabay.com/photo/2021/02/07/19/52/pikachu-5992504_960_720.png", 150, 230, "Je suis un utilisateur", "https://johndoe.dev", "https://instagram.com/johndoe", FALSE);
 
 INSERT INTO user(username, email, hashed_password, profile_picture, following, followers, bio, portfolio, website, is_admin) VALUES
 ("Clément PICASSO", "test3@test.fr", "123456", "", 150, 230, "I am a digital artist and photographer capturing the beauty of Earth's diverse landscapes. Through photography and digital art, I blend reality and imagination to create immersive scenes that highlight nature's depth, light, and atmosphere, inviting viewers to explore the world through a new lens.", "https://johndoe.dev", "https://instagram.com/johndoe", FALSE),
