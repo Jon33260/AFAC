@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   font-family: var(--font-text);
+  margin-top: 4rem;
 }
 
 .left-part {

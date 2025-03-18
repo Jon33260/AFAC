@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
+    margin-top: 2rem;
   }
   .visual-image {
     display: flex;
@@ -27,11 +28,13 @@
     font-size: 3rem;
     font-weight: 400;
     align-self: start;
+    font-family: "Playfair Display", serif;
   }
   .visual-title > h2 {
     font-size: 3rem;
     font-weight: 400;
     align-self: end;
+    font-family: "Playfair Display", serif;
   }
   .login-link {
     display: block;
@@ -53,6 +56,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 1fr;
+    margin-top: 2rem;
   }
   .visual-image {
     max-width: 50vw;
@@ -75,11 +79,13 @@
     font-size: 5rem;
     font-weight: 400;
     margin-right: 16rem;
+    font-family: "Playfair Display", serif;
   }
   .visual-title > h2 {
     font-size: 5rem;
     font-weight: 400;
     margin-left: 16rem;
+    font-family: "Playfair Display", serif;
   }
   .login-link {
     font-size: 21px;
