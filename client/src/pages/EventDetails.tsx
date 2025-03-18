@@ -19,22 +19,24 @@ export default function EventDetails() {
         {new Date(eventDetails[0].end_date).toLocaleDateString()}{" "}
       </p>
       <h2 className="ed-artworks-title">Oeuvres exposées :</h2>
-      {eventDetails.map((detail) => (
-        <article key={detail.artwork_id} className="ed-artwork-container">
-          <h3 className="ed-artwork-name">{detail.artwork_title}</h3>
-          <div className="ed-artwork-img-container">
-            <img
-              className="ed-img"
-              src={detail.picture}
-              alt={detail.artwork_title}
-            />
-          </div>
-          <p className="ed-artwork-desc">"{detail.artwork_description}"</p>
-          <Link to={`/profile/${detail.user_id}`} className="ed-artist-name">
-            {detail.artist_name}
-          </Link>
-        </article>
-      ))}
+      <div className="scroll">
+        {eventDetails.map((detail) => (
+          <article key={detail.artwork_id} className="ed-artwork-container">
+            <h3 className="ed-artwork-name">{detail.artwork_title}</h3>
+            <div className="ed-artwork-img-container">
+              <img
+                className="ed-img"
+                src={detail.picture}
+                alt={detail.artwork_title}
+              />
+            </div>
+            <p className="ed-artwork-desc">"{detail.artwork_description}"</p>
+            <Link to={`/profile/${detail.user_id}`} className="ed-artist-name">
+              {detail.artist_name}
+            </Link>
+          </article>
+        ))}
+      </div>
       <Link to={"/events"} className="ed-return">
         retour
       </Link>

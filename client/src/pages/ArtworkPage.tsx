@@ -16,7 +16,7 @@ const likeIcon = {
 export default function ArtworkPage() {
   const { id } = useParams();
   const { artwork, category } = useLoaderData() as {
-    artwork: Artwork;
+    artwork: ArtworkDataType;
     category: Category[];
   };
 
@@ -29,24 +29,25 @@ export default function ArtworkPage() {
           <Link to="/" className="artwork-image-link">
             Retour
           </Link>
-          {currentUser.id === artwork.user_id && (
-            <EditPost artwork={artwork} category={category} />
+
+          {currentUser.id === artwork.artwork.user_id && (
+            <EditPost artwork={artwork.artwork} category={category} />
           )}
         </div>
-        <img src={artwork.picture} alt={artwork.description} />
+        <img src={artwork.artwork.picture} alt={artwork.artwork.description} />
       </figure>
 
       <section className="artwork-details">
         <div>
-          <h1>{artwork.title}</h1>
-          <span className="category">{artwork.category}</span>
+          <h1>{artwork.artwork.title}</h1>
+          <span className="category">{artwork.artwork.category}</span>
         </div>
 
-        <p className="description">{artwork.description}</p>
+        <p className="description">{artwork.artwork.description}</p>
 
         <div>
-          <Link to={`/profile/${artwork.user_id}`}>
-            <p className="artist">Par {artwork.username}</p>
+          <Link to={`/profile/${artwork.artwork.user_id}`}>
+            <p className="artist">Par {artwork.artwork.username}</p>
           </Link>
         </div>
         <hr className="separator" />
@@ -54,7 +55,7 @@ export default function ArtworkPage() {
         <div className="like-section">
           <button type="button" onClick={() => addLike(Number(id))}>
             <SvgIcons {...likeIcon.like} />
-            <span>{artwork.likeCount}</span>
+            <span>{artwork.artwork.likeCount}</span>
           </button>
         </div>
       </section>

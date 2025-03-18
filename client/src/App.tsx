@@ -5,7 +5,9 @@ import Navbar from "./components/Navbar";
 export default function App() {
   return (
     <>
-      <Navbar />
+      <div className="fixed-navbar">
+        <Navbar />
+      </div>
       <main>
         <Outlet />
       </main>
