@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   padding: 1rem;
+  margin-top: 4rem;
 }
 
 .ed-title {
@@ -76,4 +77,93 @@
   padding: 7px;
   margin-top: 1rem;
   box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+@media screen and (min-width: 767px) {
+  .ed-title {
+    font-size: 2.5rem;
+  }
+
+  .ed-desc {
+    font-size: 1.4rem;
+  }
+
+  .ed-location {
+    font-size: 1.2rem;
+  }
+
+  .ed-dates {
+    font-size: 1rem;
+  }
+  .ed-artworks-title {
+    font-size: 1.4rem;
+  }
+  .ed-artwork-name {
+    font-size: 1.2rem;
+  }
+  .ed-artwork-img-container {
+    width: 300px;
+    height: 300px;
+  }
+  .ed-artwork-desc {
+    margin-top: 0.8rem;
+    font-size: 1rem;
+  }
+  .ed-artist-name {
+    margin-top: 0.8rem;
+    font-size: 1.1rem;
+  }
+  .ed-return {
+    padding: 7px;
+  }
+}
+
+@media screen and (min-width: 1224px) {
+  .scroll {
+    display: flex;
+    gap: 3rem;
+    overflow-x: scroll;
+    white-space: nowrap;
+    padding: 14px;
+    scrollbar-width: thin;
+    scrollbar-color: grey;
+    scroll-behavior: smooth;
+    width: 100%;
+  }
+
+  .ed-title {
+    font-size: 3rem;
+  }
+
+  .ed-desc {
+    font-size: 1.6rem;
+  }
+
+  .ed-location {
+    font-size: 1.3rem;
+  }
+
+  .ed-dates {
+    font-size: 1.1rem;
+  }
+
+  .ed-artworks-title {
+    font-size: 1.5rem;
+  }
+  .ed-artwork-name {
+    font-size: 1.3rem;
+  }
+  .ed-artwork-img-container {
+    width: 340px;
+    height: 340px;
+  }
+  .ed-artwork-desc {
+    font-size: 1.1rem;
+  }
+  .ed-artist-name {
+    font-size: 1.2rem;
+  }
+  .ed-return {
+    padding: 9px;
+  }
 }

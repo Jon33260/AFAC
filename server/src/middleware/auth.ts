@@ -45,6 +45,8 @@ const login: RequestHandler = async (req, res, next) => {
         id: user.id,
         email: user.email,
         is_admin: user.is_admin,
+        username: user.username,
+        profile_picture: user.profile_picture,
       };
 
       if (!process.env.APP_SECRET) {
@@ -57,7 +59,13 @@ const login: RequestHandler = async (req, res, next) => {
         expiresIn: "1y",
       });
 
-      res.cookie("auth", token).send("Utilisateur connecté");
+      res.cookie("auth", token).json({
+        message: "Connexion réussie",
+        is_admin: payload.is_admin,
+        user_id: payload.id,
+        username: payload.username,
+        profile_picture: payload.profile_picture,
+      });
     }
   } catch (error) {
     next(error);
@@ -71,9 +79,8 @@ const verify: RequestHandler = async (req, res, next) => {
 
   try {
     const { auth } = req.cookies;
-    console.info(auth, "coucou je m'appelle Lisa");
+
     if (!auth) {
-      console.info("coucou");
       res.sendStatus(403);
     }
 

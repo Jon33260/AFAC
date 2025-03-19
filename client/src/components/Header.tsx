@@ -1,6 +1,7 @@
 import "../styles/Header.css";
 import { type FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../services/AuthContext";
 import NewPost from "./NewPost";
 import SvgIcons from "./SvgIcons";
 
@@ -18,6 +19,8 @@ export default function Header({
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
+
+  const { currentUser } = useAuth();
 
   const handleClick = (categoryName: string) => {
     setSelectedCategory(categoryName);
@@ -63,7 +66,7 @@ export default function Header({
           </select>
         </div>
       </div>
-      <NewPost category={category} />
+      {currentUser.id !== 0 && <NewPost category={category} />}
 
       <div className="categories">
         {category.map((categorie) => (

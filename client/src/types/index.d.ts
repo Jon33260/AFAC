@@ -10,6 +10,26 @@ interface Artwork {
   likeCount: number;
 }
 
+interface ArtworkDataType {
+  artwork: {
+    id: number;
+    title: string;
+    description: string;
+    picture: string;
+    category: string;
+    category_id: number;
+    user_id: number;
+    username: string;
+    likeCount: number;
+  };
+  comments: {
+    id: number;
+    user_id: number;
+    artwork_id: number;
+    comment_text: string;
+  };
+}
+
 interface Artworks {
   artworks: Artwork[];
 }
@@ -121,4 +141,12 @@ interface LoginResponse {
 interface EditPostProps {
   artwork: Artwork;
   category: Category[];
+}
+
+interface FormDataCreateEvent {
+  title: string;
+  description: string;
+  start_date: string;
+  end_date: string;
+  location: string;
 }

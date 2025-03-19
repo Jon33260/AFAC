@@ -22,3 +22,12 @@ body {
   color: var(--text-black-color);
   background-color: var(--background-color);
 }
+
+.fixed-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: var(--background-color);
+}

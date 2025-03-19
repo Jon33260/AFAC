@@ -4,6 +4,7 @@
   margin: 1rem;
   padding: 1rem;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  margin-top: 4rem;
 }
 
 .create-exposure-container {
@@ -40,14 +41,21 @@
 }
 
 .info-event {
+  display: flex;
+  flex-direction: column;
   width: 30vw;
   height: 20rem;
   margin-right: 1rem;
+  justify-content: space-between;
 }
 
 .info-event input {
   border-radius: 0.3rem;
   height: 2rem;
+}
+
+.info-event textarea {
+  border-radius: 0.3rem;
 }
 
 .details-event {
@@ -65,10 +73,17 @@
 }
 
 .select-artworks {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: #e0e0e0;
   height: 14rem;
   padding: 1rem;
   padding-top: 0.5rem;
+}
+
+.select-artworks input {
+  width: 20%;
 }
 
 .select-artworks h2 {
@@ -85,7 +100,8 @@
 
 .lieu-container {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 8px;
   margin-bottom: 1rem;
 }
@@ -121,6 +137,42 @@
 
 .lieu-container input {
   height: 5rem;
+  width: 100%;
+}
+
+.artwork-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  overflow-x: scroll;
+  margin-bottom: -1rem;
+  scrollbar-width: thin;
+  scrollbar-color: #0000004b #f5f5f500;
+}
+
+.artwork-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.artwork-item input {
+  margin-top: -1rem;
+}
+
+.search-artwork {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.artist-name {
+  position: relative;
+  font-size: 0.7rem;
+  color: #000;
+  background-color: #ffffffa1;
+  bottom: 1.05rem;
   width: 100%;
 }
 
@@ -209,5 +261,9 @@
 
   .toggle-btn span {
     font-size: 12px;
+  }
+
+  .select-artworks input {
+    width: 100%;
   }
 }

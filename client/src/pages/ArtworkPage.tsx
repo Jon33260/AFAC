@@ -5,6 +5,7 @@ import { Link, useLoaderData, useParams } from "react-router-dom";
 import { ToastContainer, Zoom, toast } from "react-toastify";
 import EditPost from "../components/EditPost";
 import SvgIcons from "../components/SvgIcons";
+import useAuth from "../services/AuthContext";
 import {
   addLike,
   checkIfLiked,
@@ -22,13 +23,13 @@ const likeIcon = {
 
 export default function ArtworkPage() {
   const { id } = useParams();
-  const { artwork, category } = useLoaderData() as {
-    artwork: Artwork;
+  const { artworkData, category } = useLoaderData() as {
+    artworkData: ArtworkDataType;
     category: Category[];
   };
 
   const [liked, setLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(artwork.likeCount);
+  const [likeCount, setLikeCount] = useState(artworkData.artwork.likeCount);
 
   useEffect(() => {
     const fetchLikeStatus = async () => {
@@ -89,6 +90,8 @@ export default function ArtworkPage() {
     }
   };
 
+  const { currentUser } = useAuth();
+
   return (
     <article className="artwork-page">
       <figure className="artwork-image">
@@ -96,22 +99,28 @@ export default function ArtworkPage() {
           <Link to="/" className="artwork-image-link">
             Retour
           </Link>
-          <EditPost artwork={artwork} category={category} />
+
+          {currentUser.id === artworkData.artwork.user_id && (
+            <EditPost artwork={artworkData.artwork} category={category} />
+          )}
         </div>
-        <img src={artwork.picture} alt={artwork.description} />
+        <img
+          src={artworkData.artwork.picture}
+          alt={artworkData.artwork.description}
+        />
       </figure>
 
       <section className="artwork-details">
         <div>
-          <h1>{artwork.title}</h1>
-          <span className="category">{artwork.category}</span>
+          <h1>{artworkData.artwork.title}</h1>
+          <span className="category">{artworkData.artwork.category}</span>
         </div>
 
-        <p className="description">{artwork.description}</p>
+        <p className="description">{artworkData.artwork.description}</p>
 
         <div>
-          <Link to={`/profile/${artwork.user_id}`}>
-            <p className="artist">Par {artwork.username}</p>
+          <Link to={`/profile/${artworkData.artwork.user_id}`}>
+            <p className="artist">Par {artworkData.artwork.username}</p>
           </Link>
         </div>
         <hr className="separator" />
@@ -123,7 +132,8 @@ export default function ArtworkPage() {
             className={`like-button ${liked ? "liked" : ""}`}
           >
             <SvgIcons {...likeIcon.like} />
-            <span>{likeCount}</span>
+
+            <span>{artworkData.artwork.likeCount}</span>
           </button>
         </div>
       </section>

@@ -1,0 +1,15 @@
+.allevents-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 4rem;
+}
+@media screen and (min-width: 768px) {
+  .allevents-container {
+    margin-top: 5rem;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .allevents-container {
+    margin-top: 5.5rem;
+  }
+}
