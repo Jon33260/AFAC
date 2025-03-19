@@ -1,16 +1,17 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../services/AuthContext";
 import "../styles/navbar.css";
 import Logo from "../assets/images/LogoAFAC.png";
+import { Logout } from "../services/requests";
+
 export default function Navbar() {
   const [showLinks, setShowLinks] = useState(false);
-
+  const navigate = useNavigate();
   const { role, setRole, currentUser, setCurrentUser } = useAuth();
 
   const disconnet = () => {
-    localStorage.removeItem("role");
-    localStorage.removeItem("user");
+    Logout();
     setRole("anonymous");
     setCurrentUser({
       id: 0,
@@ -19,6 +20,7 @@ export default function Navbar() {
       email: "",
       is_admin: false,
     });
+    navigate("/");
   };
 
   const links = [

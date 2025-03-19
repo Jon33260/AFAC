@@ -110,4 +110,8 @@ const checkAdmin: RequestHandler = async (req, res, next) => {
   next();
 };
 
-export default { hashPassword, login, verify, checkAdmin };
+const logout: RequestHandler = async (req, res, next) => {
+  res.clearCookie("auth").sendStatus(204);
+};
+
+export default { hashPassword, login, verify, checkAdmin, logout };

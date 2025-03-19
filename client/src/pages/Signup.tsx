@@ -32,7 +32,7 @@ export default function Signup() {
           <LoginForm />
         )}
         <button type="button" className="login-link" onClick={toggleForm}>
-          {isSignup ? "Déjà un compte ?" : "Pas encore de compte ?"}
+          {!isSignup ? "Déjà un compte ?" : "Pas encore de compte ?"}
         </button>
       </section>
       <section className="img-section">

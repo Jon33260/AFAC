@@ -45,10 +45,14 @@ const getCategory = async () => {
 
 const postCreateUser = async (userData: UserTypes) => {
   try {
-    const response = await axios.post(`${baseUrl}/api/users`, userData);
+    const response = await axios.post(`${baseUrl}/api/users`, userData, {
+      withCredentials: true,
+    });
     return response.data;
   } catch (error) {
-    console.error(error);
+    if (error instanceof AxiosError) {
+      throw new Error(error.response?.data || "Failed to create user");
+    }
     throw new Error("Failed to create user");
   }
 };
@@ -103,6 +107,22 @@ const postLogin = async (credentials: CredentialsTypes) => {
     return response.data;
   } catch (error) {
     throw new Error();
+  }
+};
+
+const Logout = async () => {
+  try {
+    const response = await axios.get(`${baseUrl}/api/logout`, {
+      withCredentials: true,
+    });
+
+    localStorage.removeItem("user");
+    localStorage.removeItem("role");
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to logout");
   }
 };
 
@@ -278,6 +298,7 @@ export {
   getUpcomingEvents,
   getArtworkById,
   getArtworkByUser,
+  Logout,
   updateUserData,
   postLogin,
   postArtwork,
