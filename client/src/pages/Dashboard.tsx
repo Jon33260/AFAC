@@ -1,3 +1,4 @@
+import "../styles/Dashboard.css";
 import { useLoaderData } from "react-router-dom";
 import CreateExposure from "../components/CreateExposure";
 import EventsDashboard from "../components/EventsDashboard";
@@ -8,9 +9,7 @@ export default function Dashboard() {
   const { currentUser } = useAuth();
 
   if (!currentUser.is_admin) {
-    return (
-      <h1 style={{ marginTop: "5rem", marginLeft: "2rem" }}>Accès refusé !</h1>
-    );
+    return <h1 className="forbidden-title">Accès refusé !</h1>;
   }
 
   return (
