@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { postCreateUser, postLogin } from "../services/requests";
+import { postCreateUser } from "../services/requests";
 import "../styles/SignupForm.css";
 import { useNavigate } from "react-router-dom";
 import Auth from "../services/AuthContext";
@@ -30,12 +30,7 @@ export default function SignupForm({ user, handleChangeForm }: propsFormTypes) {
     setError("");
 
     try {
-      await postCreateUser(user);
-
-      const loginData = await postLogin({
-        email: user.email,
-        password: user.password,
-      });
+      const loginData = await postCreateUser(user);
 
       setRole("user");
       setCurrentUser({

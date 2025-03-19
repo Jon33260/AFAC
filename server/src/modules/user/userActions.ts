@@ -67,7 +67,29 @@ const add: RequestHandler = async (req, res, next) => {
 
     const insertId = await userRepository.create(user);
 
-    res.status(201).json({ insertId });
+    const payload = {
+      id: insertId,
+      email: user.email,
+      is_admin: user.is_admin,
+      username: user.username,
+    };
+
+    if (!process.env.APP_SECRET) {
+      throw new Error(
+        "Vous n'avez pas configuré votre APP SECRET dans le .env",
+      );
+    }
+
+    const token = jwt.sign(payload, process.env.APP_SECRET, {
+      expiresIn: "1y",
+    });
+
+    res.cookie("auth", token).json({
+      message: "Connexion réussie",
+      is_admin: payload.is_admin,
+      user_id: payload.id,
+      username: payload.username,
+    });
   } catch (err) {
     next(err);
   }
