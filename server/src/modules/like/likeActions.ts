@@ -43,4 +43,17 @@ const destroy: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { read, add, destroy };
+const checkIfLiked: RequestHandler = async (req, res, next) => {
+  try {
+    const data = {
+      user_id: req.user.id,
+      artwork_id: Number(req.params.id),
+    };
+    const checkLike = await likeRepository.readByUserId(data);
+    res.json(checkLike);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export default { read, add, destroy, checkIfLiked };

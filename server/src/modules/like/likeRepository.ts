@@ -32,6 +32,14 @@ class LikeRepository {
     );
     return result.affectedRows;
   }
+
+  async readByUserId(data: Omit<Like, "id">) {
+    const [rows] = await databaseClient.query<Rows>(
+      "SELECT * FROM likes WHERE user_id= ? AND artwork_id = ? ",
+      [data.user_id, data.artwork_id],
+    );
+    return rows[0] as Like;
+  }
 }
 
 export default new LikeRepository();

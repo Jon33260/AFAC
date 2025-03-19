@@ -35,14 +35,9 @@ export default function ArtworkPage() {
   useEffect(() => {
     const fetchLikeStatus = async () => {
       try {
-        const storedLike = localStorage.getItem(`userLiked-${id}`);
-        if (storedLike === "true") {
-          setLiked(true);
-          return;
-        }
         const isLiked = await checkIfLiked(Number(id));
-        setLiked(isLiked);
-        localStorage.setItem(`userLiked-${id}`, isLiked.toString());
+        console.info(isLiked);
+        setLiked(!!isLiked);
       } catch (error) {
         console.error(error);
       }
@@ -54,8 +49,7 @@ export default function ArtworkPage() {
     try {
       if (liked) {
         await removeLike(Number(id));
-
-        localStorage.removeItem(`userLiked-${id}`);
+        setLiked(false);
         toast.success("Vous avez enlevé votre like!", {
           position: "top-right",
           autoClose: 2000,
@@ -67,12 +61,10 @@ export default function ArtworkPage() {
           theme: "light",
           transition: Zoom,
         });
-        setLiked(false);
         revalidator.revalidate();
       } else {
         await addLike(Number(id));
-
-        localStorage.setItem(`userLiked-${id}`, "true");
+        setLiked(true);
         toast.success("Vous avez liké!", {
           position: "top-right",
           autoClose: 2000,
@@ -84,7 +76,7 @@ export default function ArtworkPage() {
           theme: "light",
           transition: Zoom,
         });
-        setLiked(true);
+
         revalidator.revalidate();
       }
     } catch (error) {

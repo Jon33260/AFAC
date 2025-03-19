@@ -221,10 +221,10 @@ const removeLike = async (id: number) => {
 
 const checkIfLiked = async (id: number) => {
   try {
-    const response = await axios.get(`${baseUrl}/api/likes/${id}`, {
+    const response = await axios.get(`${baseUrl}/api/checklike/${id}`, {
       withCredentials: true,
     });
-    return response.data.liked;
+    return response.data;
   } catch (error) {
     console.error(error);
     return false;
