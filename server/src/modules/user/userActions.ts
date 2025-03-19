@@ -1,5 +1,5 @@
 import type { RequestHandler } from "express";
-
+import jwt from "jsonwebtoken";
 import userRepository from "./userRepository";
 
 const browse: RequestHandler = async (req, res, next) => {
@@ -58,6 +58,12 @@ const add: RequestHandler = async (req, res, next) => {
       hashed_password: req.body.hashed_password,
       is_admin: false,
     };
+
+    const userExist = await userRepository.readByEmailWithPassword(user.email);
+
+    if (userExist) {
+      res.status(422).json({ message: "Email déjà utilisé" });
+    }
 
     const insertId = await userRepository.create(user);
 

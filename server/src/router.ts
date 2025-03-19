@@ -14,6 +14,7 @@ import auth from "./middleware/auth";
 import userActions from "./modules/user/userActions";
 
 router.post("/api/login", auth.login);
+router.get("/api/logout", auth.logout);
 
 router.get("/api/users", auth.verify, auth.checkAdmin, userActions.browse);
 router.get("/api/users/:id", userActions.read);

@@ -6,7 +6,7 @@ const PASSWORD_REGEX =
 
 const formSchema = Joi.object({
   username: Joi.string().min(5).alphanum().required().messages({
-    "string.min": "le nom d'utilisateur doit contenir minimum 3 caractères",
+    "string.min": "le nom d'utilisateur doit contenir minimum 5 caractères",
     "string.alphanum": "Ne peut pas contenir de caractères spéciaux ",
     "any.required": "Nom d utilisateur requis",
   }),
@@ -16,8 +16,8 @@ const formSchema = Joi.object({
   }),
   password: Joi.string().pattern(PASSWORD_REGEX).required().messages({
     "string.pattern.base":
-      "doit contenir au moins une majuscule, minuscule, chiffre et caractère spécial",
-    "string.min": "doit contenir 8 caractères minimum",
+      "Le mot de passe doit contenir au moins une majuscule, minuscule, chiffre et caractère spécial",
+    "string.min": "Le mot de passe doit contenir 8 caractères minimum",
     "any.required": "Mot de passe requis",
   }),
   confirmPassword: Joi.string().valid(Joi.ref("password")).required().messages({
