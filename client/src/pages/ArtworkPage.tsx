@@ -1,8 +1,16 @@
 import "../styles/ArtworkPage.css";
+import { useEffect } from "react";
+import { useState } from "react";
 import { Link, useLoaderData, useParams } from "react-router-dom";
+import { ToastContainer, Zoom, toast } from "react-toastify";
 import EditPost from "../components/EditPost";
 import SvgIcons from "../components/SvgIcons";
-import { addLike } from "../services/requests";
+import {
+  addLike,
+  checkIfLiked,
+  getArtworkById,
+  removeLike,
+} from "../services/requests";
 
 const likeIcon = {
   like: {
@@ -17,6 +25,68 @@ export default function ArtworkPage() {
   const { artwork, category } = useLoaderData() as {
     artwork: Artwork;
     category: Category[];
+  };
+
+  const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(artwork.likeCount);
+
+  useEffect(() => {
+    const fetchLikeStatus = async () => {
+      try {
+        const storedLike = localStorage.getItem(`userLiked-${id}`);
+        if (storedLike === "true") {
+          setLiked(true);
+          return;
+        }
+        const isLiked = await checkIfLiked(Number(id));
+        setLiked(isLiked);
+        localStorage.setItem(`userLiked-${id}`, isLiked.toString());
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchLikeStatus();
+  }, [id]);
+
+  const handleLikeClick = async () => {
+    try {
+      if (liked) {
+        await removeLike(Number(id));
+        setLikeCount(likeCount - 1);
+        localStorage.setItem(`userLiked-${id}`, "false");
+        toast.success("Vous avez enlevé votre like!", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Zoom,
+        });
+      } else {
+        await addLike(Number(id));
+        setLikeCount(likeCount + 1);
+        localStorage.setItem(`userLiked-${id}`, "true");
+        toast.success("Vous avez liké!", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Zoom,
+        });
+      }
+      setLiked(!liked);
+      const updatedArtwork = await getArtworkById(Number(id));
+      setLikeCount(updatedArtwork.likeCount);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -47,12 +117,29 @@ export default function ArtworkPage() {
         <hr className="separator" />
 
         <div className="like-section">
-          <button type="button" onClick={() => addLike(Number(id))}>
+          <button
+            type="button"
+            onClick={handleLikeClick}
+            className={`like-button ${liked ? "liked" : ""}`}
+          >
             <SvgIcons {...likeIcon.like} />
-            <span>{artwork.likeCount}</span>
+            <span>{likeCount}</span>
           </button>
         </div>
       </section>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Zoom}
+      />
     </article>
   );
 }

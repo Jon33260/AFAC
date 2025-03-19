@@ -164,13 +164,37 @@ const addLike = async (id: number) => {
         withCredentials: true,
       },
     );
-    console.info(response.data);
     return response.data;
   } catch (error) {
     console.error("Erreur lors de l'ajout du like:", error);
     return false;
   }
 };
+
+const removeLike = async (id: number) => {
+  try {
+    const response = await axios.delete(`${baseUrl}/api/likes/${id}`, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+};
+
+const checkIfLiked = async (id: number) => {
+  try {
+    const response = await axios.get(`${baseUrl}/api/likes/${id}`, {
+      withCredentials: true,
+    });
+    return response.data.liked;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+};
+
 const deleteArtwork = async (id: number, userId: number) => {
   try {
     const response = await axios.delete(`${baseUrl}/api/artworks/${id}`, {
@@ -210,6 +234,7 @@ const editArtwork = async (id: number, artworkData: Partial<Artwork>) => {
 
 export {
   addLike,
+  checkIfLiked,
   deleteArtwork,
   deleteEvent,
   editArtwork,
@@ -226,4 +251,5 @@ export {
   updateUserData,
   postLogin,
   postArtwork,
+  removeLike,
 };
