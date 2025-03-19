@@ -78,6 +78,7 @@ import likeActions from "./modules/like/likeActions";
 router.get("/api/likes/:id", likeActions.read);
 router.post("/api/likes", auth.verify, likeActions.add);
 router.delete("/api/likes/:id", auth.verify, likeActions.destroy);
+router.get("/api/checklike/:id", auth.verify, likeActions.checkIfLiked);
 
 //Comments routes
 import commentActions from "./modules/comment/commentActions";

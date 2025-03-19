@@ -227,6 +227,30 @@ const addLike = async (id: number) => {
   }
 };
 
+const removeLike = async (id: number) => {
+  try {
+    const response = await axios.delete(`${baseUrl}/api/likes/${id}`, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+};
+
+const checkIfLiked = async (id: number) => {
+  try {
+    const response = await axios.get(`${baseUrl}/api/checklike/${id}`, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+};
+
 const deleteArtwork = async (id: number, userId: number) => {
   try {
     const response = await axios.delete(`${baseUrl}/api/artworks/${id}`, {
@@ -285,6 +309,7 @@ const addComment = async (id: number, commentText: string) => {
 export {
   addComment,
   addLike,
+  checkIfLiked,
   deleteArtwork,
   deleteEvent,
   editArtwork,
@@ -302,6 +327,7 @@ export {
   updateUserData,
   postLogin,
   postArtwork,
+  removeLike,
   postArtworkToEvent,
   postEvent,
 };

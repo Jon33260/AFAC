@@ -73,6 +73,16 @@ a {
   gap: 1rem;
 }
 
+.like-button {
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.like-button.liked svg {
+  fill: red;
+}
+
 /* Desktop styles */
 @media screen and (min-width: 768px) {
   .artwork-page {

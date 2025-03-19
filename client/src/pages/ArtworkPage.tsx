@@ -1,9 +1,17 @@
 import "../styles/ArtworkPage.css";
-import { Link, useLoaderData, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useState } from "react";
+import {
+  Link,
+  useLoaderData,
+  useParams,
+  useRevalidator,
+} from "react-router-dom";
+import { ToastContainer, Zoom, toast } from "react-toastify";
 import EditPost from "../components/EditPost";
 import SvgIcons from "../components/SvgIcons";
 import useAuth from "../services/AuthContext";
-import { addLike } from "../services/requests";
+import { addLike, checkIfLiked, removeLike } from "../services/requests";
 
 const likeIcon = {
   like: {
@@ -15,9 +23,65 @@ const likeIcon = {
 
 export default function ArtworkPage() {
   const { id } = useParams();
-  const { artwork, category } = useLoaderData() as {
-    artwork: ArtworkDataType;
+  const { artworkData, category } = useLoaderData() as {
+    artworkData: ArtworkDataType;
     category: Category[];
+  };
+
+  const [liked, setLiked] = useState(false);
+
+  const revalidator = useRevalidator();
+
+  useEffect(() => {
+    const fetchLikeStatus = async () => {
+      try {
+        const isLiked = await checkIfLiked(Number(id));
+        console.info(isLiked);
+        setLiked(!!isLiked);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchLikeStatus();
+  }, [id]);
+
+  const handleLikeClick = async () => {
+    try {
+      if (liked) {
+        await removeLike(Number(id));
+        setLiked(false);
+        toast.success("Vous avez enlevé votre like!", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Zoom,
+        });
+        revalidator.revalidate();
+      } else {
+        await addLike(Number(id));
+        setLiked(true);
+        toast.success("Vous avez liké!", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Zoom,
+        });
+
+        revalidator.revalidate();
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const { currentUser } = useAuth();
@@ -30,35 +94,56 @@ export default function ArtworkPage() {
             Retour
           </Link>
 
-          {currentUser.id === artwork.artwork.user_id && (
-            <EditPost artwork={artwork.artwork} category={category} />
+          {currentUser.id === artworkData.artwork.user_id && (
+            <EditPost artwork={artworkData.artwork} category={category} />
           )}
         </div>
-        <img src={artwork.artwork.picture} alt={artwork.artwork.description} />
+        <img
+          src={artworkData.artwork.picture}
+          alt={artworkData.artwork.description}
+        />
       </figure>
 
       <section className="artwork-details">
         <div>
-          <h1>{artwork.artwork.title}</h1>
-          <span className="category">{artwork.artwork.category}</span>
+          <h1>{artworkData.artwork.title}</h1>
+          <span className="category">{artworkData.artwork.category}</span>
         </div>
 
-        <p className="description">{artwork.artwork.description}</p>
+        <p className="description">{artworkData.artwork.description}</p>
 
         <div>
-          <Link to={`/profile/${artwork.artwork.user_id}`}>
-            <p className="artist">Par {artwork.artwork.username}</p>
+          <Link to={`/profile/${artworkData.artwork.user_id}`}>
+            <p className="artist">Par {artworkData.artwork.username}</p>
           </Link>
         </div>
         <hr className="separator" />
 
         <div className="like-section">
-          <button type="button" onClick={() => addLike(Number(id))}>
+          <button
+            type="button"
+            onClick={handleLikeClick}
+            className={`like-button ${liked ? "liked" : ""}`}
+          >
             <SvgIcons {...likeIcon.like} />
-            <span>{artwork.artwork.likeCount}</span>
+
+            <span>{artworkData.artwork.likeCount}</span>
           </button>
         </div>
       </section>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Zoom}
+      />
     </article>
   );
 }
