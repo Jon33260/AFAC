@@ -62,7 +62,7 @@ const add: RequestHandler = async (req, res, next) => {
     const userExist = await userRepository.readByEmailWithPassword(user.email);
 
     if (userExist) {
-      res.status(422).json({ message: "Email déjà utilisé" });
+      res.status(422).json({ message: "Veillez utiliser un autre email !" });
     }
 
     const insertId = await userRepository.create(user);
