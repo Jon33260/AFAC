@@ -1,17 +1,17 @@
 import "../styles/ArtworkPage.css";
 import { useEffect } from "react";
 import { useState } from "react";
-import { Link, useLoaderData, useParams } from "react-router-dom";
+import {
+  Link,
+  useLoaderData,
+  useParams,
+  useRevalidator,
+} from "react-router-dom";
 import { ToastContainer, Zoom, toast } from "react-toastify";
 import EditPost from "../components/EditPost";
 import SvgIcons from "../components/SvgIcons";
 import useAuth from "../services/AuthContext";
-import {
-  addLike,
-  checkIfLiked,
-  getArtworkById,
-  removeLike,
-} from "../services/requests";
+import { addLike, checkIfLiked, removeLike } from "../services/requests";
 
 const likeIcon = {
   like: {
@@ -29,7 +29,8 @@ export default function ArtworkPage() {
   };
 
   const [liked, setLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(artworkData.artwork.likeCount);
+
+  const revalidator = useRevalidator();
 
   useEffect(() => {
     const fetchLikeStatus = async () => {
@@ -53,8 +54,8 @@ export default function ArtworkPage() {
     try {
       if (liked) {
         await removeLike(Number(id));
-        setLikeCount(likeCount - 1);
-        localStorage.setItem(`userLiked-${id}`, "false");
+
+        localStorage.removeItem(`userLiked-${id}`);
         toast.success("Vous avez enlevé votre like!", {
           position: "top-right",
           autoClose: 2000,
@@ -66,9 +67,11 @@ export default function ArtworkPage() {
           theme: "light",
           transition: Zoom,
         });
+        setLiked(false);
+        revalidator.revalidate();
       } else {
         await addLike(Number(id));
-        setLikeCount(likeCount + 1);
+
         localStorage.setItem(`userLiked-${id}`, "true");
         toast.success("Vous avez liké!", {
           position: "top-right",
@@ -81,10 +84,9 @@ export default function ArtworkPage() {
           theme: "light",
           transition: Zoom,
         });
+        setLiked(true);
+        revalidator.revalidate();
       }
-      setLiked(!liked);
-      const updatedArtwork = await getArtworkById(Number(id));
-      setLikeCount(updatedArtwork.likeCount);
     } catch (error) {
       console.error(error);
     }
