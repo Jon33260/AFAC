@@ -3,36 +3,44 @@ import { NavLink } from "react-router-dom";
 import useAuth from "../services/AuthContext";
 import "../styles/navbar.css";
 import Logo from "../assets/images/LogoAFAC.png";
-
 export default function Navbar() {
   const [showLinks, setShowLinks] = useState(false);
 
-  const { role, setRole } = useAuth();
+  const { role, setRole, currentUser, setCurrentUser } = useAuth();
 
   const disconnet = () => {
+    localStorage.removeItem("role");
+    localStorage.removeItem("user");
     setRole("anonymous");
+    setCurrentUser({
+      id: 0,
+      username: "",
+      profile_picture: "",
+      email: "",
+      is_admin: false,
+    });
   };
 
   const links = [
     {
       name: "■ Accueil",
       path: "/",
-      role: ["anonymous", "user"],
+      role: ["anonymous", "user", "admin"],
     },
     {
       name: "■ Evènements",
       path: "/events",
-      role: ["anonymous", "user"],
+      role: ["anonymous", "user", "admin"],
     },
     {
       name: "■ Dashboard",
       path: "/dashboard",
-      role: ["user"],
+      role: ["admin"],
     },
     {
-      name: "■ Profile",
-      path: "/profile/:id",
-      role: ["user"],
+      name: "■ Profil",
+      path: `/profile/${currentUser.id}`,
+      role: ["user", "admin"],
     },
     {
       name: "Connexion",

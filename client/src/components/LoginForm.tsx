@@ -25,7 +25,7 @@ export default function LoginForm() {
   const togglePassword = () => {
     setShowPassword(!showPassword);
   };
-  const { setRole } = useAuth();
+  const { setRole, setCurrentUser } = useAuth();
   const currentIcon = showPassword ? icon[0].visible : icon[0].notVisible;
   const [credentials, setCredentials] = useState<CredentialsTypes>({
     email: "",
@@ -45,7 +45,14 @@ export default function LoginForm() {
     try {
       const response = await postLogin(credentials);
       console.info(response);
-      setRole("user");
+      setRole(response.is_admin ? "admin" : "user");
+      setCurrentUser({
+        id: response.user_id,
+        username: response.username,
+        profile_picture: response.profile_picture,
+        email: response.email,
+        is_admin: response.is_admin,
+      });
       navigate("/");
     } catch (error) {
       console.error(error);

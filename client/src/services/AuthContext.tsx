@@ -8,21 +8,49 @@ interface AuthProviderProps {
 interface AuthProps {
   role: string;
   setRole: (role: string) => void;
+  currentUser: {
+    id: number;
+    username: string;
+    profile_picture: string;
+    email: string;
+    is_admin: boolean;
+  };
+  setCurrentUser: (user: {
+    id: number;
+    username: string;
+    profile_picture: string;
+    email: string;
+    is_admin: boolean;
+  }) => void;
 }
-
 const authContext = createContext<AuthProps | null>(null);
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [role, setRole] = useState(localStorage.getItem("role") || "anonymous");
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(
+      localStorage.getItem("user") ||
+        JSON.stringify({
+          id: 0,
+          username: "",
+          profile_picture: "",
+          email: "",
+          is_admin: false,
+        }),
+    ),
+  );
 
   useEffect(() => {
     if (role !== "anonymous") {
       localStorage.setItem("role", role);
+      localStorage.setItem("user", JSON.stringify(currentUser));
     }
-  }, [role]);
+  }, [role, currentUser]);
 
   return (
-    <authContext.Provider value={{ role, setRole }}>
+    <authContext.Provider
+      value={{ role, setRole, currentUser, setCurrentUser }}
+    >
       {children}
     </authContext.Provider>
   );

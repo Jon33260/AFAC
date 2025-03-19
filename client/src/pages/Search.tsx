@@ -10,7 +10,9 @@ export default function Search() {
 
   return (
     <>
-      <h1>Résultat </h1>
+      <h1 style={{ marginTop: "5rem", marginLeft: "2rem" }}>
+        Résultat de la recherche
+      </h1>
       <PicturesHome artworks={artworks} />
     </>
   );

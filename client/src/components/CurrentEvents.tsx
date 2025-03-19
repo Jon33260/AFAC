@@ -23,7 +23,10 @@ export default function CurrentEvents({ currentEvents }: CurrentEventsProps) {
                     {new Date(currentEvents.end_date).toLocaleDateString()}
                   </p>
                   <img
-                    src={currentEvents.picture}
+                    src={
+                      currentEvents.picture ||
+                      "https://www.adobe.com/fr/creativecloud/illustration/discover/digital-art/media_18ad62d9c62b3ae63f9a7d138df2613a820602a70.jpeg?width=750&format=jpeg&optimize=medium"
+                    }
                     alt={currentEvents.event_title}
                     className="event-image"
                   />

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
 import ProfilePicture from "../components/ProfilePicture";
 import SvgIcons from "../components/SvgIcons";
+import useAuth from "../services/AuthContext";
 import { updateUserData } from "../services/requests";
 
 const icons = {
@@ -30,6 +31,7 @@ export default function Profile() {
   const tabs = ["Récent", "Populaire", "Exposé"];
 
   const desktop = window.innerWidth >= 768;
+
   const [bioExpanded, setBioExpanded] = useState(false);
   const [choiceSelected, setChoiceSelected] = useState("Récent");
 
@@ -42,6 +44,8 @@ export default function Profile() {
     portfolio: data.user.portfolio,
     website: data.user.website,
   } as UserData);
+
+  const { currentUser } = useAuth();
 
   const [editing, setEditing] = useState(false);
 
@@ -68,6 +72,7 @@ export default function Profile() {
       <div className={`left-part ${editing ? "editing" : ""}`}>
         <article className="profile-header">
           <img src={data.user.profile_picture ?? ""} alt="pdeprofil" />
+
           <div className="profile-header-edit">
             {editing ? (
               <form className="edit-form" onSubmit={handleSave}>
@@ -123,13 +128,15 @@ export default function Profile() {
                 <div className="username-followers">
                   <p>{data.user.following} suivi(e)s</p>
                   <p>{data.user.followers} followers</p>
-                  <button
-                    type="button"
-                    className="edit-button"
-                    onClick={() => setEditing(true)}
-                  >
-                    Modifier
-                  </button>
+                  {currentUser.id === data.user.id && (
+                    <button
+                      type="button"
+                      className="edit-button"
+                      onClick={() => setEditing(true)}
+                    >
+                      Modifier
+                    </button>
+                  )}
                 </div>
                 <blockquote>
                   "Art is a journey without a destination, an invitation to
