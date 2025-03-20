@@ -162,3 +162,12 @@ INSERT INTO likes(user_id, artwork_id) VALUES
 (5, 1),
 (6, 1),
 (7, 1);
+
+CREATE TABLE follows (
+  id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  follower_id INT NOT NULL,
+  following_id INT NOT NULL,
+  UNIQUE KEY unique_follow (follower_id, following_id),
+  FOREIGN KEY (follower_id) REFERENCES user(id) ON DELETE CASCADE,
+  FOREIGN KEY (following_id) REFERENCES user(id) ON DELETE CASCADE
+);

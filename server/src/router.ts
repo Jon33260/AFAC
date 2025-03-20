@@ -78,6 +78,22 @@ router.get("/api/likes/:id", likeActions.read);
 router.post("/api/likes", auth.verify, likeActions.add);
 router.delete("/api/likes/:id", auth.verify, likeActions.destroy);
 
+//Follow routes
+import followActions from "./modules/follow/followActions";
+
+router.post("/api/follows", auth.verify, followActions.follow);
+
+router.delete(
+  "/api/follows/:following_id",
+  auth.verify,
+  followActions.unfollow,
+);
+router.get(
+  "/api/follows/check/:following_id",
+  auth.verify,
+  followActions.checkFollow,
+);
+
 /* ************************************************************************* */
 
 export default router;

@@ -2,6 +2,7 @@ import "../styles/profile.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
+import FollowButton from "../components/FollowButton";
 import ProfilePicture from "../components/ProfilePicture";
 import SvgIcons from "../components/SvgIcons";
 import { updateUserData } from "../services/requests";
@@ -44,6 +45,13 @@ export default function Profile() {
   } as UserData);
 
   const [editing, setEditing] = useState(false);
+
+  const [followers, setFollowers] = useState(data.user.followers);
+  const following = data.user.following;
+
+  const handleFollowerCountChange = (newCount: number) => {
+    setFollowers(newCount);
+  };
 
   const handleChangeEdited = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -121,8 +129,13 @@ export default function Profile() {
               <div className="profile-header-text">
                 <h1>{data.user.username}</h1>
                 <div className="username-followers">
-                  <p>{data.user.following} suivi(e)s</p>
-                  <p>{data.user.followers} followers</p>
+                  <p>{following} suivi(e)s</p>
+                  <p>{followers} followers</p>
+                  <FollowButton
+                    userId={data.user.id}
+                    initialFollowers={data.user.followers}
+                    onFollowerCountChange={handleFollowerCountChange}
+                  />
                   <button
                     type="button"
                     className="edit-button"

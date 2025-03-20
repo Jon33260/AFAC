@@ -130,3 +130,9 @@ interface FormDataCreateEvent {
   end_date: string;
   location: string;
 }
+
+interface FollowButtonProps {
+  userId: number;
+  initialFollowers: number;
+  onFollowerCountChange: (newCount: number) => void;
+}

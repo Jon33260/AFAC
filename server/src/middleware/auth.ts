@@ -75,10 +75,10 @@ const verify: RequestHandler = async (req, res, next) => {
 
   try {
     const { auth } = req.cookies;
-    console.info(auth, "coucou je m'appelle Lisa");
+
     if (!auth) {
-      console.info("coucou");
       res.sendStatus(403);
+      return;
     }
 
     const resultPayload = jwt.verify(auth, process.env.APP_SECRET);
