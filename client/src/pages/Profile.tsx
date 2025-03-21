@@ -1,11 +1,14 @@
 import "../styles/profile.css";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useRevalidator } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 import ProfilePicture from "../components/ProfilePicture";
 import SvgIcons from "../components/SvgIcons";
 import useAuth from "../services/AuthContext";
 import { updateUserData } from "../services/requests";
+
+const baseUrl = import.meta.env.VITE_API_URL;
 
 const icons = {
   portfolio: {
@@ -26,6 +29,8 @@ export default function Profile() {
     setBioExpanded((prevState) => !prevState);
   };
 
+  const revalidate = useRevalidator();
+
   const bioText = data.user.bio || "Aucune biographie";
 
   const tabs = ["Récent", "Populaire", "Exposé"];
@@ -36,9 +41,7 @@ export default function Profile() {
   const [choiceSelected, setChoiceSelected] = useState("Récent");
 
   const [user, setUser] = useState({
-    profile_picture:
-      data.user.profile_picture ||
-      "https://www.vhv.rs/dpng/d/138-1383989_default-svg-icon-free-avatar-png-transparent-png.png",
+    picture: null,
     username: data.user.username,
     bio: data.user.bio || "Aucune biographie",
     portfolio: data.user.portfolio,
@@ -49,6 +52,14 @@ export default function Profile() {
 
   const [editing, setEditing] = useState(false);
 
+  const formData = new FormData();
+
+  formData.append("picture", user.picture as string);
+  formData.append("username", user.username as string);
+  formData.append("bio", user.bio as string);
+  formData.append("portfolio", user.portfolio as string);
+  formData.append("website", user.website as string);
+
   const handleChangeEdited = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -56,12 +67,22 @@ export default function Profile() {
     setUser((prevUser) => ({ ...prevUser, [name]: value }));
   };
 
-  const handleSave = async () => {
-    const updatedUserData = { ...user };
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.currentTarget.files?.[0]) {
+      setUser({
+        ...user,
+        [e.currentTarget.name]: e.currentTarget.files[0],
+      });
+    }
+  };
 
+  const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     try {
-      await updateUserData(updatedUserData);
+      await updateUserData(formData);
       setEditing(false);
+      toast.success("Profil mis à jour avec succès");
+      revalidate.revalidate();
     } catch (error) {
       console.error(error);
     }
@@ -71,18 +92,15 @@ export default function Profile() {
     <div className="profile">
       <div className={`left-part ${editing ? "editing" : ""}`}>
         <article className="profile-header">
-          <img src={data.user.profile_picture ?? ""} alt="pdeprofil" />
+          <img
+            src={`${baseUrl}/uploads/${data.user.picture}`}
+            alt="avatar de profil"
+          />
 
           <div className="profile-header-edit">
             {editing ? (
               <form className="edit-form" onSubmit={handleSave}>
-                <input
-                  type="text"
-                  name="profile_picture"
-                  value={user.profile_picture ?? ""}
-                  onChange={handleChangeEdited}
-                  placeholder="URL photo de profil"
-                />
+                <input type="file" name="picture" onChange={handleFileChange} />
                 <input
                   type="text"
                   name="username"
@@ -212,6 +230,7 @@ export default function Profile() {
           <ProfilePicture artworks={data.artworks} userData={data.user} />
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 }

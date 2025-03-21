@@ -1,5 +1,6 @@
 import "../styles/NewPost.css";
 import { type FormEvent, useState } from "react";
+import { useRevalidator } from "react-router-dom";
 import { Flip, ToastContainer, toast } from "react-toastify";
 import { postArtwork } from "../services/requests";
 import SvgIcons from "./SvgIcons";
@@ -13,18 +14,28 @@ const icon = [
     },
   },
 ];
+
 export default function NewPost({ category }: { category: Category[] }) {
   const [formValues, setFormValues] = useState<Partial<Artwork>>({
     title: "",
     description: "",
-    picture: "",
+    picture: undefined,
     category_id: category[0].id,
   });
+
+  const revalidate = useRevalidator();
+
+  const formData = new FormData();
+
+  formData.append("title", formValues.title as string);
+  formData.append("description", formValues.description as string);
+  formData.append("picture", formValues.picture as string);
+  formData.append("category_id", String(formValues.category_id));
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await postArtwork(formValues as Artwork);
+      await postArtwork(formData);
       toast.success("Post créé avec succès", {
         position: "top-right",
         autoClose: 2000,
@@ -39,11 +50,12 @@ export default function NewPost({ category }: { category: Category[] }) {
       setFormValues({
         title: "",
         description: "",
-        picture: "",
+        picture: undefined,
         category_id: category[0].id,
       });
       const modal = document.getElementById("modal") as HTMLDialogElement;
       modal?.close();
+      revalidate.revalidate();
     } catch (error) {
       console.error(error);
     }
@@ -59,6 +71,15 @@ export default function NewPost({ category }: { category: Category[] }) {
       ...formValues,
       [e.currentTarget.name]: e.currentTarget.value,
     });
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.currentTarget.files?.[0]) {
+      setFormValues({
+        ...formValues,
+        [e.currentTarget.name]: e.currentTarget.files[0],
+      });
+    }
   };
 
   return (
@@ -93,13 +114,7 @@ export default function NewPost({ category }: { category: Category[] }) {
             name="description"
             onChange={handleChangeForm}
           />
-          <input
-            type="text"
-            placeholder="URL de l'image"
-            value={formValues.picture}
-            name="picture"
-            onChange={handleChangeForm}
-          />
+          <input type="file" name="picture" onChange={handleFileChange} />
           <select
             name="category_id"
             id="category_id"

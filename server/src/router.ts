@@ -11,6 +11,7 @@ const router = express.Router();
 
 //Users routes
 import auth from "./middleware/auth";
+import upload from "./middleware/upload";
 import userActions from "./modules/user/userActions";
 
 router.post("/api/login", auth.login);
@@ -19,7 +20,7 @@ router.get("/api/logout", auth.logout);
 router.get("/api/users", auth.verify, auth.checkAdmin, userActions.browse);
 router.get("/api/users/:id", userActions.read);
 
-router.put("/api/users", auth.verify, userActions.edit);
+router.put("/api/users", upload.uploadFile, auth.verify, userActions.edit);
 router.post("/api/users", form.validate, auth.hashPassword, userActions.add);
 router.delete("/api/users/:id", userActions.destroy);
 
@@ -32,7 +33,12 @@ router.get("/api/search/:search", artworkActions.searchArtwork);
 router.get("/api/artworks/user/:id", artworkActions.readByUserId);
 
 router.put("/api/artworks/:id", auth.verify, artworkActions.edit);
-router.post("/api/artworks", auth.verify, artworkActions.add);
+router.post(
+  "/api/artworks",
+  upload.uploadFile,
+  auth.verify,
+  artworkActions.add,
+);
 router.delete("/api/artworks/:id", auth.verify, artworkActions.destroy);
 
 //Events routes

@@ -137,9 +137,9 @@ const getArtworkByUser = async (id: number) => {
   }
 };
 
-const updateUserData = async (updatedUserData: UserData) => {
+const updateUserData = async (formData: FormData) => {
   try {
-    const response = await axios.put(`${baseUrl}/api/users`, updatedUserData, {
+    const response = await axios.put(`${baseUrl}/api/users`, formData, {
       withCredentials: true,
     });
     return response.data;
@@ -149,9 +149,9 @@ const updateUserData = async (updatedUserData: UserData) => {
   }
 };
 
-const postArtwork = async (artworkData: Artwork) => {
+const postArtwork = async (formData: FormData) => {
   try {
-    const response = await axios.post(`${baseUrl}/api/artworks`, artworkData, {
+    const response = await axios.post(`${baseUrl}/api/artworks`, formData, {
       withCredentials: true,
     });
 
