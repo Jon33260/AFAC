@@ -1,11 +1,11 @@
-import "../styles/profile.css";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import FollowButton from "../components/FollowButton";
+import FollowList from "../components/FollowList";
 import ProfilePicture from "../components/ProfilePicture";
 import SvgIcons from "../components/SvgIcons";
 import { updateUserData } from "../services/requests";
+import "../styles/profile.css";
 
 const icons = {
   portfolio: {
@@ -71,6 +71,10 @@ export default function Profile() {
     }
   };
 
+  const [showFollowList, setShowFollowList] = useState<
+    "followers" | "following" | null
+  >(null);
+
   return (
     <div className="profile">
       <div className={`left-part ${editing ? "editing" : ""}`}>
@@ -129,8 +133,20 @@ export default function Profile() {
               <div className="profile-header-text">
                 <h1>{data.user.username}</h1>
                 <div className="username-followers">
-                  <p>{following} suivi(e)s</p>
-                  <p>{followers} followers</p>
+                  <button
+                    type="button"
+                    onClick={() => setShowFollowList("following")}
+                    className="clickable"
+                  >
+                    {following} suivi(e)s
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowFollowList("followers")}
+                    className="clickable"
+                  >
+                    {followers} followers
+                  </button>
                   <FollowButton
                     userId={data.user.id}
                     initialFollowers={data.user.followers}
@@ -217,6 +233,14 @@ export default function Profile() {
 
           <ProfilePicture artworks={data.artworks} userData={data.user} />
         </div>
+      )}
+
+      {showFollowList && (
+        <FollowList
+          id={data.user.id}
+          type={showFollowList}
+          onClose={() => setShowFollowList(null)}
+        />
       )}
     </div>
   );

@@ -59,21 +59,27 @@ class FollowRepository {
     return rows[0] as Follow;
   }
 
-  // async getFollowers(user_id: number) {
-  //   const [rows] = await databaseClient.query<Rows>(
-  //     "SELECT * FROM follows WHERE following_id = ?",
-  //     [user_id],
-  //   );
-  //   return rows as Follow[];
-  // }
+  async getFollowers(user_id: number) {
+    const [rows] = await databaseClient.query<Rows>(
+      `SELECT u.id, u.username, u.profile_picture 
+       FROM follows f 
+       JOIN user u ON f.follower_id = u.id 
+       WHERE f.following_id = ?`,
+      [user_id],
+    );
+    return rows;
+  }
 
-  // async getFollowing(user_id: number) {
-  //   const [rows] = await databaseClient.query<Rows>(
-  //     "SELECT * FROM follows WHERE follower_id = ?",
-  //     [user_id],
-  //   );
-  //   return rows as Follow[];
-  // }
+  async getFollowing(user_id: number) {
+    const [rows] = await databaseClient.query<Rows>(
+      `SELECT u.id, u.username, u.profile_picture 
+       FROM follows f 
+       JOIN user u ON f.following_id = u.id 
+       WHERE f.follower_id = ?`,
+      [user_id],
+    );
+    return rows;
+  }
 }
 
 export default new FollowRepository();

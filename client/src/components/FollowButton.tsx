@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Bounce, ToastContainer, toast } from "react-toastify";
 import Auth from "../services/AuthContext";
 import "../styles/FollowButton.css";
 
@@ -12,6 +13,11 @@ export default function FollowButton({
 }: FollowButtonProps) {
   const { role } = Auth();
   const [isFollowing, setIsFollowing] = useState(false);
+  const [followerCount, setFollowerCount] = useState(initialFollowers);
+
+  useEffect(() => {
+    setFollowerCount(initialFollowers);
+  }, [initialFollowers]);
 
   useEffect(() => {
     const checkFollowStatus = async () => {
@@ -43,9 +49,28 @@ export default function FollowButton({
         },
       );
       setIsFollowing(true);
-      onFollowerCountChange(initialFollowers + 1);
+      const newCount = followerCount + 1;
+      setFollowerCount(newCount);
+      onFollowerCountChange(newCount);
     } catch (error) {
-      console.error("Erreur lors du suivi de l'utilisateur:", error);
+      if (axios.isAxiosError(error) && error.response) {
+        const { status, data } = error.response;
+        if (status === 400 && data.message === "You cannot follow yourself.") {
+          toast.error("Vous ne pouvez pas vous suivre vous même", {
+            position: "top-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+          });
+        } else {
+          console.error("Erreur inattendue:", error);
+        }
+      }
     }
   };
 
@@ -56,7 +81,9 @@ export default function FollowButton({
         withCredentials: true,
       });
       setIsFollowing(false);
-      onFollowerCountChange(initialFollowers - 1);
+      const newCount = followerCount - 1;
+      setFollowerCount(newCount);
+      onFollowerCountChange(newCount);
     } catch (error) {
       console.error("Erreur lors de l'arrêt du suivi de l'utilisateur:", error);
     }
@@ -67,16 +94,39 @@ export default function FollowButton({
   }
 
   return (
-    <div>
-      {isFollowing ? (
-        <button type="button" onClick={handleUnfollow}>
-          Unfollow
-        </button>
-      ) : (
-        <button type="button" onClick={handleFollow}>
-          Follow
-        </button>
-      )}
-    </div>
+    <>
+      <div>
+        {isFollowing ? (
+          <button
+            type="button"
+            onClick={handleUnfollow}
+            className="unfollow-button"
+          >
+            Unfollow
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={handleFollow}
+            className="follow-button"
+          >
+            Follow
+          </button>
+        )}
+      </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="colored"
+        transition={Bounce}
+      />
+    </>
   );
 }

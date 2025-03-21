@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import Logo from "../assets/images/LogoAFAC.png";
 import useAuth from "../services/AuthContext";
 import "../styles/navbar.css";
-import Logo from "../assets/images/LogoAFAC.png";
 
 export default function Navbar() {
   const [showLinks, setShowLinks] = useState(false);

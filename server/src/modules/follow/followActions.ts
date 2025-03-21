@@ -6,16 +6,6 @@ const follow: RequestHandler = async (req, res, next) => {
     const { following_id } = req.body;
     const follower_id = req.user.id;
 
-    if (!follower_id) {
-      res.status(401).json({ message: "User must be logged in" });
-      return;
-    }
-
-    if (!following_id) {
-      res.status(400).json({ message: "Missing following_id" });
-      return;
-    }
-
     if (follower_id === following_id) {
       res.status(400).json({ message: "You cannot follow yourself." });
       return;
@@ -69,4 +59,24 @@ const checkFollow: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { follow, unfollow, checkFollow };
+const getFollowers: RequestHandler = async (req, res, next) => {
+  try {
+    const { user_id } = req.params;
+    const followers = await followRepository.getFollowers(Number(user_id));
+    res.json(followers);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const getFollowing: RequestHandler = async (req, res, next) => {
+  try {
+    const { user_id } = req.params;
+    const following = await followRepository.getFollowing(Number(user_id));
+    res.json(following);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export default { follow, unfollow, checkFollow, getFollowers, getFollowing };

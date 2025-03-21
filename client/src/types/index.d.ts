@@ -136,3 +136,15 @@ interface FollowButtonProps {
   initialFollowers: number;
   onFollowerCountChange: (newCount: number) => void;
 }
+
+interface FollowListProps {
+  id: number;
+  type: "followers" | "following";
+  onClose: () => void;
+}
+
+interface FollowUser {
+  id: number;
+  username: string;
+  profile_picture: string | null;
+}
