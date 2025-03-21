@@ -14,24 +14,24 @@ CREATE TABLE user (
 );
 
 -- le mdp est mdpAFAC@91
-INSERT INTO user(username, email, hashed_password, picture, following, followers, bio, portfolio, website, is_admin) VALUES
-("Admin", "test@test.fr", "$argon2id$v=19$m=19456,t=2,p=1$Yme1gkTMwKkLvuW6KJwRLg$qUpg5FadAxfwrS1pTA8wHiEEq/7TvRBY/Yi8y4BT2J0", "025.png", 150, 230, "Développeur passionné par le web et les nouvelles technologies.", "https://johndoe.dev", "https://instagram.com/johndoe", TRUE),
-("User02", "user02@test.fr", "$argon2id$v=19$m=19456,t=2,p=1$Yme1gkTMwKkLvuW6KJwRLg$qUpg5FadAxfwrS1pTA8wHiEEq/7TvRBY/Yi8y4BT2J0", "pikachu-5992504_960_720.webp", 150, 230, "Je suis un utilisateur", "https://johndoe.dev", "https://instagram.com/johndoe", FALSE);
+INSERT INTO user(username, email, hashed_password, picture, bio, portfolio, website, is_admin) VALUES
+("Admin", "test@test.fr", "$argon2id$v=19$m=19456,t=2,p=1$Yme1gkTMwKkLvuW6KJwRLg$qUpg5FadAxfwrS1pTA8wHiEEq/7TvRBY/Yi8y4BT2J0", "025.png", "Développeur passionné par le web et les nouvelles technologies.", "https://johndoe.dev", "https://instagram.com/johndoe", TRUE),
+("User02", "user02@test.fr", "$argon2id$v=19$m=19456,t=2,p=1$Yme1gkTMwKkLvuW6KJwRLg$qUpg5FadAxfwrS1pTA8wHiEEq/7TvRBY/Yi8y4BT2J0", "pikachu-5992504_960_720.webp", "Je suis un utilisateur", "https://johndoe.dev", "https://instagram.com/johndoe", FALSE);
 
-INSERT INTO user(username, email, hashed_password, following, followers, bio, portfolio, website, is_admin) VALUES
-("Clément PICASSO", "test3@test.fr", "123456", 150, 230, "I am a digital artist and photographer capturing the beauty of Earth's diverse landscapes. Through photography and digital art, I blend reality and imagination to create immersive scenes that highlight nature's depth, light, and atmosphere, inviting viewers to explore the world through a new lens.", "https://johndoe.dev", "https://instagram.com/johndoe", FALSE),
-("Admin", "admin@test.fr", "123456",0,0,NULL,NULL,NULL, FALSE),
-("Alice", "alice@example.com", "password1",0,0,NULL,NULL,NULL, FALSE),
-("Bob", "bob@example.com", "password2",0,0,NULL,NULL,NULL, FALSE),
-("Charlie", "charlie@example.com", "password3",0,0,NULL,NULL,NULL, FALSE),
-("David", "david@example.com", "password4",0,0,NULL,NULL,NULL, FALSE),
-("Emma", "emma@example.com", "password5",0,0,NULL,NULL,NULL, FALSE);
+INSERT INTO user(username, email, hashed_password, bio, portfolio, website, is_admin) VALUES
+("Clément PICASSO", "test3@test.fr", "123456", "I am a digital artist and photographer capturing the beauty of Earth's diverse landscapes. Through photography and digital art, I blend reality and imagination to create immersive scenes that highlight nature's depth, light, and atmosphere, inviting viewers to explore the world through a new lens.", "https://johndoe.dev", "https://instagram.com/johndoe", FALSE),
+("Admin", "admin@test.fr", "123456",NULL,NULL,NULL, FALSE),
+("Alice", "alice@example.com", "password1",NULL,NULL,NULL, FALSE),
+("Bob", "bob@example.com", "password2",NULL,NULL,NULL, FALSE),
+("Charlie", "charlie@example.com", "password3",NULL,NULL,NULL, FALSE),
+("David", "david@example.com", "password4",NULL,NULL,NULL, FALSE),
+("Emma", "emma@example.com", "password5",NULL,NULL,NULL, FALSE);
 
-INSERT INTO user(username, email, hashed_password,  following, followers, bio, portfolio, website) VALUES
-("Sophie", "sophie@example.com", "password6", 0, 0, "Photographe amateur passionnée par la nature et les paysages.", NULL, NULL),
-("Antoine", "antoine@example.com", "password7", 0, 0, "Artiste digital créant des œuvres abstraites et modernes.", NULL, NULL),
-("Marie", "marie@example.com", "password8", 0, 0, "Illustratrice et peintre explorant le mélange des styles artistiques.", NULL, NULL),
-("Lucas", "lucas@example.com", "password9", 0, 0, "Passionné de photographie de rue et de portraits urbains.", NULL, NULL);
+INSERT INTO user(username, email, hashed_password, bio, portfolio, website) VALUES
+("Sophie", "sophie@example.com", "password6", "Photographe amateur passionnée par la nature et les paysages.", NULL, NULL),
+("Antoine", "antoine@example.com", "password7", "Artiste digital créant des œuvres abstraites et modernes.", NULL, NULL),
+("Marie", "marie@example.com", "password8", "Illustratrice et peintre explorant le mélange des styles artistiques.", NULL, NULL),
+("Lucas", "lucas@example.com", "password9", "Passionné de photographie de rue et de portraits urbains.", NULL, NULL);
 
 
 CREATE TABLE category (
@@ -143,6 +143,15 @@ INSERT INTO likes(user_id, artwork_id) VALUES
 (6, 1),
 (7, 1);
 
+
+CREATE TABLE follows (
+  id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  follower_id INT NOT NULL,
+  following_id INT NOT NULL,
+  UNIQUE KEY unique_follow (follower_id, following_id),
+  FOREIGN KEY (follower_id) REFERENCES user(id) ON DELETE CASCADE,
+  FOREIGN KEY (following_id) REFERENCES user(id) ON DELETE CASCADE
+);
 CREATE TABLE comment (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   user_id INT NOT NULL,
@@ -151,4 +160,5 @@ CREATE TABLE comment (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
   FOREIGN KEY (artwork_id) REFERENCES artwork(id) ON DELETE CASCADE
+
 );

@@ -1,12 +1,13 @@
-import "../styles/profile.css";
 import { useState } from "react";
-import { Link, useRevalidator } from "react-router-dom";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useRevalidator } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import FollowButton from "../components/FollowButton";
+import FollowList from "../components/FollowList";
 import ProfilePicture from "../components/ProfilePicture";
 import SvgIcons from "../components/SvgIcons";
 import useAuth from "../services/AuthContext";
 import { updateUserData } from "../services/requests";
+import "../styles/profile.css";
 
 const baseUrl = import.meta.env.VITE_API_URL;
 
@@ -60,6 +61,13 @@ export default function Profile() {
   formData.append("portfolio", user.portfolio as string);
   formData.append("website", user.website as string);
 
+  const [followers, setFollowers] = useState(data.user.followers);
+  const following = data.user.following;
+
+  const handleFollowerCountChange = (newCount: number) => {
+    setFollowers(newCount);
+  };
+
   const handleChangeEdited = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -87,6 +95,10 @@ export default function Profile() {
       console.error(error);
     }
   };
+
+  const [showFollowList, setShowFollowList] = useState<
+    "followers" | "following" | null
+  >(null);
 
   return (
     <div className="profile">
@@ -144,8 +156,25 @@ export default function Profile() {
               <div className="profile-header-text">
                 <h1>{data.user.username}</h1>
                 <div className="username-followers">
-                  <p>{data.user.following} suivi(e)s</p>
-                  <p>{data.user.followers} followers</p>
+                  <button
+                    type="button"
+                    onClick={() => setShowFollowList("following")}
+                    className="clickable"
+                  >
+                    {following} suivi(e)s
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowFollowList("followers")}
+                    className="clickable"
+                  >
+                    {followers} abonné(e)s
+                  </button>
+                  <FollowButton
+                    userId={data.user.id}
+                    initialFollowers={data.user.followers}
+                    onFollowerCountChange={handleFollowerCountChange}
+                  />
                   {currentUser.id === data.user.id && (
                     <button
                       type="button"
@@ -229,6 +258,13 @@ export default function Profile() {
 
           <ProfilePicture artworks={data.artworks} userData={data.user} />
         </div>
+      )}
+      {showFollowList && (
+        <FollowList
+          id={data.user.id}
+          type={showFollowList}
+          onClose={() => setShowFollowList(null)}
+        />
       )}
       <ToastContainer />
     </div>

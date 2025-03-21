@@ -150,3 +150,21 @@ interface FormDataCreateEvent {
   end_date: string;
   location: string;
 }
+
+interface FollowButtonProps {
+  userId: number;
+  initialFollowers: number;
+  onFollowerCountChange: (newCount: number) => void;
+}
+
+interface FollowListProps {
+  id: number;
+  type: "followers" | "following";
+  onClose: () => void;
+}
+
+interface FollowUser {
+  id: number;
+  username: string;
+  picture: string | null;
+}

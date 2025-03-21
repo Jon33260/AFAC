@@ -413,3 +413,12 @@ blockquote::before {
     padding: 0;
   }
 }
+
+.clickable {
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.clickable:hover {
+  color: #007bff;
+}

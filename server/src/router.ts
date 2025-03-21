@@ -93,6 +93,31 @@ router.get("/api/comment/:id", commentActions.readByArtwork);
 router.post("/api/comment", auth.verify, commentActions.add);
 router.delete("/api/comment/:id", auth.verify, commentActions.destroy);
 
+//Follow routes
+import followActions from "./modules/follow/followActions";
+
+router.post("/api/follows", auth.verify, followActions.follow);
+router.delete(
+  "/api/follows/:following_id",
+  auth.verify,
+  followActions.unfollow,
+);
+router.get(
+  "/api/follows/check/:following_id",
+  auth.verify,
+  followActions.checkFollow,
+);
+router.get(
+  "/api/follows/followers/:user_id",
+  auth.verify,
+  followActions.getFollowers,
+);
+router.get(
+  "/api/follows/following/:user_id",
+  auth.verify,
+  followActions.getFollowing,
+);
+
 /* ************************************************************************* */
 
 export default router;
