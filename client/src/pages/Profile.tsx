@@ -155,6 +155,7 @@ export default function Profile() {
             ) : (
               <div className="profile-header-text">
                 <h1>{data.user.username}</h1>
+
                 <div className="username-followers">
                   <button
                     type="button"
@@ -170,21 +171,22 @@ export default function Profile() {
                   >
                     {followers} abonné(e)s
                   </button>
+                </div>
+                {currentUser.id === data.user.id ? (
+                  <button
+                    type="button"
+                    className="edit-button"
+                    onClick={() => setEditing(true)}
+                  >
+                    Modifier
+                  </button>
+                ) : (
                   <FollowButton
                     userId={data.user.id}
                     initialFollowers={data.user.followers}
                     onFollowerCountChange={handleFollowerCountChange}
                   />
-                  {currentUser.id === data.user.id && (
-                    <button
-                      type="button"
-                      className="edit-button"
-                      onClick={() => setEditing(true)}
-                    >
-                      Modifier
-                    </button>
-                  )}
-                </div>
+                )}
                 <blockquote>
                   "Art is a journey without a destination, an invitation to
                   dream beyond the visible."
