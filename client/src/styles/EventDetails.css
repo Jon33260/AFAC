@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   padding: 1rem;
-  margin-top: 2rem;
+  margin-top: 4rem;
 }
 
 .ed-title {
@@ -122,12 +122,13 @@
   .scroll {
     display: flex;
     gap: 3rem;
-    overflow-x: auto;
+    overflow-x: scroll;
     white-space: nowrap;
     padding: 14px;
     scrollbar-width: thin;
     scrollbar-color: grey;
     scroll-behavior: smooth;
+    width: 100%;
   }
 
   .ed-title {

@@ -14,6 +14,7 @@ import auth from "./middleware/auth";
 import userActions from "./modules/user/userActions";
 
 router.post("/api/login", auth.login);
+router.get("/api/logout", auth.logout);
 
 router.get("/api/users", auth.verify, auth.checkAdmin, userActions.browse);
 router.get("/api/users/:id", userActions.read);
@@ -77,6 +78,14 @@ import likeActions from "./modules/like/likeActions";
 router.get("/api/likes/:id", likeActions.read);
 router.post("/api/likes", auth.verify, likeActions.add);
 router.delete("/api/likes/:id", auth.verify, likeActions.destroy);
+router.get("/api/checklike/:id", auth.verify, likeActions.checkIfLiked);
+
+//Comments routes
+import commentActions from "./modules/comment/commentActions";
+
+router.get("/api/comment/:id", commentActions.readByArtwork);
+router.post("/api/comment", auth.verify, commentActions.add);
+router.delete("/api/comment/:id", auth.verify, commentActions.destroy);
 
 //Follow routes
 import followActions from "./modules/follow/followActions";

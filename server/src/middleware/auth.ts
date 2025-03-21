@@ -45,6 +45,8 @@ const login: RequestHandler = async (req, res, next) => {
         id: user.id,
         email: user.email,
         is_admin: user.is_admin,
+        username: user.username,
+        profile_picture: user.profile_picture,
       };
 
       if (!process.env.APP_SECRET) {
@@ -61,6 +63,8 @@ const login: RequestHandler = async (req, res, next) => {
         message: "Connexion réussie",
         is_admin: payload.is_admin,
         user_id: payload.id,
+        username: payload.username,
+        profile_picture: payload.profile_picture,
       });
     }
   } catch (error) {
@@ -107,4 +111,8 @@ const checkAdmin: RequestHandler = async (req, res, next) => {
   next();
 };
 
-export default { hashPassword, login, verify, checkAdmin };
+const logout: RequestHandler = async (req, res, next) => {
+  res.clearCookie("auth").sendStatus(204);
+};
+
+export default { hashPassword, login, verify, checkAdmin, logout };

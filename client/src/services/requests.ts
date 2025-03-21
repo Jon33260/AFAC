@@ -45,10 +45,14 @@ const getCategory = async () => {
 
 const postCreateUser = async (userData: UserTypes) => {
   try {
-    const response = await axios.post(`${baseUrl}/api/users`, userData);
+    const response = await axios.post(`${baseUrl}/api/users`, userData, {
+      withCredentials: true,
+    });
     return response.data;
   } catch (error) {
-    console.error(error);
+    if (error instanceof AxiosError) {
+      throw new Error(error.response?.data || "Failed to create user");
+    }
     throw new Error("Failed to create user");
   }
 };
@@ -103,6 +107,22 @@ const postLogin = async (credentials: CredentialsTypes) => {
     return response.data;
   } catch (error) {
     throw new Error();
+  }
+};
+
+const Logout = async () => {
+  try {
+    const response = await axios.get(`${baseUrl}/api/logout`, {
+      withCredentials: true,
+    });
+
+    localStorage.removeItem("user");
+    localStorage.removeItem("role");
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to logout");
   }
 };
 
@@ -207,6 +227,30 @@ const addLike = async (id: number) => {
   }
 };
 
+const removeLike = async (id: number) => {
+  try {
+    const response = await axios.delete(`${baseUrl}/api/likes/${id}`, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+};
+
+const checkIfLiked = async (id: number) => {
+  try {
+    const response = await axios.get(`${baseUrl}/api/checklike/${id}`, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+};
+
 const deleteArtwork = async (id: number, userId: number) => {
   try {
     const response = await axios.delete(`${baseUrl}/api/artworks/${id}`, {
@@ -244,8 +288,28 @@ const editArtwork = async (id: number, artworkData: Partial<Artwork>) => {
   }
 };
 
+const addComment = async (id: number, commentText: string) => {
+  try {
+    const response = await axios.post(
+      `${baseUrl}/api/comment`,
+      {
+        artwork_id: id,
+        comment_text: commentText,
+      },
+      {
+        withCredentials: true,
+      },
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export {
+  addComment,
   addLike,
+  checkIfLiked,
   deleteArtwork,
   deleteEvent,
   editArtwork,
@@ -259,9 +323,11 @@ export {
   getUpcomingEvents,
   getArtworkById,
   getArtworkByUser,
+  Logout,
   updateUserData,
   postLogin,
   postArtwork,
+  removeLike,
   postArtworkToEvent,
   postEvent,
 };

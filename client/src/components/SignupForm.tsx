@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { postCreateUser } from "../services/requests";
 import "../styles/SignupForm.css";
+import { useNavigate } from "react-router-dom";
+import Auth from "../services/AuthContext";
 import SvgIcons from "./SvgIcons";
 
 const icon = [
@@ -19,9 +21,34 @@ const icon = [
 ];
 
 export default function SignupForm({ user, handleChangeForm }: propsFormTypes) {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const navigate = useNavigate();
+  const { setRole, setCurrentUser } = Auth();
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    postCreateUser(user);
+    setError("");
+
+    try {
+      const loginData = await postCreateUser(user);
+
+      setRole("user");
+      setCurrentUser({
+        id: loginData.user_id,
+        username: loginData.username,
+        profile_picture: loginData.profile_picture,
+        email: user.email,
+        is_admin: loginData.is_admin,
+      });
+
+      navigate("/");
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError("Une erreur est survenue lors de l'inscription");
+      }
+    }
   };
 
   const [showPassword, setShowPassword] = useState(false);
@@ -40,6 +67,11 @@ export default function SignupForm({ user, handleChangeForm }: propsFormTypes) {
     <>
       <div className="signup-container">
         <form onSubmit={handleSubmit} className="signup-form">
+          {error && (
+            <div className="error-container">
+              <p className="error-message">{error}</p>
+            </div>
+          )}
           <div className="form-group">
             <label htmlFor="username">Nom d'utilisateur</label>
             <input
