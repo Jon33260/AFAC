@@ -82,6 +82,7 @@ const verify: RequestHandler = async (req, res, next) => {
 
     if (!auth) {
       res.sendStatus(403);
+      return;
     }
 
     const resultPayload = jwt.verify(auth, process.env.APP_SECRET);
