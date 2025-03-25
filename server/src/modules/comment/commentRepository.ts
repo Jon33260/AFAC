@@ -18,7 +18,7 @@ class CommentRepository {
 
   async readByArtworkId(artworkId: number) {
     const [rows] = await databaseClient.query<Rows>(
-      "SELECT * FROM comment WHERE artwork_id = ?",
+      "SELECT comment.*, user.username AS username, user.profile_picture AS user_picture FROM comment JOIN user ON comment.user_id = user.id WHERE comment.artwork_id = ?",
       [artworkId],
     );
     return rows;

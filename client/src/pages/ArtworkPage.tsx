@@ -1,6 +1,5 @@
 import "../styles/ArtworkPage.css";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Link,
   useLoaderData,
@@ -8,10 +7,12 @@ import {
   useRevalidator,
 } from "react-router-dom";
 import { ToastContainer, Zoom, toast } from "react-toastify";
+import CommentsList from "../components/CommentsList";
 import EditPost from "../components/EditPost";
 import SvgIcons from "../components/SvgIcons";
 import useAuth from "../services/AuthContext";
 import { addLike, checkIfLiked, removeLike } from "../services/requests";
+import { addComment } from "../services/requests";
 
 const likeIcon = {
   like: {
@@ -31,6 +32,7 @@ export default function ArtworkPage() {
   };
 
   const [liked, setLiked] = useState(false);
+  const [commentText, setCommentText] = useState("");
 
   const revalidator = useRevalidator();
 
@@ -38,7 +40,6 @@ export default function ArtworkPage() {
     const fetchLikeStatus = async () => {
       try {
         const isLiked = await checkIfLiked(Number(id));
-        console.info(isLiked);
         setLiked(!!isLiked);
       } catch (error) {
         console.error(error);
@@ -83,6 +84,56 @@ export default function ArtworkPage() {
       }
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  const handleCommentSubmit = async () => {
+    if (commentText.trim() === "") {
+      toast.error("Le commentaire ne peut pas être vide!", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Zoom,
+      });
+      return;
+    }
+
+    try {
+      await addComment(Number(id), commentText);
+      setCommentText("");
+      toast.success("Votre commentaire a été ajouté!", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Zoom,
+      });
+      revalidator.revalidate();
+    } catch (error) {
+      console.error(error);
+      toast.error(
+        "Une erreur est survenue lors de l'ajout de votre commentaire.",
+        {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Zoom,
+        },
+      );
     }
   };
 
@@ -138,6 +189,24 @@ export default function ArtworkPage() {
             <span>{artworkData.artwork.likeCount}</span>
           </button>
         </div>
+        {currentUser.id !== 0 && (
+          <form
+            onSubmit={handleCommentSubmit}
+            className="comment-input-section"
+          >
+            <textarea
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
+              placeholder="Écrivez un commentaire..."
+              className="comment-input"
+            />
+            <button type="submit" className="submit-button">
+              Envoyer
+            </button>
+          </form>
+        )}
+
+        <CommentsList artworkData={artworkData} />
       </section>
       <ToastContainer
         position="top-right"

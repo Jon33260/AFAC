@@ -171,5 +171,13 @@ CREATE TABLE comment (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
   FOREIGN KEY (artwork_id) REFERENCES artwork(id) ON DELETE CASCADE
-
 );
+
+INSERT INTO comment(user_id, artwork_id, comment_text) VALUES
+(1, 1, "Superbe oeuvre !"),
+(2, 1, "Merci pour votre commentaire !"),
+(3, 1, "Je suis très content de cette oeuvre !"),
+(4, 1, "Merci pour votre commentaire !"),
+(5, 1, "Je suis très content de cette oeuvre !");
+
+

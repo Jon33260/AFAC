@@ -1,0 +1,34 @@
+.comment-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.comment {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: nowrap;
+}
+
+.comment p {
+  align-self: center;
+}
+
+.head-comment {
+  display: flex;
+  align-self: center;
+  gap: 0.5rem;
+}
+
+.head-comment > h3 {
+  color: black;
+  align-self: center;
+}
+
+.head-comment > img {
+  object-fit: contain;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+}
