@@ -83,6 +83,13 @@ a {
   fill: red;
 }
 
+.comment-input-section > textarea {
+  padding: 0.8rem;
+  border: 1px solid #eee;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
 /* Desktop styles */
 @media screen and (min-width: 768px) {
   .artwork-page {

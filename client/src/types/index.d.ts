@@ -10,24 +10,18 @@ interface Artwork {
   likeCount: number;
 }
 
+interface Comment {
+  id: number;
+  user_id: number;
+  artwork_id: number;
+  comment_text: string;
+  user_picture: string;
+  username: string;
+}
+
 interface ArtworkDataType {
-  artwork: {
-    id: number;
-    title: string;
-    description: string;
-    picture: string;
-    category: string;
-    category_id: number;
-    user_id: number;
-    username: string;
-    likeCount: number;
-  };
-  comments: {
-    id: number;
-    user_id: number;
-    artwork_id: number;
-    comment_text: string;
-  };
+  artwork: Artwork;
+  comments: Comment[];
 }
 
 interface Artworks {
