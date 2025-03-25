@@ -50,10 +50,25 @@ export default function ArtworkPage() {
 
   const handleLikeClick = async () => {
     try {
+      if (currentUser.id === 0) {
+        toast.error("Vous devez être connecté pour liker un article", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Zoom,
+        });
+        return;
+      }
+
       if (liked) {
         await removeLike(Number(id));
         setLiked(false);
-        toast.success("Vous avez enlevé votre like!", {
+        toast.success("Vous avez enlevé votre like", {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
@@ -68,7 +83,7 @@ export default function ArtworkPage() {
       } else {
         await addLike(Number(id));
         setLiked(true);
-        toast.success("Vous avez liké!", {
+        toast.success("Vous avez liké", {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
