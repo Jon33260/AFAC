@@ -46,7 +46,7 @@ const login: RequestHandler = async (req, res, next) => {
         email: user.email,
         is_admin: user.is_admin,
         username: user.username,
-        profile_picture: user.profile_picture,
+        picture: user.picture,
       };
 
       if (!process.env.APP_SECRET) {
@@ -64,7 +64,7 @@ const login: RequestHandler = async (req, res, next) => {
         is_admin: payload.is_admin,
         user_id: payload.id,
         username: payload.username,
-        profile_picture: payload.profile_picture,
+        picture: payload.picture,
       });
     }
   } catch (error) {
@@ -82,6 +82,7 @@ const verify: RequestHandler = async (req, res, next) => {
 
     if (!auth) {
       res.sendStatus(403);
+      return;
     }
 
     const resultPayload = jwt.verify(auth, process.env.APP_SECRET);

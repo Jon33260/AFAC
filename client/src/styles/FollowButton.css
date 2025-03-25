@@ -1,0 +1,36 @@
+.follow-button {
+  background-color: #000000;
+  color: white;
+  border: none;
+  padding: 7px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.follow-button:hover {
+  background-color: #7d7d7d;
+}
+
+.follow-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(44, 146, 255);
+}
+
+.unfollow-button {
+  background-color: #7d7d7d;
+
+  color: white;
+  border: none;
+  padding: 7px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.unfollow-button:hover {
+  background-color: #dc3545;
+}
+
+.unfollow-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(44, 146, 255);
+}

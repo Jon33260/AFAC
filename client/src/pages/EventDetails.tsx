@@ -2,6 +2,8 @@ import { Link, useLoaderData } from "react-router-dom";
 
 import "../styles/EventDetails.css";
 
+const baseUrl = import.meta.env.VITE_API_URL;
+
 export default function EventDetails() {
   const eventDetails = useLoaderData() as EventDetails;
 
@@ -24,11 +26,13 @@ export default function EventDetails() {
           <article key={detail.artwork_id} className="ed-artwork-container">
             <h3 className="ed-artwork-name">{detail.artwork_title}</h3>
             <div className="ed-artwork-img-container">
-              <img
-                className="ed-img"
-                src={detail.picture}
-                alt={detail.artwork_title}
-              />
+              <Link to={`/artwork/${detail.artwork_id}`}>
+                <img
+                  className="ed-img"
+                  src={`${baseUrl}/uploads/${detail.picture}`}
+                  alt={detail.artwork_title}
+                />
+              </Link>
             </div>
             <p className="ed-artwork-desc">"{detail.artwork_description}"</p>
             <Link to={`/profile/${detail.user_id}`} className="ed-artist-name">

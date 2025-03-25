@@ -8,6 +8,7 @@ interface Artwork {
   user_id: number;
   username: string;
   likeCount: number;
+  created_at: string;
 }
 
 interface Comment {
@@ -33,7 +34,7 @@ interface UserData {
   username: string;
   email: string;
   password: string;
-  profile_picture: string | null;
+  picture: string | null;
   following: number;
   followers: number;
   bio: string | null;
@@ -143,4 +144,22 @@ interface FormDataCreateEvent {
   start_date: string;
   end_date: string;
   location: string;
+}
+
+interface FollowButtonProps {
+  userId: number;
+  initialFollowers: number;
+  onFollowerCountChange: (newCount: number) => void;
+}
+
+interface FollowListProps {
+  id: number;
+  type: "followers" | "following";
+  onClose: () => void;
+}
+
+interface FollowUser {
+  id: number;
+  username: string;
+  picture: string | null;
 }

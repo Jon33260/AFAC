@@ -1,11 +1,15 @@
-import "../styles/profile.css";
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useLoaderData } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLoaderData, useRevalidator } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import FollowButton from "../components/FollowButton";
+import FollowList from "../components/FollowList";
 import ProfilePicture from "../components/ProfilePicture";
 import SvgIcons from "../components/SvgIcons";
 import useAuth from "../services/AuthContext";
 import { updateUserData } from "../services/requests";
+import "../styles/profile.css";
+
+const baseUrl = import.meta.env.VITE_API_URL;
 
 const icons = {
   portfolio: {
@@ -26,19 +30,34 @@ export default function Profile() {
     setBioExpanded((prevState) => !prevState);
   };
 
+  const revalidate = useRevalidator();
+
   const bioText = data.user.bio || "Aucune biographie";
 
-  const tabs = ["Récent", "Populaire", "Exposé"];
+  const tabs = ["Récent", "Populaire"];
 
   const desktop = window.innerWidth >= 768;
 
   const [bioExpanded, setBioExpanded] = useState(false);
   const [choiceSelected, setChoiceSelected] = useState("Récent");
+  const [filteredImages, setFilteredImages] = useState(data.artworks);
+
+  useEffect(() => {
+    if (choiceSelected === "Récent") {
+      setFilteredImages(
+        [...data.artworks].sort(
+          (a, b) => Date.parse(b.created_at) - Date.parse(a.created_at),
+        ),
+      );
+    } else {
+      setFilteredImages(
+        [...data.artworks].sort((a, b) => b.likeCount - a.likeCount),
+      );
+    }
+  }, [choiceSelected, data.artworks]);
 
   const [user, setUser] = useState({
-    profile_picture:
-      data.user.profile_picture ||
-      "https://www.vhv.rs/dpng/d/138-1383989_default-svg-icon-free-avatar-png-transparent-png.png",
+    picture: null,
     username: data.user.username,
     bio: data.user.bio || "Aucune biographie",
     portfolio: data.user.portfolio,
@@ -49,6 +68,21 @@ export default function Profile() {
 
   const [editing, setEditing] = useState(false);
 
+  const formData = new FormData();
+
+  formData.append("picture", user.picture as string);
+  formData.append("username", user.username as string);
+  formData.append("bio", user.bio as string);
+  formData.append("portfolio", user.portfolio as string);
+  formData.append("website", user.website as string);
+
+  const [followers, setFollowers] = useState(data.user.followers);
+  const following = data.user.following;
+
+  const handleFollowerCountChange = (newCount: number) => {
+    setFollowers(newCount);
+  };
+
   const handleChangeEdited = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -56,33 +90,44 @@ export default function Profile() {
     setUser((prevUser) => ({ ...prevUser, [name]: value }));
   };
 
-  const handleSave = async () => {
-    const updatedUserData = { ...user };
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.currentTarget.files?.[0]) {
+      setUser({
+        ...user,
+        [e.currentTarget.name]: e.currentTarget.files[0],
+      });
+    }
+  };
 
+  const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     try {
-      await updateUserData(updatedUserData);
+      await updateUserData(formData);
       setEditing(false);
+      toast.success("Profil mis à jour avec succès");
+      revalidate.revalidate();
     } catch (error) {
       console.error(error);
     }
   };
 
+  const [showFollowList, setShowFollowList] = useState<
+    "followers" | "following" | null
+  >(null);
+
   return (
     <div className="profile">
       <div className={`left-part ${editing ? "editing" : ""}`}>
         <article className="profile-header">
-          <img src={data.user.profile_picture ?? ""} alt="pdeprofil" />
+          <img
+            src={`${baseUrl}/uploads/${data.user.picture}`}
+            alt="avatar de profil"
+          />
 
           <div className="profile-header-edit">
             {editing ? (
               <form className="edit-form" onSubmit={handleSave}>
-                <input
-                  type="text"
-                  name="profile_picture"
-                  value={user.profile_picture ?? ""}
-                  onChange={handleChangeEdited}
-                  placeholder="URL photo de profil"
-                />
+                <input type="file" name="picture" onChange={handleFileChange} />
                 <input
                   type="text"
                   name="username"
@@ -125,19 +170,38 @@ export default function Profile() {
             ) : (
               <div className="profile-header-text">
                 <h1>{data.user.username}</h1>
+
                 <div className="username-followers">
-                  <p>{data.user.following} suivi(e)s</p>
-                  <p>{data.user.followers} followers</p>
-                  {currentUser.id === data.user.id && (
-                    <button
-                      type="button"
-                      className="edit-button"
-                      onClick={() => setEditing(true)}
-                    >
-                      Modifier
-                    </button>
-                  )}
+                  <button
+                    type="button"
+                    onClick={() => setShowFollowList("following")}
+                    className="clickable"
+                  >
+                    {following} suivi(e)s
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowFollowList("followers")}
+                    className="clickable"
+                  >
+                    {followers} abonné(e)s
+                  </button>
                 </div>
+                {currentUser.id === data.user.id ? (
+                  <button
+                    type="button"
+                    className="edit-button"
+                    onClick={() => setEditing(true)}
+                  >
+                    Modifier
+                  </button>
+                ) : (
+                  <FollowButton
+                    userId={data.user.id}
+                    initialFollowers={data.user.followers}
+                    onFollowerCountChange={handleFollowerCountChange}
+                  />
+                )}
                 <blockquote>
                   "Art is a journey without a destination, an invitation to
                   dream beyond the visible."
@@ -209,9 +273,17 @@ export default function Profile() {
             ))}
           </div>
 
-          <ProfilePicture artworks={data.artworks} userData={data.user} />
+          <ProfilePicture artworks={filteredImages} userData={data.user} />
         </div>
       )}
+      {showFollowList && (
+        <FollowList
+          id={data.user.id}
+          type={showFollowList}
+          onClose={() => setShowFollowList(null)}
+        />
+      )}
+      <ToastContainer />
     </div>
   );
 }

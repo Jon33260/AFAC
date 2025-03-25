@@ -22,6 +22,8 @@ const likeIcon = {
   },
 };
 
+const baseUrl = import.meta.env.VITE_API_URL;
+
 export default function ArtworkPage() {
   const { id } = useParams();
   const { artworkData, category } = useLoaderData() as {
@@ -150,7 +152,7 @@ export default function ArtworkPage() {
           )}
         </div>
         <img
-          src={artworkData.artwork.picture}
+          src={`${baseUrl}/uploads/${artworkData.artwork.picture}`}
           alt={artworkData.artwork.description}
         />
       </figure>
@@ -158,7 +160,12 @@ export default function ArtworkPage() {
       <section className="artwork-details">
         <div>
           <h1>{artworkData.artwork.title}</h1>
-          <span className="category">{artworkData.artwork.category}</span>
+          <span className="category">
+            {artworkData.artwork.category}{" "}
+            <p className="created-at">
+              {new Date(artworkData.artwork.created_at).toLocaleDateString()}
+            </p>
+          </span>
         </div>
 
         <p className="description">{artworkData.artwork.description}</p>
@@ -168,6 +175,7 @@ export default function ArtworkPage() {
             <p className="artist">Par {artworkData.artwork.username}</p>
           </Link>
         </div>
+
         <hr className="separator" />
 
         <div className="like-section">
