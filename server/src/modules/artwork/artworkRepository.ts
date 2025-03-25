@@ -51,7 +51,7 @@ class ArtworkRepository {
 
   async readAll() {
     const [rows] = await databaseClient.query<Rows>(
-      "select artwork.*, category.name as category, user.username as username from artwork join category on artwork.category_id = category.id JOIN user ON artwork.user_id = user.id ORDER BY artwork.created_at DESC",
+      "SELECT artwork.*, category.name AS category,user.username AS username, COUNT(likes.artwork_id) AS likeCount FROM artwork JOIN category ON artwork.category_id = category.id JOIN user ON artwork.user_id = user.id LEFT JOIN likes ON artwork.id = likes.artwork_id GROUP BY artwork.id, category.name, user.username ORDER BY artwork.created_at ASC",
     );
 
     return rows as Artwork[];
@@ -83,7 +83,7 @@ class ArtworkRepository {
 
   async readByUserId(id: number) {
     const [rows] = await databaseClient.query<Rows>(
-      "SELECT artwork.picture, artwork.description, artwork.id FROM artwork JOIN `user` ON `user`.id = artwork.user_id WHERE user_id=?",
+      "SELECT artwork.picture, artwork.description, artwork.id, artwork.created_at, COUNT(likes.artwork_id) AS likeCount FROM artwork JOIN `user` ON `user`.id = artwork.user_id LEFT JOIN likes ON artwork.id = likes.artwork_id WHERE artwork.user_id=? GROUP BY artwork.id",
       [id],
     );
     return rows;

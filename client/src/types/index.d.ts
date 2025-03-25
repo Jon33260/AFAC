@@ -8,6 +8,7 @@ interface Artwork {
   user_id: number;
   username: string;
   likeCount: number;
+  created_at: string;
 }
 
 interface ArtworkDataType {
@@ -21,6 +22,7 @@ interface ArtworkDataType {
     user_id: number;
     username: string;
     likeCount: number;
+    created_at: string;
   };
   comments: {
     id: number;

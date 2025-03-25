@@ -61,24 +61,24 @@ CREATE TABLE artwork (
   FOREIGN KEY(category_id) REFERENCES category(id)
 );
 
-INSERT INTO artwork(title, description, picture, category_id, user_id) VALUES
-("Beauty at home", "Un jeune cadre dynamique", "dark-photo-frame-plant-arrangement.avif", 5, 3),
-("La Brume", "Foret de Liege", "high-angle-shot-beautiful-forest-with-lot-green-trees-enveloped-fog-new-zealand.avif", 4, 8),
-("Le Mont AFAC", "Il faut trouver un meilleur nom", "beautiful-aerial-shot-fronalpstock-mountains-switzerland-beautiful-pink-blue-sky.avif", 1, 6),
-("Cyprien ?", "On dirait Cyprien", "fake-cyprien.avif", 5, 2),
-("La tablette a données", "C'est juste des données", "representation-user-experience-interface-design.avif", 4, 9),
-("Le voyage Jaune", "C'est tres jaune", "beautiful-collage-travel-concept_23-2149232169.avif", 1, 5),
-("ON M'ENTENDS ?", "Love Love ALLO", "social-media-concept-composition_23-2150169142.avif", 2, 3),
-("La plage", "Il fait chaud !", "beach-composition-with-blank-space-text_24837-240.avif", 1, 9),
-("Jolie madame", "Photo de jolie madame", "portrait-personne-assistant-soiree-musique-techno-dynamique_23-2150551577.avif", 3, 6),
-("Les couleurs nutritifs", "Miam Miam", "buddha-bowl-dish-with-vegetables-legumes-top-view_1150-42589.avif", 5, 2),
-("Masque de Carnval", "Un magnifique masque de carnaval sur fond jaune", "masque-elegant-perles-carnaval-mystere-plat_23-2148756051.avif", 5, 2),
-("Server", "Data center", "salle-hub-racks-serveurs-donnees-centre-informatique-big-data-interieur-bleu-pour-hebergement-materiel-stockage_90220-1033.avif", 4, 3),
-("Foret", "Jolie foret", "arbres-qui-poussent-dans-foret_1048944-30368869.avif", 5, 4),
-("Ecureuil", "Un petit ecureuil qui prend la pose", "close-up-ecureuil-poteau-bois_1048944-30370286.avif", 2, 5),
-("Ville la nuit", "Vue aérienne d'une ville illuminée la nuit", "vue-aerienne-ville-illuminations-nuit_181624-13831.avif", 4, 3),
-("Paysage montagneux", "Paysage montagneux avec un lac au premier plan", "vue-montagnes-lac-contre-ciel-bleu_181624-20597.avif", 1, 4),
-("Forêt en automne", "Forêt avec feuillage automnal", "foret-avec-arbres-automne_181624-14110.avif", 5, 5);
+INSERT INTO artwork(title, description, picture, category_id, user_id, created_at) VALUES
+("Beauty at home", "Un jeune cadre dynamique", "dark-photo-frame-plant-arrangement.avif", 5, 3, '2023-01-15 10:30:00'),
+("La Brume", "Foret de Liege", "high-angle-shot-beautiful-forest-with-lot-green-trees-enveloped-fog-new-zealand.avif", 4, 8, '2023-02-20 14:45:00'),
+("Le Mont AFAC", "Il faut trouver un meilleur nom", "beautiful-aerial-shot-fronalpstock-mountains-switzerland-beautiful-pink-blue-sky.avif", 1, 6, '2023-03-10 09:15:00'),
+("Cyprien ?", "On dirait Cyprien", "fake-cyprien.avif", 5, 2, '2023-04-05 16:20:00'),
+("La tablette a données", "C'est juste des données", "representation-user-experience-interface-design.avif", 4, 9, '2023-05-12 11:30:00'),
+("Le voyage Jaune", "C'est tres jaune", "beautiful-collage-travel-concept_23-2149232169.avif", 1, 5, '2023-06-25 13:40:00'),
+("ON M'ENTENDS ?", "Love Love ALLO", "social-media-concept-composition_23-2150169142.avif", 2, 3, '2023-07-18 15:55:00'),
+("La plage", "Il fait chaud !", "beach-composition-with-blank-space-text_24837-240.avif", 1, 9, '2023-08-30 10:25:00'),
+("Jolie madame", "Photo de jolie madame", "portrait-personne-assistant-soiree-musique-techno-dynamique_23-2150551577.avif", 3, 6, '2023-09-14 12:35:00'),
+("Les couleurs nutritifs", "Miam Miam", "buddha-bowl-dish-with-vegetables-legumes-top-view_1150-42589.avif", 5, 2, '2023-10-22 14:15:00'),
+("Masque de Carnval", "Un magnifique masque de carnaval sur fond jaune", "masque-elegant-perles-carnaval-mystere-plat_23-2148756051.avif", 5, 2, '2023-11-05 09:45:00'),
+("Server", "Data center", "salle-hub-racks-serveurs-donnees-centre-informatique-big-data-interieur-bleu-pour-hebergement-materiel-stockage_90220-1033.avif", 4, 3, '2023-11-28 16:50:00'),
+("Foret", "Jolie foret", "arbres-qui-poussent-dans-foret_1048944-30368869.avif", 5, 4, '2023-12-10 11:20:00'),
+("Ecureuil", "Un petit ecureuil qui prend la pose", "close-up-ecureuil-poteau-bois_1048944-30370286.avif", 2, 5, '2023-12-24 13:30:00'),
+("Ville la nuit", "Vue aérienne d'une ville illuminée la nuit", "vue-aerienne-ville-illuminations-nuit_181624-13831.avif", 4, 3, '2024-01-08 15:40:00'),
+("Paysage montagneux", "Paysage montagneux avec un lac au premier plan", "vue-montagnes-lac-contre-ciel-bleu_181624-20597.avif", 1, 4, '2024-01-20 10:15:00'),
+("Forêt en automne", "Forêt avec feuillage automnal", "foret-avec-arbres-automne_181624-14110.avif", 5, 5, '2024-02-01 12:25:00');
 
 CREATE TABLE event (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -141,7 +141,18 @@ INSERT INTO likes(user_id, artwork_id) VALUES
 (4, 1),
 (5, 1),
 (6, 1),
-(7, 1);
+(7, 1),
+(1, 2),
+(2, 2),
+(3, 4),
+(4, 4),
+(5, 5),
+(6, 8),
+(7, 12),
+(8, 12),
+(9, 12),
+(10, 12),
+(7, 8);
 
 
 CREATE TABLE follows (

@@ -25,7 +25,10 @@ export default function UpcomingEvents({
                     {new Date(upcomingEvents.end_date).toLocaleDateString()}
                   </p>
                   <img
-                    src={upcomingEvents.picture}
+                    src={
+                      upcomingEvents.picture ||
+                      "https://www.adobe.com/fr/creativecloud/illustration/discover/digital-art/media_18ad62d9c62b3ae63f9a7d138df2613a820602a70.jpeg?width=750&format=jpeg&optimize=medium"
+                    }
                     alt={upcomingEvents.event_title}
                     className="event-image"
                   />
