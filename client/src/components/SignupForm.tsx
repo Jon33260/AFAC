@@ -36,7 +36,7 @@ export default function SignupForm({ user, handleChangeForm }: propsFormTypes) {
       setCurrentUser({
         id: loginData.user_id,
         username: loginData.username,
-        profile_picture: loginData.profile_picture,
+        picture: loginData.profile_picture,
         email: user.email,
         is_admin: loginData.is_admin,
       });

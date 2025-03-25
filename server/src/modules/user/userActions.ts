@@ -32,7 +32,7 @@ const edit: RequestHandler = async (req, res, next) => {
     const user = {
       id: req.user.id,
       username: req.body.username,
-      profile_picture: req.body.profile_picture || null,
+      picture: req.body.picture || null,
       bio: req.body.bio || null,
       portfolio: req.body.portfolio || null,
       website: req.body.website || null,

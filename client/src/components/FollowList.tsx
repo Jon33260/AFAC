@@ -47,7 +47,7 @@ export default function FollowList({ id, type, onClose }: FollowListProps) {
               }}
             >
               <img
-                src={user.profile_picture || "Img"}
+                src={`${baseUrl}/uploads/${user.picture}`}
                 alt={user.username}
                 className="follow-user-avatar"
               />

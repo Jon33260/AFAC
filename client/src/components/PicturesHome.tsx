@@ -14,6 +14,8 @@ interface Artworks {
   artworks: Artwork[];
 }
 
+const baseUrl = import.meta.env.VITE_API_URL;
+
 export default function PicturesHome({ artworks }: Artworks) {
   return (
     <section className="masonry-gallery">
@@ -24,7 +26,10 @@ export default function PicturesHome({ artworks }: Artworks) {
             key={artwork.id}
             className="masonry-item"
           >
-            <img src={artwork.picture} alt={artwork.description} />
+            <img
+              src={`${baseUrl}/uploads/${artwork.picture}`}
+              alt={artwork.description}
+            />
           </Link>
         ))
       ) : (

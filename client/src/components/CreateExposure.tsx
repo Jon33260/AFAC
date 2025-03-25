@@ -4,6 +4,8 @@ import { ToastContainer, toast } from "react-toastify";
 import { getArtworksBySearch, postArtworkToEvent } from "../services/requests";
 import { postEvent } from "../services/requests";
 
+const baseUrl = import.meta.env.VITE_API_URL;
+
 export default function CreateExposure() {
   const [showDateOptions, setShowDateOptions] = useState(false);
   const [checked, setChecked] = useState(false);
@@ -141,7 +143,7 @@ export default function CreateExposure() {
                 {artworks.map((artwork) => (
                   <div key={artwork.id} className="artwork-item">
                     <img
-                      src={artwork.picture}
+                      src={`${baseUrl}/uploads/${artwork.picture}`}
                       alt={artwork.title}
                       className="search-artwork"
                     />

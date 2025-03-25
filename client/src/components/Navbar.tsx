@@ -16,7 +16,7 @@ export default function Navbar() {
     setCurrentUser({
       id: 0,
       username: "",
-      profile_picture: "",
+      picture: "",
       email: "",
       is_admin: false,
     });
@@ -76,6 +76,9 @@ export default function Navbar() {
                   link.name === "Connexion" ? "btn-connexion" : "nav-item"
                 }
                 to={link.path}
+                onClick={() => {
+                  setShowLinks(!showLinks);
+                }}
               >
                 {link.name}
               </NavLink>

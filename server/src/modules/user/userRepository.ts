@@ -7,7 +7,7 @@ type User = {
   username: string;
   email: string;
   hashed_password: string;
-  profile_picture?: string;
+  picture?: string;
   bio?: string;
   portfolio?: string | null;
   website?: string | null;
@@ -49,11 +49,11 @@ class UserRepository {
 
   async update(user: Omit<User, "email" | "hashed_password" | "is_admin">) {
     const [result] = await databaseClient.query<Result>(
-      "update user set username = ?, bio = ?, profile_picture = ?,portfolio = ?, website = ? where id = ?",
+      "update user set username = ?, bio = ?, picture = ?, portfolio = ?, website = ? where id = ?",
       [
         user.username,
         user.bio,
-        user.profile_picture,
+        user.picture,
         user.portfolio,
         user.website,
         user.id,

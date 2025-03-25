@@ -11,14 +11,14 @@ interface AuthProps {
   currentUser: {
     id: number;
     username: string;
-    profile_picture: string;
+    picture: string;
     email: string;
     is_admin: boolean;
   };
   setCurrentUser: (user: {
     id: number;
     username: string;
-    profile_picture: string;
+    picture: string;
     email: string;
     is_admin: boolean;
   }) => void;
@@ -33,7 +33,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         JSON.stringify({
           id: 0,
           username: "",
-          profile_picture: "",
+          picture: "",
           email: "",
           is_admin: false,
         }),

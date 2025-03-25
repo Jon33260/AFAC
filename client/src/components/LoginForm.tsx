@@ -49,7 +49,7 @@ export default function LoginForm() {
       setCurrentUser({
         id: response.user_id,
         username: response.username,
-        profile_picture: response.profile_picture,
+        picture: response.profile_picture,
         email: response.email,
         is_admin: response.is_admin,
       });

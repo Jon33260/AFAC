@@ -61,7 +61,7 @@ class FollowRepository {
 
   async getFollowers(user_id: number) {
     const [rows] = await databaseClient.query<Rows>(
-      `SELECT u.id, u.username, u.profile_picture 
+      `SELECT u.id, u.username, u.picture 
        FROM follows f 
        JOIN user u ON f.follower_id = u.id 
        WHERE f.following_id = ?`,
@@ -72,7 +72,7 @@ class FollowRepository {
 
   async getFollowing(user_id: number) {
     const [rows] = await databaseClient.query<Rows>(
-      `SELECT u.id, u.username, u.profile_picture 
+      `SELECT u.id, u.username, u.picture 
        FROM follows f 
        JOIN user u ON f.following_id = u.id 
        WHERE f.follower_id = ?`,

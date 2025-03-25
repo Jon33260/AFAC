@@ -39,7 +39,7 @@ interface UserData {
   username: string;
   email: string;
   password: string;
-  profile_picture: string | null;
+  picture: string | null;
   following: number;
   followers: number;
   bio: string | null;
@@ -166,5 +166,5 @@ interface FollowListProps {
 interface FollowUser {
   id: number;
   username: string;
-  profile_picture: string | null;
+  picture: string | null;
 }

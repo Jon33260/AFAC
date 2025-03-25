@@ -21,6 +21,8 @@ const likeIcon = {
   },
 };
 
+const baseUrl = import.meta.env.VITE_API_URL;
+
 export default function ArtworkPage() {
   const { id } = useParams();
   const { artworkData, category } = useLoaderData() as {
@@ -99,7 +101,7 @@ export default function ArtworkPage() {
           )}
         </div>
         <img
-          src={artworkData.artwork.picture}
+          src={`${baseUrl}/uploads/${artworkData.artwork.picture}`}
           alt={artworkData.artwork.description}
         />
       </figure>
