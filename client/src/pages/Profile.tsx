@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLoaderData, useRevalidator } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import FollowButton from "../components/FollowButton";
@@ -34,12 +34,27 @@ export default function Profile() {
 
   const bioText = data.user.bio || "Aucune biographie";
 
-  const tabs = ["Récent", "Populaire", "Exposé"];
+  const tabs = ["Récent", "Populaire"];
 
   const desktop = window.innerWidth >= 768;
 
   const [bioExpanded, setBioExpanded] = useState(false);
   const [choiceSelected, setChoiceSelected] = useState("Récent");
+  const [filteredImages, setFilteredImages] = useState(data.artworks);
+
+  useEffect(() => {
+    if (choiceSelected === "Récent") {
+      setFilteredImages(
+        [...data.artworks].sort(
+          (a, b) => Date.parse(b.created_at) - Date.parse(a.created_at),
+        ),
+      );
+    } else {
+      setFilteredImages(
+        [...data.artworks].sort((a, b) => b.likeCount - a.likeCount),
+      );
+    }
+  }, [choiceSelected, data.artworks]);
 
   const [user, setUser] = useState({
     picture: null,
@@ -258,7 +273,7 @@ export default function Profile() {
             ))}
           </div>
 
-          <ProfilePicture artworks={data.artworks} userData={data.user} />
+          <ProfilePicture artworks={filteredImages} userData={data.user} />
         </div>
       )}
       {showFollowList && (

@@ -109,7 +109,12 @@ export default function ArtworkPage() {
       <section className="artwork-details">
         <div>
           <h1>{artworkData.artwork.title}</h1>
-          <span className="category">{artworkData.artwork.category}</span>
+          <span className="category">
+            {artworkData.artwork.category}{" "}
+            <p className="created-at">
+              {new Date(artworkData.artwork.created_at).toLocaleDateString()}
+            </p>
+          </span>
         </div>
 
         <p className="description">{artworkData.artwork.description}</p>
@@ -119,6 +124,7 @@ export default function ArtworkPage() {
             <p className="artist">Par {artworkData.artwork.username}</p>
           </Link>
         </div>
+
         <hr className="separator" />
 
         <div className="like-section">

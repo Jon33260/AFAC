@@ -1,6 +1,6 @@
 import "../styles/Header.css";
 import { type FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useRevalidator } from "react-router-dom";
 import useAuth from "../services/AuthContext";
 import NewPost from "./NewPost";
 import SvgIcons from "./SvgIcons";
@@ -20,6 +20,8 @@ export default function Header({
   const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
 
+  const revalidator = useRevalidator();
+
   const { currentUser } = useAuth();
 
   const handleClick = (categoryName: string) => {
@@ -30,6 +32,27 @@ export default function Header({
     );
 
     setFilteredImages(filteredArtworks);
+  };
+
+  const handleChangeFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedFilter = e.currentTarget.value;
+
+    if (selectedFilter === "Populaire") {
+      const filteredArtworks = [...artworks].sort(
+        ({ likeCount: a }, { likeCount: b }) => b - a,
+      );
+      setFilteredImages(filteredArtworks);
+      revalidator.revalidate();
+    } else if (selectedFilter === "Date") {
+      const filteredArtworks = [...artworks].sort(
+        ({ created_at: a }, { created_at: b }) => Date.parse(b) - Date.parse(a),
+      );
+      setFilteredImages(filteredArtworks);
+      revalidator.revalidate();
+    } else {
+      setFilteredImages(artworks);
+      revalidator.revalidate();
+    }
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -59,7 +82,7 @@ export default function Header({
         </form>
 
         <div className="filtre">
-          <select className="filtre">
+          <select className="filtre" onChange={(e) => handleChangeFilter(e)}>
             <option value="">Filtre</option>
             <option value="Populaire">Populaire</option>
             <option value="Date">Date</option>
