@@ -6,7 +6,6 @@ const baseUrl = import.meta.env.VITE_API_URL;
 
 export default function EventDetails() {
   const eventDetails = useLoaderData() as EventDetails;
-  console.info(eventDetails);
 
   if (!eventDetails.length) {
     return <div>Aucun détail trouvé pour cet événement.</div>;
