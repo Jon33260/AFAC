@@ -16,22 +16,21 @@ CREATE TABLE user (
 -- le mdp est mdpAFAC@91
 INSERT INTO user(username, email, hashed_password, picture, bio, portfolio, website, is_admin) VALUES
 ("Admin", "test@test.fr", "$argon2id$v=19$m=19456,t=2,p=1$Yme1gkTMwKkLvuW6KJwRLg$qUpg5FadAxfwrS1pTA8wHiEEq/7TvRBY/Yi8y4BT2J0", "025.png", "Développeur passionné par le web et les nouvelles technologies.", "https://johndoe.dev", "https://instagram.com/johndoe", TRUE),
-("User02", "user02@test.fr", "$argon2id$v=19$m=19456,t=2,p=1$Yme1gkTMwKkLvuW6KJwRLg$qUpg5FadAxfwrS1pTA8wHiEEq/7TvRBY/Yi8y4BT2J0", "pikachu-5992504_960_720.webp", "Je suis un utilisateur", "https://johndoe.dev", "https://instagram.com/johndoe", FALSE);
+("Ezio", "ezio@test.fr", "$argon2id$v=19$m=19456,t=2,p=1$Yme1gkTMwKkLvuW6KJwRLg$qUpg5FadAxfwrS1pTA8wHiEEq/7TvRBY/Yi8y4BT2J0", "chapeaunoir.jpg", "Je suis un artiste qui aime aussi bien les peintures que la danse sous toutes ses formes", "https://johndoe.dev", "https://instagram.com/johndoe", FALSE),
+("Judith", "judith@test.fr", "$argon2id$v=19$m=19456,t=2,p=1$Yme1gkTMwKkLvuW6KJwRLg$qUpg5FadAxfwrS1pTA8wHiEEq/7TvRBY/Yi8y4BT2J0", "femme2.jpg", "Artiste amateur, je suis passionnée de street d'art ", "https://johndoe.dev", "https://instagram.com/johndoe", FALSE),
+("Pierre", "pierre@test.fr", "$argon2id$v=19$m=19456,t=2,p=1$Yme1gkTMwKkLvuW6KJwRLg$qUpg5FadAxfwrS1pTA8wHiEEq/7TvRBY/Yi8y4BT2J0", "homme2.jpg", "Je suis un grand passionné de danse ", "https://johndoe.dev", "https://instagram.com/johndoe", FALSE),
+("Clément PICASSO", "clement@test.fr", "$argon2id$v=19$m=19456,t=2,p=1$Yme1gkTMwKkLvuW6KJwRLg$qUpg5FadAxfwrS1pTA8wHiEEq/7TvRBY/Yi8y4BT2J0", "homme3.jpg", "I am a digital artist and photographer capturing the beauty of Earth's diverse landscapes. Through photography and digital art, I blend reality and imagination to create immersive scenes that highlight nature's depth, light, and atmosphere, inviting viewers to explore the world through a new lens.", "https://johndoe.dev", "https://instagram.com/johndoe", FALSE),
+("David", "david@test.fr", "$argon2id$v=19$m=19456,t=2,p=1$Yme1gkTMwKkLvuW6KJwRLg$qUpg5FadAxfwrS1pTA8wHiEEq/7TvRBY/Yi8y4BT2J0", "homme4.jpg", "J'adore les battles de danse avec ma crew", "https://johndoe.dev", "https://instagram.com/johndoe", FALSE),
+("Alice", "alice@test.fr", "$argon2id$v=19$m=19456,t=2,p=1$Yme1gkTMwKkLvuW6KJwRLg$qUpg5FadAxfwrS1pTA8wHiEEq/7TvRBY/Yi8y4BT2J0", "femme1.jpg", "Bonjour, je suis une fan de sculpture depuis toute petite", "https://johndoe.dev", "https://instagram.com/johndoe", FALSE),
+("Bob", "bob@test.fr", "$argon2id$v=19$m=19456,t=2,p=1$Yme1gkTMwKkLvuW6KJwRLg$qUpg5FadAxfwrS1pTA8wHiEEq/7TvRBY/Yi8y4BT2J0", "homme5.jpg", "Amoureux d'arts", "https://johndoe.dev", "https://instagram.com/johndoe", FALSE),
+("Charlie", "charlie@test.fr", "$argon2id$v=19$m=19456,t=2,p=1$Yme1gkTMwKkLvuW6KJwRLg$qUpg5FadAxfwrS1pTA8wHiEEq/7TvRBY/Yi8y4BT2J0", "femme4.jpg", "J'adore l'art", "https://johndoe.dev", "https://instagram.com/johndoe", FALSE),
+("Emma", "emma@test.fr", "$argon2id$v=19$m=19456,t=2,p=1$Yme1gkTMwKkLvuW6KJwRLg$qUpg5FadAxfwrS1pTA8wHiEEq/7TvRBY/Yi8y4BT2J0", "femme3.jpg", "Grande amateur d'art", "https://johndoe.dev", "https://instagram.com/johndoe", FALSE),
+("Sophie", "sophie@test.fr", "$argon2id$v=19$m=19456,t=2,p=1$Yme1gkTMwKkLvuW6KJwRLg$qUpg5FadAxfwrS1pTA8wHiEEq/7TvRBY/Yi8y4BT2J0", "sophie.jpg", "Je suis ici pour apprendre des artistes", "https://johndoe.dev", "https://instagram.com/johndoe", FALSE),
+("Antoine", "antoine@test.fr", "$argon2id$v=19$m=19456,t=2,p=1$Yme1gkTMwKkLvuW6KJwRLg$qUpg5FadAxfwrS1pTA8wHiEEq/7TvRBY/Yi8y4BT2J0", "antoine.jpg", "Artiste digital créant des œuvres abstraites et modernes", "https://johndoe.dev", "https://instagram.com/johndoe", FALSE),
+("Marie", "marie@test.fr", "$argon2id$v=19$m=19456,t=2,p=1$Yme1gkTMwKkLvuW6KJwRLg$qUpg5FadAxfwrS1pTA8wHiEEq/7TvRBY/Yi8y4BT2J0", "marie.jpg", "Illustratrice et peintre explorant le mélange des styles artistiques.", "https://johndoe.dev", "https://instagram.com/johndoe", FALSE),
+("Lucas", "lucas@test.fr", "$argon2id$v=19$m=19456,t=2,p=1$Yme1gkTMwKkLvuW6KJwRLg$qUpg5FadAxfwrS1pTA8wHiEEq/7TvRBY/Yi8y4BT2J0", "lucas.jpg", "Passionné de photographie de rue et de portraits urbains.", "https://johndoe.dev", "https://instagram.com/johndoe", FALSE),
+("Lisa", "lisa@test.fr", "$argon2id$v=19$m=19456,t=2,p=1$Yme1gkTMwKkLvuW6KJwRLg$qUpg5FadAxfwrS1pTA8wHiEEq/7TvRBY/Yi8y4BT2J0", "lisa.jpg", "Ici c'est Marseille bébé !", "https://johndoe.dev", "https://instagram.com/johndoe", FALSE);
 
-INSERT INTO user(username, email, hashed_password, bio, portfolio, website, is_admin) VALUES
-("Clément PICASSO", "test3@test.fr", "123456", "I am a digital artist and photographer capturing the beauty of Earth's diverse landscapes. Through photography and digital art, I blend reality and imagination to create immersive scenes that highlight nature's depth, light, and atmosphere, inviting viewers to explore the world through a new lens.", "https://johndoe.dev", "https://instagram.com/johndoe", FALSE),
-("Admin", "admin@test.fr", "123456",NULL,NULL,NULL, FALSE),
-("Alice", "alice@example.com", "password1",NULL,NULL,NULL, FALSE),
-("Bob", "bob@example.com", "password2",NULL,NULL,NULL, FALSE),
-("Charlie", "charlie@example.com", "password3",NULL,NULL,NULL, FALSE),
-("David", "david@example.com", "password4",NULL,NULL,NULL, FALSE),
-("Emma", "emma@example.com", "password5",NULL,NULL,NULL, FALSE);
-
-INSERT INTO user(username, email, hashed_password, bio, portfolio, website) VALUES
-("Sophie", "sophie@example.com", "password6", "Photographe amateur passionnée par la nature et les paysages.", NULL, NULL),
-("Antoine", "antoine@example.com", "password7", "Artiste digital créant des œuvres abstraites et modernes.", NULL, NULL),
-("Marie", "marie@example.com", "password8", "Illustratrice et peintre explorant le mélange des styles artistiques.", NULL, NULL),
-("Lucas", "lucas@example.com", "password9", "Passionné de photographie de rue et de portraits urbains.", NULL, NULL);
 
 
 CREATE TABLE category (
