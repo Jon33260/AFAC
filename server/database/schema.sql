@@ -101,7 +101,7 @@ INSERT INTO artwork(title, description, picture, category_id, user_id, created_a
 ("Rock", "Une affiche de rock", "Rock.avif", 4, 6, '2025-03-24 19:00:00'),
 ("Salsa", "Une affiche de salsa", "salsa.avif", 4, 9, '2025-03-23 12:30:00'),
 ("Tango", "Un tango argentin", "Tango.avif", 4, 10, '2025-03-22 15:00:00'),
-("Une guitare", "Une très belle guitare avec des ailes", "Guitare.avif", 2, 11, '2025-03-07 13:00:00'),
+("Une guitare", "Une très belle guitare avec des ailes", "aileguitare.avif", 2, 11, '2025-03-07 13:00:00'),
 ("Une route", "Une route en forme de piano", "Routepiano.avif", 2, 12, '2025-03-05 21:30:00'),
 ("Un piano", "Un piano coloré", "piano.avif", 2, 13, '2025-03-03 10:30:00'),
 ("Un tambour", "Un vieil homme qui fait du tambour", "Tambour.avif", 2, 9, '2025-03-25 11:20:30'),
@@ -116,7 +116,15 @@ INSERT INTO artwork(title, description, picture, category_id, user_id, created_a
 ("Battle", "Une battle de hip hop", "hip1.avif", 4, 10, '2025-03-22 14:44:00'),
 ("Groupe", "Une battle de groupe", "hip2.avif", 4, 11, '2025-01-10 15:00:00'),
 ("Figure", "Un danseur de hip hop", "hip3.avif", 4, 12, '2025-02-22 19:00:00'),
-("Tahitienne", "Danse d'une polynésienne", "tahiti.avif", 4, 4, '2025-03-20 10:30:00');
+("Tahitienne", "Danse d'une polynésienne", "tahiti.avif", 4, 4, '2025-03-20 10:30:00'),
+("Un homme", "Une oeuvre musicale", "homme.avif", 2, 10, '2025-03-10 20:40:30'),
+("Une table de mixage", "Un homme fait du mix", "mix.avif", 2, 2, '2025-01-18 16:00:00'),
+("Une ville", "Un beau tableau avec des buildings", "ville.avif", 1, 3, '2025-03-24 22:45:00'),
+("Un Koala", "Une jolie peinture d'un koala", "koala.avif", 1, 12, '2025-03-25 22:22:00'),
+("Un lion", "Une sculpture d'un lion", "lion.avif", 6, 7, '2025-02-20 16:00:00'),
+("Un chat", "Sculpture d'un chat", "chat.avif", 6, 9, '2025-03-13 10:50:25'),
+("Rock'n Roll", "Une enceinte et une guitare", "enceinterock.avif", 2, 8, '2025-03-23 21:00:00');
+
 
 CREATE TABLE event (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
