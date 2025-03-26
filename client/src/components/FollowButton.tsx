@@ -9,7 +9,7 @@ const baseUrl = import.meta.env.VITE_API_URL;
 export default function FollowButton({
   userId,
   initialFollowers,
-  onFollowerCountChange,
+  setFollowers,
 }: FollowButtonProps) {
   const { role } = Auth();
   const [isFollowing, setIsFollowing] = useState(false);
@@ -51,10 +51,11 @@ export default function FollowButton({
       setIsFollowing(true);
       const newCount = followerCount + 1;
       setFollowerCount(newCount);
-      onFollowerCountChange(newCount);
+      setFollowers(newCount);
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         const { status, data } = error.response;
+
         if (status === 400 && data.message === "You cannot follow yourself.") {
           toast.error("Vous ne pouvez pas vous suivre vous même", {
             position: "top-center",
@@ -83,7 +84,7 @@ export default function FollowButton({
       setIsFollowing(false);
       const newCount = followerCount - 1;
       setFollowerCount(newCount);
-      onFollowerCountChange(newCount);
+      setFollowers(followerCount - 1);
     } catch (error) {
       console.error("Erreur lors de l'arrêt du suivi de l'utilisateur:", error);
     }

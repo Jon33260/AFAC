@@ -7,7 +7,6 @@ import { postEvent } from "../services/requests";
 const baseUrl = import.meta.env.VITE_API_URL;
 
 export default function CreateExposure() {
-  const [showDateOptions, setShowDateOptions] = useState(false);
   const [checked, setChecked] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
@@ -44,6 +43,7 @@ export default function CreateExposure() {
     for (const artwork of selectedArtworks) {
       await postArtworkToEvent(artwork.id, event.insertId);
     }
+    window.location.reload();
     toast.success("Exposition créée avec succès");
   };
 
@@ -82,11 +82,10 @@ export default function CreateExposure() {
               type="date"
               id="startDate"
               value={formData.start_date}
+              min={new Date().toISOString().split("T")[0]}
               onChange={(e) =>
                 setFormData({ ...formData, start_date: e.target.value })
               }
-              onFocus={() => setShowDateOptions(true)}
-              onBlur={() => setShowDateOptions(false)}
             />
 
             <label htmlFor="endDate">Date de fin</label>
@@ -94,17 +93,13 @@ export default function CreateExposure() {
               type="date"
               id="endDate"
               value={formData.end_date}
+              min={
+                formData.start_date || new Date().toISOString().split("T")[0]
+              }
               onChange={(e) =>
                 setFormData({ ...formData, end_date: e.target.value })
               }
             />
-
-            {showDateOptions && (
-              <div className="date-options">
-                <p>Format: JJ/MM/AAAA</p>
-                <p>Exemple: 10/03/2025</p>
-              </div>
-            )}
           </article>
           <div className="details-event">
             <div className="lieu-container">

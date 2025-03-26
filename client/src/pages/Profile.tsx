@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link, useLoaderData, useRevalidator } from "react-router-dom";
+import {
+  Link,
+  useLoaderData,
+  useParams,
+  useRevalidator,
+} from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import FollowButton from "../components/FollowButton";
 import FollowList from "../components/FollowList";
@@ -30,6 +35,7 @@ export default function Profile() {
     setBioExpanded((prevState) => !prevState);
   };
 
+  const { currentUser } = useAuth();
   const revalidate = useRevalidator();
 
   const bioText = data.user.bio || "Aucune biographie";
@@ -56,15 +62,23 @@ export default function Profile() {
     }
   }, [choiceSelected, data.artworks]);
 
-  const [user, setUser] = useState({
-    picture: null,
-    username: data.user.username,
-    bio: data.user.bio || "Aucune biographie",
-    portfolio: data.user.portfolio,
-    website: data.user.website,
-  } as UserData);
+  const { id } = useParams();
+  const [prevId, setPrevId] = useState(id);
 
-  const { currentUser } = useAuth();
+  useEffect(() => {
+    if (id && id !== prevId) {
+      window.location.reload();
+      setPrevId(id);
+    }
+  }, [id, prevId]);
+
+  const [user, setUser] = useState({
+    picture: currentUser.picture,
+    username: currentUser.username,
+    bio: currentUser.bio || "Aucune biographie",
+    portfolio: currentUser.portfolio,
+    website: currentUser.website,
+  } as UserData);
 
   const [editing, setEditing] = useState(false);
 
@@ -78,10 +92,6 @@ export default function Profile() {
 
   const [followers, setFollowers] = useState(data.user.followers);
   const following = data.user.following;
-
-  const handleFollowerCountChange = (newCount: number) => {
-    setFollowers(newCount);
-  };
 
   const handleChangeEdited = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -177,14 +187,14 @@ export default function Profile() {
                     onClick={() => setShowFollowList("following")}
                     className="clickable"
                   >
-                    {following} suivi(e)s
+                    {following} Followings
                   </button>
                   <button
                     type="button"
                     onClick={() => setShowFollowList("followers")}
                     className="clickable"
                   >
-                    {followers} abonné(e)s
+                    {followers} Followers
                   </button>
                 </div>
                 {currentUser.id === data.user.id ? (
@@ -199,13 +209,9 @@ export default function Profile() {
                   <FollowButton
                     userId={data.user.id}
                     initialFollowers={data.user.followers}
-                    onFollowerCountChange={handleFollowerCountChange}
+                    setFollowers={setFollowers}
                   />
                 )}
-                <blockquote>
-                  "Art is a journey without a destination, an invitation to
-                  dream beyond the visible."
-                </blockquote>
               </div>
             )}
           </div>

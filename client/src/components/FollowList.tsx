@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/FollowList.css";
 
 export default function FollowList({ id, type, onClose }: FollowListProps) {
   const [users, setUsers] = useState<FollowUser[]>([]);
-
+  const navigate = useNavigate();
   const baseUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
@@ -29,7 +30,7 @@ export default function FollowList({ id, type, onClose }: FollowListProps) {
     <div className="follow-list-modal">
       <div className="follow-list-content">
         <div className="follow-list-header">
-          <h2>{type === "followers" ? "Abonnés" : "Abonnements"}</h2>
+          <h2>{type === "followers" ? "Followers" : "Followings"}</h2>
           <button type="button" onClick={onClose} className="close-button">
             ×
           </button>
@@ -43,7 +44,7 @@ export default function FollowList({ id, type, onClose }: FollowListProps) {
               className="follow-user-item"
               onClick={() => {
                 onClose();
-                window.location.href = `/profile/${user.id}`;
+                navigate(`/profile/${user.id}`);
               }}
             >
               <img

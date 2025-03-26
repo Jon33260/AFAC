@@ -14,6 +14,9 @@ interface AuthProps {
     picture: string;
     email: string;
     is_admin: boolean;
+    bio: string;
+    portfolio: string;
+    website: string;
   };
   setCurrentUser: (user: {
     id: number;
@@ -21,6 +24,9 @@ interface AuthProps {
     picture: string;
     email: string;
     is_admin: boolean;
+    bio: string;
+    portfolio: string;
+    website: string;
   }) => void;
 }
 const authContext = createContext<AuthProps | null>(null);
@@ -36,6 +42,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
           picture: "",
           email: "",
           is_admin: false,
+          bio: "",
+          portfolio: "",
+          website: "",
         }),
     ),
   );

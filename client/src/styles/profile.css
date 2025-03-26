@@ -43,13 +43,6 @@
   margin-top: 1rem;
 }
 
-.username-followers {
-  max-width: 80%;
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-
 .username-followers > p {
   color: var(--text-gray-color);
   font-size: 0.8rem;
@@ -57,22 +50,6 @@
 
 .username-followers > button {
   margin-left: auto;
-}
-
-blockquote {
-  position: relative;
-  font-style: italic;
-  text-align: center;
-  padding-top: 2rem;
-  width: 80%;
-}
-blockquote::before {
-  content: "“";
-  font-size: 5rem;
-  position: absolute;
-  left: 0;
-  transform: translateY(-40%) translateX(+0%);
-  color: var(--text-gray-color);
 }
 
 .separation {
@@ -355,11 +332,6 @@ blockquote::before {
 
   .links > .list {
     padding-top: 0.5vw;
-  }
-
-  blockquote {
-    padding-top: 4vw;
-    width: 80%;
   }
 
   .profile-header-text > h1 {
