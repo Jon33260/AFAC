@@ -10,12 +10,7 @@
   object-fit: cover;
   max-width: 4rem;
   margin-top: 0.4rem;
-}
-
-.logo img {
-  object-fit: cover;
-  max-width: 4rem;
-  margin-top: 0.4rem;
+  transition: ease 0.5s;
 }
 
 .link-nav {
@@ -27,7 +22,7 @@
 }
 
 .nav-item {
-  color: black;
+  color: var(--font-color);
   text-decoration: none;
 }
 
@@ -39,6 +34,7 @@
   display: flex;
   color: white;
   background-color: black;
+  border: solid 1px grey;
   padding: 0.3rem 0.6rem;
   font-size: calc(0.6rem + 0.8vw);
   text-decoration: none;
@@ -61,7 +57,8 @@
   display: block;
   width: 30px;
   height: 3px;
-  background-color: black;
+  background-color: var(--font-color);
+
   transition: 0.3s;
 }
 
@@ -104,6 +101,7 @@
 
   .link-nav.show {
     display: flex;
+    background-color: var(--background-color);
   }
 
   .link-nav li {
@@ -130,4 +128,10 @@
     font-size: calc(0.8rem + 0.vw);
     gap: 2rem;
   }
+}
+
+.toggle-theme {
+  display: flex;
+  align-self: center;
+  margin-right: 1rem;
 }

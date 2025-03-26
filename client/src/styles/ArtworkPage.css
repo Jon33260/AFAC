@@ -14,7 +14,7 @@
 }
 
 .artwork-image-link:hover {
-  color: var(--text-black-color);
+  color: var(--font-color);
 }
 
 .artwork-image img {
@@ -63,7 +63,7 @@ a {
 }
 
 .artist:hover {
-  color: var(--text-black-color);
+  color: var(--font-color);
 }
 
 .artwork-image-link-container {
