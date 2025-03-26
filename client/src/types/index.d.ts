@@ -149,7 +149,7 @@ interface FormDataCreateEvent {
 interface FollowButtonProps {
   userId: number;
   initialFollowers: number;
-  onFollowerCountChange: (newCount: number) => void;
+  setFollowers: (followers: number) => void;
 }
 
 interface FollowListProps {

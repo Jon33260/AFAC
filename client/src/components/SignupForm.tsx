@@ -39,6 +39,9 @@ export default function SignupForm({ user, handleChangeForm }: propsFormTypes) {
         picture: loginData.profile_picture,
         email: user.email,
         is_admin: loginData.is_admin,
+        bio: "",
+        portfolio: "",
+        website: "",
       });
 
       navigate("/");

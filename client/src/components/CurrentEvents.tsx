@@ -30,7 +30,8 @@ export default function CurrentEvents({ currentEvents }: CurrentEventsProps) {
                     alt={currentEvents.event_title}
                     className="event-image"
                   />
-                  <p>{currentEvents.artists}</p>
+
+                  <p>Artistes : {currentEvents.artists}</p>
                   <Link
                     to={`/events/${currentEvents.event_id}`}
                     className="ed-artist-name"

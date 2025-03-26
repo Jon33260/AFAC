@@ -47,6 +47,9 @@ const login: RequestHandler = async (req, res, next) => {
         is_admin: user.is_admin,
         username: user.username,
         picture: user.picture,
+        bio: user.bio,
+        portfolio: user.portfolio,
+        website: user.website,
       };
 
       if (!process.env.APP_SECRET) {
@@ -65,6 +68,9 @@ const login: RequestHandler = async (req, res, next) => {
         user_id: payload.id,
         username: payload.username,
         picture: payload.picture,
+        bio: payload.bio,
+        portfolio: payload.portfolio,
+        website: payload.website,
       });
     }
   } catch (error) {

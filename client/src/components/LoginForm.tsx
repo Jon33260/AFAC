@@ -49,9 +49,12 @@ export default function LoginForm() {
       setCurrentUser({
         id: response.user_id,
         username: response.username,
-        picture: response.profile_picture,
+        picture: response.picture,
         email: response.email,
         is_admin: response.is_admin,
+        bio: response.bio,
+        portfolio: response.portfolio,
+        website: response.website,
       });
       navigate("/");
     } catch (error) {

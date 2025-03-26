@@ -22,6 +22,9 @@ export default function Navbar() {
       picture: "",
       email: "",
       is_admin: false,
+      bio: "",
+      portfolio: "",
+      website: "",
     });
     navigate("/");
   };
