@@ -136,7 +136,7 @@ blockquote::before {
   display: flex;
   align-items: center;
   background-color: var(--background-color);
-  color: var(--text-black-color);
+  color: var(--font-color);
   border: none;
   cursor: pointer;
   transition: var(--background-color) 0.35s ease, var(--background-color) 0.35s
@@ -150,7 +150,7 @@ blockquote::before {
 }
 
 .list > li > a {
-  color: var(--text-black-color);
+  color: var(--font-color);
   text-decoration: none;
 }
 
@@ -195,7 +195,7 @@ blockquote::before {
 .order-choice > button.active {
   text-decoration: underline;
   font-weight: bold;
-  color: var(--text-black-color);
+  color: var(--font-color);
   font-family: var(--font-text);
 }
 
@@ -253,7 +253,7 @@ blockquote::before {
 
 .cancel-button {
   background-color: white;
-  color: var(--text-black-color);
+  color: var(--font-color);
 }
 
 @media screen and (min-width: 768px) {
@@ -412,13 +412,4 @@ blockquote::before {
     margin: 0;
     padding: 0;
   }
-}
-
-.clickable {
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.clickable:hover {
-  color: #007bff;
 }
