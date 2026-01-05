@@ -40,13 +40,11 @@ CREATE TABLE category (
 );
 
 INSERT INTO category (name) VALUES
-  ('Peintures'),
-  ('Musiques'),
   ('Photos'),
-  ('Danse'),
-  ('Street Art'),
-  ('Sculpture'),
-  ('Autres');
+  ('Vidéos'),
+  ('Jour de match'),
+  ('Débats'),
+  ('Humour vert');
 
 
 CREATE TABLE artwork (
@@ -88,12 +86,12 @@ INSERT INTO artwork(title, description, picture, category_id, user_id, created_a
 ("Mélange d'animaux", "Un très beau mélange", "animaux.avif", 5, 7, '2025-03-02 17:00:00'),
 ("Une jeune femme", "Une magnifique jeune femme", "Jeunefemme.avif", 5, 2, '2025-03-24 12:00:00'),
 ("Une petite fille", "Une bonne sieste", "Petitefille.avif", 5, 9, '2025-03-25 13:50:00'),
-("Jules César", "Statue de Jules César", "Cesar.avif", 6, 3, '2025-03-25 16:00:00'),
-("Cléopâtre", "La reine Cléopâtre", "Cleopatre.avif", 6, 2, '2025-03-19 13:00:00'),
-("Un ours", "Un ours en bois", "Ours.avif", 6, 4, '2025-03-16 11:00:00'),
-("Zeus", "Le dieu Zeus", "Zeus.avif", 6, 3, '2025-03-21 14:00:00'),
-("Le penseur", "Je pense...un instant", "Penseur.avif", 6, 3, '2025-03-25 08:40:00'),
-("Athéna", "La déesse Athéna", "Athena.avif", 6, 5, '2025-03-12 14:00:00'),
+("Jules César", "Statue de Jules César", "Cesar.avif", 2, 3, '2025-03-25 16:00:00'),
+("Cléopâtre", "La reine Cléopâtre", "Cleopatre.avif", 2, 2, '2025-03-19 13:00:00'),
+("Un ours", "Un ours en bois", "Ours.avif", 1, 4, '2025-03-16 11:00:00'),
+("Zeus", "Le dieu Zeus", "Zeus.avif", 3, 3, '2025-03-21 14:00:00'),
+("Le penseur", "Je pense...un instant", "Penseur.avif", 2, 3, '2025-03-25 08:40:00'),
+("Athéna", "La déesse Athéna", "Athena.avif", 3, 5, '2025-03-12 14:00:00'),
 ("Un duo", "Un homme et une femme", "duosaute.avif", 4, 3, '2025-03-21 19:50:00'),
 ("Un groupe", "Une chorégraphie", "Groupe.avif", 4, 7, '2025-03-16 20:20:00'),
 ("Une danseuse", "Une danseuse avec son voile rouge", "danseuserouge.avif", 4, 8, '2025-03-15 07:30:00'),
@@ -120,8 +118,8 @@ INSERT INTO artwork(title, description, picture, category_id, user_id, created_a
 ("Une table de mixage", "Un homme fait du mix", "mix.avif", 2, 2, '2025-01-18 16:00:00'),
 ("Une ville", "Un beau tableau avec des buildings", "ville.avif", 1, 3, '2025-03-24 22:45:00'),
 ("Un Koala", "Une jolie peinture d'un koala", "koala.avif", 1, 12, '2025-03-25 22:22:00'),
-("Un lion", "Une sculpture d'un lion", "lion.avif", 6, 7, '2025-02-20 16:00:00'),
-("Un chat", "Sculpture d'un chat", "chat.avif", 6, 9, '2025-03-13 10:50:25'),
+("Un lion", "Une sculpture d'un lion", "lion.avif", 1, 7, '2025-02-20 16:00:00'),
+("Un chat", "Sculpture d'un chat", "chat.avif", 1, 9, '2025-03-13 10:50:25'),
 ("Rock'n Roll", "Une enceinte et une guitare", "enceinterock.avif", 2, 8, '2025-03-23 21:00:00');
 
 
